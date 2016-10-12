@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     created_user = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.BooleanField()
+    category = models.CharField(max_length=20)
     created_time = models.DateTimeField()
     date = models.DateField()
     time = models.TimeField()
