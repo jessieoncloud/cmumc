@@ -21,19 +21,19 @@ class Notification(models.Model):
     read = models.BooleanField()
     content = models.TextField(max_length=1000)
 
-class Score(models.Model):
+class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.BooleanField()
+    user_type = models.BooleanField()
     score = models.IntegerField()
     review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = models.CharField(max_length=15)
-    type = models.BooleanField()
+    user_type = models.BooleanField()
     activation_key = models.CharField(max_length=255)
-    age = models.IntegerField(default=0, blank=True)
-    bio = models.TextField(max_length=420, default="", blank=True)
+
+    intro = models.TextField(max_length=420, default="", blank=True)
     photo = models.ImageField(upload_to="profile_photo", blank=True)
     venmo = models.CharField(max_length=20,default="", blank=True)
 
