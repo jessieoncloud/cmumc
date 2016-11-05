@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h3>My Info</h3>
+    <div class="profile">
+        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
+            <table>
+			<tr>
+				<td>{{ editprofile_form.username.label_tag }}</td>
+				<td>{{ editprofile_form.username }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.first_name.label_tag }}</td>
+				<td>{{ editprofile_form.first_name }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.last_name.label_tag }}</td>
+				<td>{{ editprofile_form.last_name }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.year.label_tag }}</td>
+				<td>{{ editprofile_form.year }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.major.label_tag }}</td>
+				<td>{{ editprofile_form.major }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.email.label_tag }}</td>
+				<td>{{ editprofile_form.email }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.phone.label_tag }}</td>
+				<td>{{ editprofile_form.phone }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.bio.label_tag }}</td>
+				<td>{{ editprofile_form.bio }}</td>
+			</tr>
+			<tr>
+				<td>{{ editprofile_form.photo.label_tag }}</td>
+				<td>{{ editprofile_form.photo }}</td>
+			</tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
