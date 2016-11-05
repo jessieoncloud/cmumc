@@ -169,7 +169,7 @@ p.copyright {
     margin: 15px 0 0;
 }
 
-// login - specific
+// login, register, reset/forget pwd - specific
 .login_table {
     margin-top: 5%;
     margin-bottom: 5%;
@@ -188,4 +188,32 @@ p.copyright {
 .login_container, .register_container, .reset_container {
     float: none;
     margin: 0 auto;
+}
+
+.description {
+    margin: 30px;
+}
+
+.mode_container {
+    padding: 0;
+}
+
+.mode_helper_container, .mode_receiver_container {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+}   
+
+.mode_helper_container:hover, .mode_receiver_container:hover {
+    opacity: 10;
+}
+
+.mode_helper_container {
+    background-color: #d9d9d9;
+}
+
+.mode_receiver_container {
+    background-color: #f2f2f2;
 }

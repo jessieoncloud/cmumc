@@ -23,7 +23,8 @@ def home(request):
     return render(request, 'cmumc/index.html', {})
 
 ##not very clear
-def mode(request, modename):
+## needs to be login_required later
+def mode(request):
     context = {}
     if request.method == 'GET':
         context['form'] = ModeForm()
@@ -158,9 +159,9 @@ def confirm_register(request, user_name, token):
             new_user = authenticate(username=user_item.username, \
                             password=user_item.password)
             login(request, new_user)
-        return redirect('home')
+        return redirect('index')
     except:
-        return redirect('home')
+        return redirect('index')
 
 
 
