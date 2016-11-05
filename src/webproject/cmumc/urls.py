@@ -4,7 +4,7 @@ import django.contrib.auth.views
 import cmumc.views
 
 urlpatterns = [
-    url(r'^$', cmumc.views.home, name='home'),
+    url(r'^$', cmumc.views.home, name='index'),
     url(r'^login$', django.contrib.auth.views.login, {'template_name':'cmumc/login.html'}, name='login'),
     url(r'^logout$', django.contrib.auth.views.logout_then_login, name='logout'),
     url(r'^register$', cmumc.views.register, name='register'),
@@ -19,8 +19,10 @@ urlpatterns = [
         name='password_change'),
     url(r'^password_change_done', django.contrib.auth.views.password_change_done, name='password_change_done'),
     url(r'^switch$', cmumc.views.switch, name='switch'),
-    url(r'^profile/(?P<user_name>\w+)$', cmumc.views.profile, name='profile'),
-    url(r'^edit_profile$', cmumc.views.update_profile, name='edit'),
+    # url(r'^profile/(?P<user_name>\w+)$', cmumc.views.profile, name='profile'),
+    #url(r'^edit_profile$', cmumc.views.update_profile, name='edit_profile'),
+    url(r'^edit_profile$', cmumc.views.edit_profile, name='edit_profile'),
+    url(r'^profile$', cmumc.views.profile, name='profile'),
     url(r'^photo/(?P<user_name>\w+)$', cmumc.views.get_photo, name='photo'),
     url(r'^mode$', cmumc.views.mode, name='mode'),
 ]

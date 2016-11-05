@@ -85,7 +85,9 @@ h6 {
     }
 }
 
-// login - specific
+.top_container {
+    margin-top: 50px;
+}
 
 .network-name {
     text-transform: uppercase;
@@ -169,4 +171,53 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+// login, register, reset/forget pwd - specific
+.login_table {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.form-signin-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#login_btn, #register_btn, #change_btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.login_container, .register_container, .reset_container {
+    float: none;
+    margin: 0 auto;
+}
+
+.description {
+    margin: 30px;
+}
+
+.mode_container {
+    padding: 0;
+}
+
+.mode_helper_container, .mode_receiver_container {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+}   
+
+.mode_helper_container:hover, .mode_receiver_container:hover {
+    opacity: 10;
+}
+
+.mode_helper_container {
+    background-color: #d9d9d9;
+}
+
+.mode_receiver_container {
+    background-color: #f2f2f2;
 }
