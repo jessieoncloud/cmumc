@@ -7,7 +7,7 @@ UserType = (
 )
 
 class Post(models.Model):
-    created_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_user = models.ForeignKey(User, related_name="created", on_delete=models.CASCADE)
     user_type = models.CharField(max_length=10, choices=UserType)
     category = models.CharField(max_length=20)
     created_time = models.DateTimeField()
