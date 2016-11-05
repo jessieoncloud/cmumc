@@ -1,9 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+UserType = (
+    ('H', 'Helper'),
+    ('R', 'Receiver'),
+)
+
 class Post(models.Model):
     created_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.BooleanField()
+    user_type = models.CharField(max_length=10, choices=UserType)
     category = models.CharField(max_length=20)
     created_time = models.DateTimeField()
     date = models.DateField()
@@ -23,19 +28,18 @@ class Notification(models.Model):
 
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_type = models.BooleanField()
+    user_type = models.CharField(max_length=10, choices=UserType)
     score = models.IntegerField()
     review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = models.CharField(max_length=15)
-    user_type = models.BooleanField()
+    user_type = models.CharField(max_length=10, choices=UserType)
     activation_key = models.CharField(max_length=255)
-
     intro = models.TextField(max_length=420, default="", blank=True)
     photo = models.ImageField(upload_to="profile_photo", blank=True)
-    venmo = models.CharField(max_length=20,default="", blank=True)
+    venmo = models.CharField(max_length=20, default="", blank=True)
 
 
 
