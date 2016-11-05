@@ -85,6 +85,10 @@ h6 {
     }
 }
 
+.top_container {
+    margin-top: 50px;
+}
+
 .network-name {
     text-transform: uppercase;
     font-size: 14px;

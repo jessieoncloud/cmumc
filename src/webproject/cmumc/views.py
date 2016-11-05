@@ -22,6 +22,12 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
+## to be deleted, testing edit_profile front-end
+def edit_profile(request):
+    return render(request, 'cmumc/edit_profile.html', {})
+def profile(request):
+    return render(request, 'cmumc/profile.html', {})
+
 ##not very clear
 ## needs to be login_required later
 def mode(request):
@@ -57,16 +63,16 @@ def switch(request):
     ##stream html
     return render(request, 'cmumc/index.html', {})
 
-@login_required
-def profile(request, user_name):
-    context = {}
-    user_item = get_object_or_404(User, username=user_name)
-    try:
-        user_profile = Profile.objects.get(user=user_item)
-    except:
-        user_profile = Profile(user=user_item)
-    context['profile'] = user_profile
-    return render(request, 'cmumc/profile.html', context)
+# @login_required
+# def profile(request, user_name):
+#     context = {}
+#     user_item = get_object_or_404(User, username=user_name)
+#     try:
+#         user_profile = Profile.objects.get(user=user_item)
+#     except:
+#         user_profile = Profile(user=user_item)
+#     context['profile'] = user_profile
+#     return render(request, 'cmumc/profile.html', context)
 
 @login_required
 def get_photo(request, user_name):
@@ -101,9 +107,10 @@ def update_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=user_profile)
     return render(request, 'cmumc/edit_profile.html', {
-        'sub_form': user_form,
-        'form': profile_form
+        'user_form': user_form,
+        'profile_form': profile_form
     })
+
 
 @transaction.atomic
 def register(request):
