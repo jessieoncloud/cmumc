@@ -21,5 +21,4 @@ import cmumc.views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^cmumc/', include('cmumc.urls')),
-    url(r'^$', grumblr.views.home),
 ]
