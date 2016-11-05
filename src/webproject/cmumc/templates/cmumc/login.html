@@ -8,30 +8,33 @@
     <div class="content-section-b">
 
         <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-4 login_container">
 
-    	{% if form.errors %}
-            <p class="errors">
-        	Incorrect user name and password.
-        	</p>
-        {% endif %}
+                	{% if form.errors %}
+                        <p class="errors">
+                    	Incorrect user name and password.
+                    	</p>
+                    {% endif %}
 
-        <form class="form-signin" method="post" action="{% url 'login' %}">
-            <h2 class="form-signin-heading">Log in here</h2>
-            <table>
-                <tr>
-                    <td>{{ form.username.label_tag }}</td>
-                    <td>{{ form.username }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.password.label_tag }}</td>
-                    <td>{{ form.password }}</td>
-                </tr>
-            </table>
-            <input type="submit" class="btn btn-lg btn-primary btn-block login_btn" value="Log in"><br>
-            {% csrf_token %}
-        </form>
-        <a href="{% url 'reset' %}" >Forgot Password?</a>
-
+                    <form class="form-signin" method="post" action="{% url 'login' %}">
+                        <h2 class="form-signin-heading">Login here</h2>
+                        <table class="login_table">
+                            <tr>
+                                <td>{{ form.username.label_tag }}</td>
+                                <td>{{ form.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.password.label_tag }}</td>
+                                <td>{{ form.password }}</td>
+                            </tr>
+                        </table>
+                        <input type="submit" id="login_btn" class="btn btn-lg btn-primary btn-block" value="Log in"><br>
+                        {% csrf_token %}
+                    </form>
+                    <a href="{% url 'reset' %}" >Forgot Password?</a>
+                </div>
+            </div>
         </div>
 
     </div> 

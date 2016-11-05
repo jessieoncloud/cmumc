@@ -85,8 +85,6 @@ h6 {
     }
 }
 
-// login - specific
-
 .network-name {
     text-transform: uppercase;
     font-size: 14px;
@@ -169,4 +167,25 @@ footer {
 
 p.copyright {
     margin: 15px 0 0;
+}
+
+// login - specific
+.login_table {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.form-signin-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#login_btn, #register_btn, #change_btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.login_container, .register_container, .reset_container {
+    float: none;
+    margin: 0 auto;
 }
