@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^password_change', django.contrib.auth.views.password_change, {'post_change_redirect': '/'},
         name='password_change'),
     url(r'^password_change_done', django.contrib.auth.views.password_change_done, name='password_change_done'),
-    #url(r'^switch$', cmumc.views.switch, name='switch'),
-    #url(r'')
+    url(r'^switch$', cmumc.views.switch, name='switch'),
+    url(r'^profile/(?P<user_name>\w+)$', cmumc.views.profile, name='profile'),
+    url(r'^edit_profile$', cmumc.views.update_profile, name='edit'),
+    url(r'^photo/(?P<user_name>\w+)$', cmumc.views.get_photo, name='photo'),
 ]

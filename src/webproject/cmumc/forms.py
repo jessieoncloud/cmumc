@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from grumblr.models import *
+from cmumc.models import *
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
@@ -28,6 +28,7 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("User name has already taken")
         return user_name
 
+    ##show detailed messages when register errors
     def clean_email(self):
         email = self.cleaned_data.get('email')
         try:
@@ -35,7 +36,7 @@ class RegistrationForm(forms.Form):
         except:
             raise forms.ValidationError("Email format is not valid")
 
-        if not email.endWith("cmu.edu"):
+        if not email.endswith("cmu.edu"):
             raise forms.ValidationError("Email is not cmu email")
         return email
 

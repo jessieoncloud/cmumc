@@ -16,10 +16,74 @@ from django.contrib.auth.tokens import default_token_generator
 from mimetypes import guess_type
 from cmumc import *
 from cmumc.models import *
+from cmumc.forms import *
 
 # Create your views here.
 def home(request):
     return render(request, 'cmumc/index.html', {})
+
+@login_required
+def switch(request):
+    user_item = get_object_or_404(User, request.user)
+    try:
+        user_profile = Profile.objects.get(user=user_item)
+    except:
+        user_profile = Profle(user=user_item)
+    if user_profile.user_type == 'H':
+        user_profile.user_type = 'R'
+    else:
+        user_profile.user_type = 'H'
+    user_profile.save()
+    ##stream html
+    return render(request, 'cmumc/index.html', {})
+
+@login_required
+def profile(request, user_name):
+    context = {}
+    user_item = get_object_or_404(User, username=user_name)
+    try:
+        user_profile = Profile.objects.get(user=user_item)
+    except:
+        user_profile = Profile(user=user_item)
+    context['profile'] = user_profile
+    return render(request, 'cmumc/profile.html', context)
+
+@login_required
+def get_photo(request, user_name):
+    user_item = get_object_or_404(User, username=user_name)
+    profile = get_object_or_404(Profile, user=user_item)
+    if not profile.photo:
+        raise Http404
+
+    content_type = guess_type(profile.photo.name)
+    return HttpResponse(profile.photo, content_type=content_type)
+
+@login_required
+@transaction.atomic
+def update_profile(request):
+    context = {}
+    try:
+        user_profile = Profile.objects.get(user=request.user)
+    except:
+        user_profile = Profile(user=request.user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=user_profile)
+        context['form'] = profile_form
+        context['sub_form'] = user_form
+        if all([user_form.is_valid(), profile_form.is_valid()]):
+            user_form.save()
+            profile_form.save()
+            return redirect('profile', user_name=request.user.username)
+        else:
+            return render(request, 'cmumc/edit_profile.html', context)
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=user_profile)
+    return render(request, 'cmumc/edit_profile.html', {
+        'sub_form': user_form,
+        'form': profile_form
+    })
 
 @transaction.atomic
 def register(request):

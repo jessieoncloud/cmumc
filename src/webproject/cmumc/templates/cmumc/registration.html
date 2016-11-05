@@ -29,11 +29,15 @@
         <label for="password2" class="sr-only">Confirm Password</label>
         <input type="password" name="password2" class="form-control" placeholder="Password" required />
         <br>
-		<ul>
-		{% for item in errors %}
-		<li> {{ item }} </li>
-		{% endfor %}
-		</ul>
+		{% if form.errors %}
+		<p class="errors">
+			<ul>
+			{% for item in form.errors %}
+			<li>{{ item }}</li>
+			{% endfor %}
+			</ul>
+		</p>
+		{% endif %}
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create">
       </form>
     </div> 
