@@ -19,7 +19,7 @@ import django.contrib.auth.views
 import cmumc.views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', cmumc.views.index, name="index"),
-    url(r'^accounts/login/$', django.contrib.auth.views.login),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^cmumc/', include('cmumc.urls')),
+    url(r'^$', grumblr.views.home),
 ]
