@@ -11,10 +11,12 @@
     <title>CMUMC</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'cmumc/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/custom.css" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'cmumc/css/custom.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -79,7 +81,6 @@
 
         </div>
         <!-- /.container -->
-
     </div>
     <!-- /.intro-header -->
 
@@ -97,7 +98,8 @@
                     <p class="lead">Got an hour between classes with nothing to do? Check CMUMC to see if you can help someone!</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/index_img1.jpg" alt="">
+                    {% load static %}
+                    <img class="img-responsive" src="{% static 'cmumc/img/index_img1.jpg' %}" alt="index bg">
                 </div>
             </div>
 
@@ -119,7 +121,8 @@
                     <p class="lead">Get to know someone by helping or receiving help from him/her!</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/stu.png" alt="">
+                {% load static %}
+                    <img class="img-responsive" src="{% static 'cmumc/img/stu.png' %}" alt="students">
                 </div>
             </div>
 
@@ -156,10 +159,11 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    {% load static %}
+    <script src="{% static 'cmumc/js/jquery.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{% static 'cmumc/js/bootstrap.min.js' %}"></script>
     {% endblock %}
 </body>
 
