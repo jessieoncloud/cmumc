@@ -33,13 +33,28 @@ class Rating(models.Model):
     review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):
+    YEAR_IN_SCHOOL_CHOICES = (
+        ('FR', 'Freshman'),
+        ('SO', 'Sophomore'),
+        ('JR', 'Junior'),
+        ('SR', 'Senior'),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = models.CharField(max_length=15)
     user_type = models.CharField(max_length=10, choices=UserType)
     activation_key = models.CharField(max_length=255)
-    intro = models.TextField(max_length=420, default="", blank=True)
+    year_in_school = models.CharField(
+        max_length=2,
+        choices=YEAR_IN_SCHOOL_CHOICES,
+        default='FR',
+    )
+    major = models.CharField(max_length=255, default="", blank=True)
+    bio = models.TextField(max_length=420, default="", blank=True)
     photo = models.ImageField(upload_to="profile_photo", blank=True)
     venmo = models.CharField(max_length=20, default="", blank=True)
+
+    def is_upperclass(self):
+        return self.year_in_school in (self.JUNIOR, self.SENIOR)
 
 
 
