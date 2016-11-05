@@ -22,6 +22,25 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
+##not very clear
+def mode(request, modename):
+    context = {}
+    if request.method == 'GET':
+        context['form'] = ModeForm()
+        return render(request, 'cmumc/mode.html', context)
+
+    user_item = get_object_or_404(User, request.user)
+    try:
+        user_profile = Profile.objects.get(user=user_item)
+    except:
+        user_profile = Profle(user=user_item)
+
+    ## post how to get value
+    user_profile.user_type = modename
+    ##stream html
+    context['form'] = ModeForm()
+    return render(request, 'cmumc/index.html', context)
+
 @login_required
 def switch(request):
     user_item = get_object_or_404(User, request.user)

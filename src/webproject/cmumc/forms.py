@@ -4,6 +4,11 @@ from cmumc.models import *
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
+UserType = (
+    ('H', 'Helper'),
+    ('R', 'Receiver'),
+)
+
 class RegistrationForm(forms.Form):
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
@@ -48,3 +53,6 @@ class UserForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(UserForm, self).clean()
         return cleaned_data
+
+class ModeForm(forms.Form):
+    mode = forms.ChoiceField(choices=UserType)
