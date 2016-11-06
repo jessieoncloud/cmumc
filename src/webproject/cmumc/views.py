@@ -77,16 +77,16 @@ def switch(request):
     ##stream html
     return render(request, 'cmumc/index.html', {})
 
-# @login_required
-# def profile(request, user_name):
-#     context = {}
-#     user_item = get_object_or_404(User, username=user_name)
-#     try:
-#         user_profile = Profile.objects.get(user=user_item)
-#     except:
-#         user_profile = Profile(user=user_item)
-#     context['profile'] = user_profile
-#     return render(request, 'cmumc/profile.html', context)
+@login_required
+def profile(request, user_name):
+    context = {}
+    user_item = get_object_or_404(User, username=user_name)
+    try:
+        user_profile = Profile.objects.get(user=user_item)
+    except:
+        user_profile = Profile(user=user_item)
+    context['profile'] = user_profile
+    return render(request, 'cmumc/profile.html', context)
 
 @login_required
 def get_photo(request, user_name):
