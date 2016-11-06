@@ -85,13 +85,13 @@
                         <a href=""><h4>MyTask</h4></a>
                     </div>
                     <div class="usermenu_profile option">
-                        <a href=""><h4>Profile</h4></a>
+                        <a href="{% url 'profile' user.username %}"><h4>Profile</h4></a>
                     </div>
                     <div class="usermenu_setting option">
-                        <a href=""><h4>Setting</h4></a>
+                        <a href="{% url 'setting' user.username %}"><h4>Setting</h4></a>
                     </div>
                     <div class="usermenu_logout option">
-                        <a href=""><h4>Log out</h4></a>
+                        <a href="{% url 'logout' %}"><h4>Log out</h4></a>
                     </div>
                 </div>
             </div>

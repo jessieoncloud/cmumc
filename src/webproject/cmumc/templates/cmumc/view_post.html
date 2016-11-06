@@ -4,54 +4,65 @@
     {% endblock %}
 
 	{% block content %}
-	        <div class="col-mid-9 col75">
-				<h3 class="content_title">My Info</h3>
-			    <div class="profile">
-			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
-			            <table>
-						<tr>
-							<td>{{ user_form.username.label_tag }}</td>
-							<td>{{ user_form.username }}</td>
-						</tr>
-						<tr>
-							<td>{{ user_form.first_name.label_tag }}</td>
-							<td>{{ user_form.first_name }}</td>
-						</tr>
-						<tr>
-							<td>{{ user_form.last_name.label_tag }}</td>
-							<td>{{ user_form.last_name }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.year.label_tag }}</td>
-							<td>{{ profile_form.year }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.major.label_tag }}</td>
-							<td>{{ profile_form.major }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.email.label_tag }}</td>
-							<td>{{ profile_form.email }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.phone.label_tag }}</td>
-							<td>{{ profile_form.phone }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.bio.label_tag }}</td>
-							<td>{{ profile_form.bio }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.photo.label_tag }}</td>
-							<td>{{ profile_form.photo }}</td>
-						</tr>
-			            </table>
-						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
-                        {% csrf_token %}
-			        </form>
-			    </div> 
-    		</div>
+	<div class="container top_container">
+		<div class="container view_post_head_container">
+		    <div class="col-lg-12 col60">
+				<div class="view_post_header">
+					<p class="title">
+						Post Title
+						{{ post.title }}
+					</p>
+					<p>
+						Created on ...
+						{{ post.created_time }}
+					</p>
+				</div>
+			</div>
+			<div class="col-lg-12 col40">
+				<div class="view_post_header2">
+					<div class="col-lg-12 col60">
+						<div class="row">
+							<a href=""><img src="{% url 'photo' profile.user.username %}" alt="{{ profile.user.username }}" class="img-circle avatar_post"></a>
+						</div>
+						<div class="row">
+							<p class="created_user">Created user {{ post.created_user }}</p>
+						</div>
+					</div>
+					<div class="col-lg-12 col40">
+						<span>Rating</span>
+						<input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact">
+					</div>
+				</div>
+			</div>
+		</div>
 
-    	</div>
-    </div>
+	    <div class="container post_attrs">
+	        <div class="post_attr">
+	        	<h3>Description</h3>
+	        	<p><span> {{ post.description }}</span></p>
+	        </div>
+	        <div class="post_attr">
+	        	<h3 class="inline">Category: </h3><span>tutoring{{ post.description }}</span>	
+	        </div>
+	        <div class="post_attr">
+	        	<h3 class="inline">Location: </h3><span>hunt{{ post.location }}</spanp>	
+	        </div>
+	        <div class="post_attr">
+	        	<h3 class="inline">Date: </h3><span>{{ post.date }}</span>	
+	        </div>
+	        <div class="post_attr">
+	        	<h3 class="inline">Time: </h3><span>{{ post.time }}</span>	
+	        </div>
+	        <div class="post_attr">
+	        	<h3 class="inline">Price: </h3><span>${{ post.price }}</span>	
+	        </div>
+		</div>
+
+		{% if user.profile.user_type == 'H' and user.username != post.created_user %}
+			<a href="{% url 'acceptPost' %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Request</button></a>
+		{% elif user.profile.user_type == 'R' and user.username != post.created_user %}
+			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Offer</button></a>
+		{% endif %}
+
+	</div>
     {% endblock %}

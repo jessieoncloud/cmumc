@@ -1,0 +1,46 @@
+{% extends "cmumc/base2.html" %}
+
+    {% block content %}
+            <div class="col-mid-9 col75">
+
+                <div class="row">
+                	<h3 class="content_title">Change Password</h3>
+                	<form class="form-change-pwd" method="post" action="{% url 'password_change' %}">
+                    <table class="change_pwd_table">
+                        {% for field in form.visible_fields %}
+                        <tr>
+                            <td>{{ field.label_tag }}</td>
+                            <td>{{ field }}</td>
+                            <td class="error">{{ field.errors }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for field in form.hidden_fields %}
+                            {{field}}
+                        {% endfor %}
+                    </table>
+                  </form>
+                </div>
+
+                <div class="row">
+                	<h3 class="content_title">Change Venmo Account</h3>
+                  <form class="form-change-venmo" method="post" action="{% url 'password_venmo' %}">
+                    <table class="change_venmo_table">
+                        {% for field in form.visible_fields %}
+                        <tr>
+                            <td>{{ field.label_tag }}</td>
+                            <td>{{ field }}</td>
+                            <td class="error">{{ field.errors }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for field in form.hidden_fields %}
+                            {{field}}
+                        {% endfor %}
+                    </table>
+                  </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}

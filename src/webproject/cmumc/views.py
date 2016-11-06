@@ -22,9 +22,8 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
-# to be deleted
-# def stream(request):
-#     return render(request, 'cmumc/stream.html', {})
+def mytask(request):
+    return render(request,'cmumc/mytask.html',{})
 
 @login_required
 def stream(request):
@@ -49,7 +48,7 @@ def view_post(request, post_id):
         return render(request, 'cmumc/error.html', context)
     else:
         context['post'] = post_item
-        return render(request, 'cmumc/post.html', context)
+        return render(request, 'cmumc/view_post.html', context)
 
 @login_required
 @transaction.atomic
@@ -259,7 +258,11 @@ def profile(request, user_name):
     context['post'] = user_post
     return render(request, 'cmumc/profile.html', context)
 
+# to be implemented
 @login_required
+def setting(request):
+    pass
+
 def get_photo(request, user_name):
     user_item = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user_item)

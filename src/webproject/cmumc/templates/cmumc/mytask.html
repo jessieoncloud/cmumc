@@ -1,0 +1,113 @@
+{% extends "cmumc/base2.html" %}
+
+    {% block content %}
+            <div class="col-mid-9 col75">
+                	<h3 class="content_title">My Task</h3>
+                  <table id="tasks-table" class="table tbale-bordered table--highlighted flush--bottom">
+                    <thead>
+                      <tr>
+                        <th class="text--center"></th>
+                        <th>Title</th>
+                        <th>Poster</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        </tr>
+                      </tr>
+                    </thead>
+
+                    {% comment %}
+                    {% for post in posts %}
+                    {% endcomment %}
+
+                    <tbody class="align--top">
+                      {% comment %}
+                      {% if post.status == 'A' %}
+                      {% endcomment %}
+
+                        <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="post_id">
+                          <td class="text--center">
+                            <<i class="fa arrow"></i>
+                          </td>
+                          <td>Help with CS {{ post.title }}</td>
+                          <td>Username {{ post.created_by }}</td>
+                          <td>Tutoring {{ post.category }}</td>
+                          <td>$12 {{ post.price }}</td>
+                          <td>Available {{ post.status }}</td>
+                        </tr>
+                        
+                      {% comment %}
+                      {% if post.status == 'NC' %}
+                      {% endcomment %}
+                        <tr class="hard collapse in" id="post_id">
+                          <td colspan="8" class="task-expand" id="task-expand">
+                            <div class="col60">
+                              <p>Description: {{post.description}}</p>
+                            </div>
+                            <div class="col40">
+                             <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
+                             <a href=""><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
+                            </div>
+                          </td>
+                        </tr>
+
+                      {% comment %}
+                      {% if post.status == 'I' %}
+                      {% endcomment %}
+                        <tr class="hard ollapse in" id="post_id">
+                          <td colspan="8" class="task-expand" id="task-expand">
+                            <form>
+                              <div class="col60">
+                                  <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
+                                  <div class="accept_list_options form-check">
+                                    <input type="radio" name="requester" value="{{ post.accept_list }}" class="form-check-input"> Requester1: Username</input>
+                                  </div>
+                                  <div class="accept_list_options form-check">
+                                    <input type="radio" class="form-check-input"> Requester2: Username</input>
+                                  </div>
+                              </div>
+                              <div class="col40">
+                               <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
+                              </div>
+                            </form>
+                          </td>
+                        </tr>
+
+                      {% comment %}
+                      {% if post.status == 'C' %}
+                      {% endcomment %}
+                        <tr class="hard ollapse in" id="post_id">
+                          <td colspan="8" class="task-expand" id="task-expand">
+                            <div class="col60">
+                              <p>Description: {{post.description}}</p>
+                            </div>
+                            <div class="col40">
+                             <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr class="hard ollapse in" id="post_id">
+                          <td colspan="8" class="task-expand" id="task-expand">
+                            <div class="col60">
+                              <p>Description: {{post.description}}</p>
+                            </div>
+                            <div class="col40">
+                             <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
+                            </div>
+                          </td>
+                        </tr>
+
+
+                    </tbody>
+
+                    {% comment %}
+                    {% endfor %}
+                    {% endcomment %}
+
+                  </table>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}
