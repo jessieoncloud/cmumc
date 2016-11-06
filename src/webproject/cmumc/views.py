@@ -29,8 +29,7 @@ def home(request):
 @login_required
 def stream(request):
     context = {}
-    user_item = get_object_or_404(User, request.user)
-    user_profile = Profile.objects.get(Profile, user=user_item)
+    user_profile = get_object_or_404(Profile, user=request.user)
     if user_profile.user_type == 'H':
         all_posts = Post.objects.filter(post_type='R').filter(deleted=False)
     else:
@@ -56,8 +55,7 @@ def view_post(request, post_id):
 @transaction.atomic
 def send_post(request):
     context = {}
-    user_item = get_object_or_404(User, request.user)
-    user_profile = get_object_or_404(Profile, user=user_item)
+    user_profile = get_object_or_404(Profile, user=request.user)
     if request.user.is_authenticated:
         new_post = Post(created_user=request.user, post_type=user_profile.user_type)
         form = PostForm(request.POST, instance=new_post)
@@ -102,8 +100,8 @@ def accept_post(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
-    user_item = get_object_or_404(User, request.user)
-    user_profile = get_object_or_404(Profile, user=user_item)
+    user_item = get_object_or_404(User, username=request.user.username)
+    user_profile = get_object_or_404(Profile, user=request.user)
     post_item = get_object_or_404(Post, post_id=post_id)
     user_post = Post.get_user_posts
     context['user_post'] = user_post
@@ -127,8 +125,8 @@ def view_accept_list(request, post_id):
     accept_list = post_item.accept_list.all()
     context['accept_list'] = accept_list
 
-    user_item = get_object_or_404(User, request.user)
-    user_profile = get_object_or_404(Profile, user=user_item)
+    user_item = get_object_or_404(User, username=request.user.username)
+    user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.get_user_posts
     context['user_post'] = user_post
     accept_post = user_item.post_set.exclude(post_type=user_profile.user_type)
@@ -144,8 +142,8 @@ def accept(request, post_id, username):
     errors = []
     context['errors'] = errors
 
-    user_item = get_object_or_404(User, request.user)
-    user_profile = get_object_or_404(Profile, user=user_item)
+    user_item = get_object_or_404(User, username=request.user.username)
+    user_profile = get_object_or_404(Profile, user=request.user)
     post_item = get_object_or_404(Post, post_id=post_id)
     user_post = Post.get_user_posts
     context['user_post'] = user_post
@@ -178,8 +176,8 @@ def complete(request, post_id):
     errors = []
     context['errors'] = errors
 
-    user_item = get_object_or_404(User, request.user)
-    user_profile = get_object_or_404(Profile, user=user_item)
+    user_item = get_object_or_404(User, username=request.user.username)
+    user_profile = get_object_or_404(Profile, user=request.user)
     post_item = get_object_or_404(Post, post_id=post_id)
     user_post = Post.get_user_posts
     context['user_post'] = user_post
@@ -230,7 +228,7 @@ def mode(request):
 
 @login_required
 def switch(request):
-    user_item = get_object_or_404(User, request.user)
+    user_item = get_object_or_404(User, username=request.user.username)
     try:
         user_profile = Profile.objects.get(user=user_item)
     except:
@@ -245,11 +243,10 @@ def switch(request):
 @login_required
 def profile(request, user_name):
     context = {}
-    user_item = get_object_or_404(User, username=user_name)
     try:
-        user_profile = Profile.objects.get(user=user_item)
+        user_profile = Profile.objects.get(user=request.user)
     except:
-        user_profile = Profile(user=user_item)
+        user_profile = Profile(user=request.user)
     context['profile'] = user_profile
     user_post = Post.get_user_posts(user_item)
     context['post'] = user_post
@@ -276,8 +273,8 @@ def update_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=user_profile)
-        context['form'] = profile_form
-        context['sub_form'] = user_form
+        context['profile_form'] = profile_form
+        context['user_form'] = user_form
         if all([user_form.is_valid(), profile_form.is_valid()]):
             user_form.save()
             profile_form.save()
