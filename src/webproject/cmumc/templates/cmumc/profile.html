@@ -6,7 +6,7 @@
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
                     <a href=""><img src="" alt="" class="img-circle avatar_profile"></a>
-                    <h3>{{ profile.user }}</h3>
+                    <h3 class="profile_username">{{ profile.user }}</h3>
                 </div>
                 <div class=usermenu_options>
                     <div class="option">
@@ -19,9 +19,12 @@
                         <h4>Major: {{ profile.major }}</h4>
                     </div>
                     <div class="option">
-						<h4>Bio: <p>{{ profile.bio }}</p></h4>
+						            <h4>Bio: <p>{{ profile.bio }}</p></h4>
                     </div>
-                </div>
+                    <div class="option">
+                        <h4>User type: <p>{{ profile.user_type }}</p></h4>
+                    </div>
+                </div>  
             </div>
     {% endblock %}
 
