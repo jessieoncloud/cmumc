@@ -3,7 +3,11 @@
     {% block header %}
     <div class="container top_container">
     	<div class="row">
-    		
+    		{% if user_profile.user_type == 'H' %}
+    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Offer</button></a>
+    		{% elif user_profile.user_type == 'R' %}
+    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Request</button></a>
+    		{% endif %}
     	</div>
     </div>
     {% endblock %}

@@ -22,17 +22,21 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
-@login_required
+# to be deleted
 def stream(request):
-    context = {}
-    user_item = get_object_or_404(User, request.user)
-    user_profile = Profile.objects.get(Profile, user=user_item)
-    if user_profile.user_type == 'H':
-        all_posts = Post.objects.filter(post_type='R').filter(deleted=False)
-    else:
-        all_posts = Post.objects.filter(post_type='H').filter(deleted=False)
-    context['all_posts'] = all_posts
-    return render(request, 'cmumc/stream.html', context)
+    return render(request, 'cmumc/stream.html', {})
+
+# @login_required
+# def stream(request):
+#     context = {}
+#     user_item = get_object_or_404(User, request.user)
+#     user_profile = Profile.objects.get(Profile, user=user_item)
+#     if user_profile.user_type == 'H':
+#         all_posts = Post.objects.filter(post_type='R').filter(deleted=False)
+#     else:
+#         all_posts = Post.objects.filter(post_type='H').filter(deleted=False)
+#     context['all_posts'] = all_posts
+#     return render(request, 'cmumc/stream.html', context)
 
 @login_required
 def view_post(request, post_id):
