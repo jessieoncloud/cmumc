@@ -5,7 +5,7 @@
 				<h3 class="content_title">My Info</h3>
 			    <div class="profile">
 			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
-			            <table>
+			            <table class="form_table">
 						<tr>
 							<td>{{ user_form.username.label_tag }}</td>
 							<td>{{ user_form.username }}</td>

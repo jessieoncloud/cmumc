@@ -45,8 +45,8 @@
                               <p>Description: {{post.description}}</p>
                             </div>
                             <div class="col40">
-                             <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
-                             <a href=""><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
+                             <a href="{#% url 'editPost' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
+                             <a href="{#% url 'deletePost' post.id %#}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
                             </div>
                           </td>
                         </tr>
@@ -67,7 +67,7 @@
                                   </div>
                               </div>
                               <div class="col40">
-                               <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
+                               <a href="{#% url 'accept' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
                               </div>
                             </form>
                           </td>
@@ -82,7 +82,7 @@
                               <p>Description: {{post.description}}</p>
                             </div>
                             <div class="col40">
-                             <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
+                             <a href="{#% url 'complete' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
                             </div>
                           </td>
                         </tr>

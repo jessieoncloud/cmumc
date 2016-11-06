@@ -6,7 +6,7 @@
                 <div class="row">
                 	<h3 class="content_title">Change Password</h3>
                 	<form class="form-change-pwd" method="post" action="{% url 'password_change' %}">
-                    <table class="change_pwd_table">
+                    <table class="form_table">
                         {% for field in form.visible_fields %}
                         <tr>
                             <td>{{ field.label_tag }}</td>
@@ -24,7 +24,7 @@
                 <div class="row">
                 	<h3 class="content_title">Change Venmo Account</h3>
                   <form class="form-change-venmo" method="post" action="{% url 'password_venmo' %}">
-                    <table class="change_venmo_table">
+                    <table class="form_table">
                         {% for field in form.visible_fields %}
                         <tr>
                             <td>{{ field.label_tag }}</td>

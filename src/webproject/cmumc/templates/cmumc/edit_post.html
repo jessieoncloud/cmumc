@@ -1,0 +1,47 @@
+{% extends "cmumc/base2.html" %}
+
+	{% block content %}
+	        <div class="col-mid-9 col75">
+				<h3 class="content_title">My Post</h3>
+			    <div class="profile">
+			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
+			            <table class="form_table">
+						<tr>
+							<td>{{ form.title.label_tag }}</td>
+							<td>{{ form.title }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.Description.label_tag }}</td>
+							<td>{{ form.Description }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.category.label_tag }}</td>
+							<td>{{ form.category }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.location.label_tag }}</td>
+							<td>{{ form.location }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.date.label_tag }}</td>
+							<td>{{ form.date }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.time.label_tag }}</td>
+							<td>{{ form.time }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.price.label_tag }}</td>
+							<td>{{ form.price }}</td>
+						</tr>
+			            </table>
+						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
+                        {% csrf_token %}
+			        </form>
+			        <a href="{#% url 'deletePost' post.id %#}"><button id="delete_post_btn" class="btn btn-lg btn-primary btn-block" >Delete</button></a>
+			    </div> 
+    		</div>
+
+    	</div>
+    </div>
+    {% endblock %}

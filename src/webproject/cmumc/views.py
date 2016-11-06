@@ -22,9 +22,6 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
-def mytask(request):
-    return render(request,'cmumc/mytask.html',{})
-
 @login_required
 def stream(request):
     context = {}
@@ -74,6 +71,12 @@ def send_post(request):
         return render(request, 'cmumc/stream.html', context)
     else:
         return render(request, 'cmumc/login.html', context)
+
+# to be implemented 
+# return all tasks related to the current user
+@login_required
+def mytask(request):
+    return render(request,'cmumc/mytask.html',{})
 
 @login_required
 @transaction.atomic

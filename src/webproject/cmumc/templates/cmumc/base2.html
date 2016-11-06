@@ -53,10 +53,10 @@
                         <a href="">Switch Mode</a>
                     </li>
                     <li>
-                        <a href="">My Task</a>
+                        <a href="{% url 'mytask' %}">My Task</a>
                     </li>
                     <li>
-                        <a href="">User</a>
+                        <a href="{% url 'edit_profile' %}">User</a>
                     </li>
                 </ul>
             </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class=usermenu_options>
                     <div class="usermenu_mytask option">
-                        <a href=""><h4>MyTask</h4></a>
+                        <a href="{% url 'mytask' %}"><h4>MyTask</h4></a>
                     </div>
                     <div class="usermenu_profile option">
                         <a href="{% url 'profile' user.username %}"><h4>Profile</h4></a>
