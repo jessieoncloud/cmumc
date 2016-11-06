@@ -12,7 +12,7 @@
 
     <!-- Bootstrap Core CSS -->
     {% load static %}
-    <link href="{% static 'cmumc/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'cmumc/css/bootstrap2.min.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{% static 'cmumc/css/custom.css' %}" rel="stylesheet">
@@ -43,7 +43,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">CMUMC</a>
+                <a class="navbar-brand topnav" href="{% url 'index' %}">CMUMC</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,16 +67,36 @@
 
 
     {% block usermenu %}
-    <div class="row">
-        <div class="col-mid-3">
-            <p>1</p>
-        </div>
+    <div class="container top_container">
+        <div class="row">
+            <div class="col-mid-3 col25 usermenu_col">
+                <div class="profile_info">
+                    <a href=""><img src="" alt="" class="img-circle avatar_profile"></a>
+                    <h3>{{ profile.user }}</h3>
+                    <h3 class="profile_username">Username</h3>
+                </div>
+                <div class=usermenu_options>
+                    <div class="usermenu_mytask option">
+                        <a href=""><h4>MyTask</h4></a>
+                    </div>
+                    <div class="usermenu_profile option">
+                        <a href=""><h4>Profile</h4></a>
+                    </div>
+                    <div class="usermenu_setting option">
+                        <a href=""><h4>Setting</h4></a>
+                    </div>
+                    <div class="usermenu_logout option">
+                        <a href=""><h4>Log out</h4></a>
+                    </div>
+                </div>
+            </div>
     {% endblock %}
 
 
     {% block content %}
-        <div class="col-mid-9">
-            <p>2</p>
+            <div class="col-mid-9 col75">
+                <p>2</p>
+            </div>
         </div>
     </div>
     {% endblock %}

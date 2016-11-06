@@ -221,3 +221,62 @@ p.copyright {
 .mode_receiver_container {
     background-color: #f2f2f2;
 }
+
+.col25, .col75 {
+    position: relative;
+    float: left;
+    padding: 10px;
+}
+
+.col25 {
+    width: 25%;
+}
+
+.usermenu_col {
+    background-color: #f2f2f2; 
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.col75 {
+    width: 75%;
+}
+
+.avatar_profile {
+    display: block;
+    margin: auto;
+    height: 180px;
+    width: 180px;
+}
+
+.profile_username {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.option {
+    padding: 1px 10px 5px 10px;
+    border-top: 1px solid;
+    border-top-color: #ffffff;
+}
+
+.option:last-child {
+    border-bottom: 1px solid;
+    border-bottom-color: #ffffff;
+}
+
+.content_title {
+    font-size: 30px;
+    padding-left: 50px;
+    // padding-bottom: 20px;
+}
+
+.profile {
+    height: 100%;
+    background-color: #f2f2f2;
+}
+
+.posts {
+    display: block;
+    margin: auto;
+}

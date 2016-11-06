@@ -1,10 +1,8 @@
 {% extends "cmumc/base2.html" %}
 
 	{% block content %}
-	<div class="container top_container">
-	    <div class="row">
-	        <div class="col-lg-8">
-				<h3>My Info</h3>
+	        <div class="col-mid-9 col75">
+				<h3 class="content_title">My Info</h3>
 			    <div class="profile">
 			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
 			            <table>
@@ -45,10 +43,12 @@
 							<td>{{ profile_form.photo }}</td>
 						</tr>
 			            </table>
+						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
+                        {% csrf_token %}
 			        </form>
-			    </div>
-
+			    </div> 
     		</div>
+
     	</div>
     </div>
     {% endblock %}
