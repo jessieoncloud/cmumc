@@ -30,6 +30,7 @@
 </head>
 
 <body>
+<div id="warp_container">
 
     {% block nav2 %}
     <!-- Navigation -->
@@ -105,6 +106,7 @@
     </div>
     {% endblock %}
 
+</div>
 
     {% block footer %}
     {% load static %}
@@ -137,6 +139,11 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'cmumc/js/bootstrap.min.js' %}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static 'cmumc/js/metisMenu.min.js' %}"></script>
+
+    <script src="{% static 'cmumc/js/sb-admin-2.js' %}"></script>
     {% endblock %}
 </body>
 

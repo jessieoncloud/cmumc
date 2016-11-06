@@ -1,76 +1,136 @@
 {% extends "cmumc/base2.html" %}
 
-    {% block header %}
-    <div class="container top_container">
-    	<div class="row">
-    		<div class="col75">
-                <input type="text" class="form-control"  placeholder="Search" >
-                <span class="input-group-addon">
-                    <button type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>  
-                </span>
-    		</div>
-    		<div class="create_post col25">
-	    		{% if user_profile.user_type == "H" %}
-	    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Offer</button></a>
-	    		{% elif user_profile.user_type == "R" %}
-	    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Request</button></a>
-	    		{% endif %}
-    		</div>
-    	</div>
-    </div>
+	{% block header %}
+	<div class="container top_container">
+		<div class="row">
+			<div class="col75">
+		        <div class="sidebar-search">
+		            <div class="input-group custom-search-form">
+		                <input type="text" class="form-control" placeholder="Search...">
+		                <span class="input-group-btn">
+		                <button class="btn btn-default" type="button">
+		                    <i class="fa fa-search"></i>
+		                </button>
+		            </span>
+		            </div>
+		            <!-- /input-group -->
+		        </div>
+	        </div>
+	        <div class="col25">
+	        	<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Post</button></a>
+	        </div>
+		</div>
+	</div>
+    {% endblock %}
+
+    {% block usermenu %}
     {% endblock %}
 
 	{% block content %}
-	        <div class="col-mid-9 col75">
-				<h3 class="content_title">My Info</h3>
-			    <div class="profile">
-			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
-			            <table>
-						<tr>
-							<td>{{ user_form.username.label_tag }}</td>
-							<td>{{ user_form.username }}</td>
-						</tr>
-						<tr>
-							<td>{{ user_form.first_name.label_tag }}</td>
-							<td>{{ user_form.first_name }}</td>
-						</tr>
-						<tr>
-							<td>{{ user_form.last_name.label_tag }}</td>
-							<td>{{ user_form.last_name }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.year.label_tag }}</td>
-							<td>{{ profile_form.year }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.major.label_tag }}</td>
-							<td>{{ profile_form.major }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.email.label_tag }}</td>
-							<td>{{ profile_form.email }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.phone.label_tag }}</td>
-							<td>{{ profile_form.phone }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.bio.label_tag }}</td>
-							<td>{{ profile_form.bio }}</td>
-						</tr>
-						<tr>
-							<td>{{ profile_form.photo.label_tag }}</td>
-							<td>{{ profile_form.photo }}</td>
-						</tr>
-			            </table>
-						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
-                        {% csrf_token %}
-			        </form>
-			    </div> 
-    		</div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <p class="stream_title">Filter by</p>
+                        </li>
+                        <li>
+                            <a href="#">Task type<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a>Tutoring</a>
+                                </li>
+                                <li>
+                                    <a>Driving</a>
+                                </li>
+                                <li>
+                                    <a>Others</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#">Date<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a>Monday</a>
+                                </li>
+                                <li>
+                                    <a>Tuesday</a>
+                                </li>
+                                <li>
+                                    <a>Wednesday</a>
+                                </li>
+                                <li>
+                                    <a>Thursday</a>
+                                </li>
+                                <li>
+                                    <a>Friday</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#">Time<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a>Morning</a>
+                                </li>
+                                <li>
+                                    <a>Afternoon</a>
+                                </li>
+                                <li>
+                                    <a>Evening</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#">Location<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a>Hunt</a>
+                                </li>
+                                <li>
+                                    <a>Gates</a>
+                                </li>
+                                <li>
+                                    <a>Others</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
 
-    	</div>
-    </div>
+	        <div id="page-wrapper">
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header">New Task Posts</h1>
+	                </div>
+	                <!-- /.col-lg-12 -->
+                	<div class="posts">
+						{% for post in posts %}  
+                			<div class="col-mid-3 col25">
+                				<img src="">
+                				<p>img</p>
+                			</div>
+               				<div class="col-mid-3 col75">
+               					<div class="col-mid-9 col75">
+               						<h3>1{{ post.title }}</h3>
+               						<p>2{{ post.location }}</p>
+               						<p>3{{ post.time }}</p>
+               						<p>4{{ post.date }}</p>
+               						<p>Posted by: {{ post.created_user }}</p>
+               					</div>
+           						<div class="col-mid-3 col25">
+           							<h1>${{ post.price }}</h1>
+               					</div>
+                			</div>
+						{% endfor %}
+                	</div>
+	            </div>
+
     {% endblock %}
