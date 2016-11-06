@@ -3,11 +3,21 @@
     {% block header %}
     <div class="container top_container">
     	<div class="row">
-    		{% if user_profile.user_type == 'H' %}
-    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Offer</button></a>
-    		{% elif user_profile.user_type == 'R' %}
-    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Request</button></a>
-    		{% endif %}
+    		<div class="col75">
+                <input type="text" class="form-control"  placeholder="Search" >
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>  
+                </span>
+    		</div>
+    		<div class="create_post col25">
+	    		{% if user_profile.user_type == "H" %}
+	    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Offer</button></a>
+	    		{% elif user_profile.user_type == "R" %}
+	    			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-lg btn-primary btn-block" >Post Request</button></a>
+	    		{% endif %}
+    		</div>
     	</div>
     </div>
     {% endblock %}
