@@ -56,3 +56,18 @@ class UserForm(forms.ModelForm):
 
 class ModeForm(forms.Form):
     mode = forms.ChoiceField(choices=UserType)
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'description', 'category', 'date', 'time', 'location', 'price')
+
+    def clean(self):
+        cleaned_data = super(PostForm, self).clean()
+        return cleaned_data
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price < 0:
+            raise forms.ValidationError("Price should be greater than 0")
+        return price

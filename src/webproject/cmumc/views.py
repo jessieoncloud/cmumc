@@ -28,6 +28,20 @@ def edit_profile(request):
 def profile(request):
     return render(request, 'cmumc/profile.html', {})
 
+def stream(request):
+    pass
+
+def send_post(request):
+    user_item = get_object_or_404(User, request.user)
+    form = PostForm(request.POST)
+
+
+def edit_post(request, post_id):
+    pass
+
+def delete_post(request, post_id):
+    pass
+
 ##not very clear
 ## needs to be login_required later
 def mode(request):

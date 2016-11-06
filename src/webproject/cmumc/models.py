@@ -6,20 +6,50 @@ UserType = (
     ('R', 'Receiver'),
 )
 
+StatusType = (
+    ('NC', 'NeedConfirmation'),
+    ('I', 'InProgress'),
+    ('A', 'Available'),
+    ('C', 'Complete'),
+)
+
+PostCategory = (
+    ('D', 'Driving'),
+    ('T', 'Tutoring'),
+    ('O', 'Others'),
+)
+
+TaskStatusType = (
+    ('I', 'InProgress'),
+    ('C', 'Complete'),
+)
+
 class Post(models.Model):
+    post_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=400)
     created_user = models.ForeignKey(User, related_name="created", on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=10, choices=UserType)
-    category = models.CharField(max_length=20)
-    created_time = models.DateTimeField()
+    post_type = models.CharField(max_length=10, choices=UserType)
+    category = models.CharField(max_length=20, choices=PostCategory)
+    created_time = models.DateTimeField(auto_now_add=True)
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=100, default="", blank=True)
-    price = models.IntegerField()
-    status = models.CharField(max_length=10)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    status = models.CharField(max_length=20, default="A", choices=StatusType)
+    deleted = models.BooleanField(default=False)
     accept_list = models.ManyToManyField(User)
 
     class Meta:
         ordering = ['-created_time']
+
+class Task(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, primary_key=True)
+    helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name="helper")
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
+    helper_status = models.CharField(max_length=10, choices=TaskStatusType)
+    receiver_status = models.CharField(max_length=10, choices=TaskStatusType)
+    task_status = models.CharField(max_length=10, choices=TaskStatusType)
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
