@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 UserType = (
     ('H', 'Helper'),
@@ -78,7 +79,7 @@ class Profile(models.Model):
         ('SR', 'Senior'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    phone = models.CharField(max_length=15)
+    phone = PhoneNumberField()
     user_type = models.CharField(max_length=10, choices=UserType)
     activation_key = models.CharField(max_length=255)
     year_in_school = models.CharField(

@@ -71,3 +71,16 @@ class PostForm(forms.ModelForm):
         if price < 0:
             raise forms.ValidationError("Price should be greater than 0")
         return price
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user', 'activation_key')
+
+    def clean(self):
+        cleaned_data = super(ProfileForm, self).clean()
+        return cleaned_data
+
+
+
+
