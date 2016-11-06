@@ -630,10 +630,16 @@ table.dataTable thead .sorting:after {
 // }
 
 #post_btn {
-    width: 70%;
+    width: 150px;
     margin-top: 20px;
     margin-left: 10%;
     min-width: 100px;
+}
+
+#create_btn {
+    width: 150px;
+    min-width: 100px;
+    margin: auto;
 }
 
 // login, register, reset/forget pwd - specific
@@ -648,8 +654,9 @@ table.dataTable thead .sorting:after {
 }
 
 #login_btn, #register_btn, #change_btn {
-    width: 100%;
+    width: 150px;
     margin-top: 20px;
+    margin: auto;
 }
 
 .login_container, .register_container, .reset_container {
@@ -710,6 +717,23 @@ table.dataTable thead .sorting:after {
 
 .col75 {
     width: 75%;
+}
+
+.send_post_header {
+    padding: 30px;
+    background-color: #f2f2f2;
+}
+
+.send_post_table, .login_table {
+    border-collapse: separate;
+    border-spacing: 20px 10px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form_input {
+    margin-bottom:10px;
 }
 
 .avatar_profile {

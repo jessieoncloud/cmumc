@@ -56,10 +56,17 @@ def view_post(request, post_id):
 def send_post(request):
     context = {}
     user_profile = get_object_or_404(Profile, user=request.user)
+
+    if request.method == 'GET':
+        context['form'] = PostForm()
+        context['profile'] = user_profile
+        return render(request, 'cmumc/create_post.html', context)
+
     if request.user.is_authenticated:
         new_post = Post(created_user=request.user, post_type=user_profile.user_type)
         form = PostForm(request.POST, instance=new_post)
         context['form'] = form
+        context['profile'] = user_profile
 
         if not form.is_valid():
             return render(request, 'cmumc/stream.html', context)
