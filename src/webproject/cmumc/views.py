@@ -35,7 +35,7 @@ def stream(request):
     else:
         all_posts = Post.objects.filter(post_type='H').filter(deleted=False)
     context['all_posts'] = all_posts
-    context['user_type'] = user_profile.user_type
+    context['profile'] = user_profile
     return render(request, 'cmumc/stream.html', context)
 
 @login_required
