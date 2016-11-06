@@ -1,18 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "cmumc/base2.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    {% block header %}
+    <div class="container top_container">
+    	<div class="row">
+    		
+    	</div>
+    </div>
+    {% endblock %}
 
-    <title>CMUMC Stream</title>
-</head>
+	{% block content %}
+	        <div class="col-mid-9 col75">
+				<h3 class="content_title">My Info</h3>
+			    <div class="profile">
+			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
+			            <table>
+						<tr>
+							<td>{{ user_form.username.label_tag }}</td>
+							<td>{{ user_form.username }}</td>
+						</tr>
+						<tr>
+							<td>{{ user_form.first_name.label_tag }}</td>
+							<td>{{ user_form.first_name }}</td>
+						</tr>
+						<tr>
+							<td>{{ user_form.last_name.label_tag }}</td>
+							<td>{{ user_form.last_name }}</td>
+						</tr>
+						<tr>
+							<td>{{ profile_form.year.label_tag }}</td>
+							<td>{{ profile_form.year }}</td>
+						</tr>
+						<tr>
+							<td>{{ profile_form.major.label_tag }}</td>
+							<td>{{ profile_form.major }}</td>
+						</tr>
+						<tr>
+							<td>{{ profile_form.email.label_tag }}</td>
+							<td>{{ profile_form.email }}</td>
+						</tr>
+						<tr>
+							<td>{{ profile_form.phone.label_tag }}</td>
+							<td>{{ profile_form.phone }}</td>
+						</tr>
+						<tr>
+							<td>{{ profile_form.bio.label_tag }}</td>
+							<td>{{ profile_form.bio }}</td>
+						</tr>
+						<tr>
+							<td>{{ profile_form.photo.label_tag }}</td>
+							<td>{{ profile_form.photo }}</td>
+						</tr>
+			            </table>
+						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
+                        {% csrf_token %}
+			        </form>
+			    </div> 
+    		</div>
 
-<body>
-	<a href="{% url 'create' %}">Post an offer</a>
-</body>
-
-</html>
+    	</div>
+    </div>
+    {% endblock %}
