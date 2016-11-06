@@ -1,2 +1,61 @@
 {% extends "cmumc/base2.html" %}
 
+    {% block usermenu %}
+    <div class="container top_container">
+        <div class="row">
+            <div class="col-mid-3 col25 usermenu_col">
+                <div class="profile_info">
+                    <a href=""><img src="" alt="" class="img-circle avatar_profile"></a>
+                    <h3>{{ profile.user }}</h3>
+                    <h3 class="profile_username">Username</h3>
+                </div>
+                <div class=usermenu_options>
+                    <div class="option">
+                        <h4>Name: {{ profile.first_name }} {{ profile.last_name }}</h4>
+                    </div>
+                    <div class="option">
+                        <h4>Year: {{ profile.year_in_school }}</h4>
+                    </div>
+                    <div class="option">
+                        <h4>Major: {{ profile.major }}</h4>
+                    </div>
+                    <div class="option">
+						<h4>Bio: <p>{{ profile.bio }}</p></h4>
+                    </div>
+                </div>
+            </div>
+    {% endblock %}
+
+    {% block content %}
+            <div class="col-mid-9 col75">
+                <div class="row">
+                	<h3 class="content_title">Task Posted</h3>
+                	<div class="posts">
+					{% for post in posts %}  
+                			<div class="col-mid-3 col25">
+                				<img src="">
+                				<p>img</p>
+                			</div>
+               				<div class="col-mid-3 col75">
+               					<div class="col-mid-9 col75">
+               						<h3>1{{ post.title }}</h3>
+               						<p>2{{ post.location }}</p>
+               						<p>3{{ post.time }}</p>
+               						<p>4{{ post.date }}</p>
+               						<p>Posted by: {{ post.created_user }}</p>
+               					</div>
+           						<div class="col-mid-3 col25">
+           							<h1>${{ post.price }}</h1>
+               					</div>
+                			</div>
+           			{% endfor %}
+                	</div>
+                </div>
+                <div class="row">
+                	<h3 class="content_title">Rating &amp; Reviews</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}
