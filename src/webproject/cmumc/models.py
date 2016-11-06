@@ -40,6 +40,14 @@ class Post(models.Model):
     deleted = models.BooleanField(default=False)
     accept_list = models.ManyToManyField(User)
 
+    @staticmethod
+    def get_all_posts():
+        return Post.objects.all()
+
+    @staticmethod
+    def get_user_posts(created_user):
+        return Post.objects.filter(created_user=created_user)
+
     class Meta:
         ordering = ['-created_time']
 
@@ -47,9 +55,9 @@ class Task(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE, primary_key=True)
     helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name="helper")
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver")
-    helper_status = models.CharField(max_length=10, choices=TaskStatusType)
-    receiver_status = models.CharField(max_length=10, choices=TaskStatusType)
-    task_status = models.CharField(max_length=10, choices=TaskStatusType)
+    helper_status = models.CharField(max_length=10, choices=TaskStatusType, default='I')
+    receiver_status = models.CharField(max_length=10, choices=TaskStatusType, default='I')
+    task_status = models.CharField(max_length=10, choices=TaskStatusType, default='I')
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
