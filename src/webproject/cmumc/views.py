@@ -22,12 +22,6 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
-## to be deleted, testing edit_profile front-end
-# def edit_profile(request):
-#     return render(request, 'cmumc/edit_profile.html', {})
-# def profile(request):
-#     return render(request, 'cmumc/profile.html', {})
-
 @login_required
 def stream(request):
     context = {}
