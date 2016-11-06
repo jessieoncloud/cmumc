@@ -7,7 +7,6 @@
                 <div class="profile_info">
                     <a href=""><img src="" alt="" class="img-circle avatar_profile"></a>
                     <h3>{{ profile.user }}</h3>
-                    <h3 class="profile_username">Username</h3>
                 </div>
                 <div class=usermenu_options>
                     <div class="option">
@@ -31,7 +30,7 @@
                 <div class="row">
                 	<h3 class="content_title">Task Posted</h3>
                 	<div class="posts">
-					{% for post in posts %}  
+					        {% for post in posts %}  
                 			<div class="col-mid-3 col25">
                 				<img src="">
                 				<p>img</p>
@@ -48,7 +47,7 @@
            							<h1>${{ post.price }}</h1>
                					</div>
                 			</div>
-           			{% endfor %}
+           			  {% endfor %}
                 	</div>
                 </div>
                 <div class="row">
