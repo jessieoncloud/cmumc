@@ -50,7 +50,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{% url 'switch' %}" value="">Switch Mode</a>
+                        <a href="{% url 'switch' %}" value="{{ user.profile.user_type }}">Switch Mode</a>
                     </li>
                     <li>
                         <a href="{% url 'mytask' %}">My Task</a>
