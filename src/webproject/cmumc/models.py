@@ -28,7 +28,7 @@ TaskStatusType = (
 class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=400)
+    description = models.TextField(max_length=400)
     created_user = models.ForeignKey(User, related_name="created", on_delete=models.CASCADE)
     post_type = models.CharField(max_length=10, choices=UserType)
     category = models.CharField(max_length=20, choices=PostCategory)

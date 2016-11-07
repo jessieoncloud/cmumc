@@ -30,7 +30,7 @@ def stream(request):
         all_posts = Post.objects.filter(post_type='R').filter(deleted=False)
     else:
         all_posts = Post.objects.filter(post_type='H').filter(deleted=False)
-    context['all_posts'] = all_posts
+    context['post'] = all_posts
     context['profile'] = user_profile
     return render(request, 'cmumc/stream.html', context)
 
@@ -65,10 +65,13 @@ def send_post(request):
         context['profile'] = user_profile
 
         if not form.is_valid():
-            return render(request, 'cmumc/stream.html', context)
+            print("hee")
+            print(form.errors)
+            return redirect('stream')
 
         form.save()
-        return render(request, 'cmumc/stream.html', context)
+        print("there")
+        return redirect('stream')
     else:
         return render(request, 'cmumc/login.html', context)
 
@@ -246,10 +249,11 @@ def switch(request):
 @login_required
 def profile(request, user_name):
     context = {}
+    user_item = get_object_or_404(User, username=user_name)
     try:
-        user_profile = Profile.objects.get(user=request.user)
+        user_profile = Profile.objects.get(user=user_item)
     except:
-        user_profile = Profile(user=request.user)
+        user_profile = Profile(user=user_item)
     context['profile'] = user_profile
     user_post = Post.get_user_posts(user_item)
     context['post'] = user_post

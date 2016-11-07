@@ -61,6 +61,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'description', 'category', 'date', 'time', 'location', 'price')
+        widgets = {'date': forms.DateInput(format="%m/%d/%Y")}
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()
