@@ -108,7 +108,11 @@
 	        <div id="page-wrapper">
 	            <div class="row">
 	                <div class="col-lg-12">
-	                    <h1 class="page-header">New Task Posts</h1>
+                    {% if user.profile.user_type == 'H' %}
+	                    <h1 class="page-header">Welcome Helper</h1>
+                    {% elif user.profile.user_type == 'R' %}
+                        <h1 class="page-header">Welcome Receiver</h1>
+                    {% endif %}
 	                </div>
 	                <!-- /.col-lg-12 -->
                 	<div class="posts">
@@ -119,9 +123,9 @@
                				<div class="col-mid-3 col75">
                					<div class="col-mid-9 col75">
                						<h3>{{ post.title }}</h3>
-               						<p>{{ post.location }}</p>
-               						<p>{{ post.time }}</p>
-               						<p>{{ post.date }}</p>
+               						<p>Location: {{ post.location }}</p>
+               						<p>Time: {{ post.time }}</p>
+               						<p>Date: {{ post.date }}</p>
                						<p>Posted by: {{ post.created_user }}</p>
                					</div>
            						<div class="col-mid-3 col25">
