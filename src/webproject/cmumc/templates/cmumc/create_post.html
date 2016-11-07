@@ -4,60 +4,58 @@
     {% endblock %}
 
 	{% block content %}
-	<div class="container top_container">
-	    <div class="col-lg-12">
-			<h3 class="send_post_header">
+	<div class="top_container">
+		<h3 class="send_post_header">
+			I can help!
+			{% if profile.user_type == 'H' %}
 				I can help!
-				{% if profile.user_type == 'H' %}
-					I can help!
-				{% elif profile.user_type == 'R' %}
-					I need help!
-				{% endif %}
-			</h3>
-		    <div>
-		        <form class="form-send-post" method="post" action="{% url 'create' %}">
-		            <table class="form_table">
-					<tr>
-						<td>{{ form.title.label_tag }}</td>
-						<td>{{ form.title }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.description.label_tag }}</td>
-						<td>{{ form.description }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.category.label_tag }}</td>
-						<td>{{ form.category }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.date.label_tag }}</td>
-						<td>{{ form.date }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.time.label_tag }}</td>
-						<td>{{ form.time }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.location.label_tag }}</td>
-						<td>{{ form.location }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.price.label_tag }}</td>
-						<td>{{ form.price }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.bio.label_tag }}</td>
-						<td>{{ form.bio }}</td>
-					</tr>
-					<tr>
-						<td>{{ form.photo.label_tag }}</td>
-						<td>{{ form.photo }}</td>
-					</tr>
-		            </table>
-					<input type="submit" id="create_btn" class="btn btn-lg btn-primary btn-block" value="Create">
-	                {% csrf_token %}
-		        </form>
-		    </div> 
-		</div>
+			{% elif profile.user_type == 'R' %}
+				I need help!
+			{% endif %}
+		</h3>
+	    <div>
+	        <form class="form-send-post" method="post" action="{% url 'create' %}">
+	            <table class="form_table">
+				<tr>
+					<td>{{ form.title.label_tag }}</td>
+					<td>{{ form.title }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.description.label_tag }}</td>
+					<td>{{ form.description }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.category.label_tag }}</td>
+					<td>{{ form.category }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.date.label_tag }}</td>
+					<td>{{ form.date }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.time.label_tag }}</td>
+					<td>{{ form.time }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.location.label_tag }}</td>
+					<td>{{ form.location }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.price.label_tag }}</td>
+					<td>{{ form.price }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.bio.label_tag }}</td>
+					<td>{{ form.bio }}</td>
+				</tr>
+				<tr>
+					<td>{{ form.photo.label_tag }}</td>
+					<td>{{ form.photo }}</td>
+				</tr>
+	            </table>
+				<input type="submit" id="create_btn" class="btn btn-lg btn-primary btn-block" value="Create">
+                {% csrf_token %}
+	        </form>
+	    </div> 
 	</div>
     {% endblock %}
