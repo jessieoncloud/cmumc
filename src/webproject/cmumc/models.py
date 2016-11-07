@@ -84,7 +84,7 @@ class Profile(models.Model):
     user_type = models.CharField(max_length=10, choices=UserType)
     activation_key = models.CharField(max_length=255)
     year_in_school = models.CharField(
-        max_length=2,
+        max_length=15,
         choices=YEAR_IN_SCHOOL_CHOICES,
         default='Freshman'
     )
