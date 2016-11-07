@@ -30,6 +30,8 @@ def stream(request):
         all_posts = Post.objects.filter(post_type='R').filter(deleted=False)
     else:
         all_posts = Post.objects.filter(post_type='H').filter(deleted=False)
+    print(user_profile.user_type)
+    print(all_posts)
     context['post'] = all_posts
     context['profile'] = user_profile
     return render(request, 'cmumc/stream.html', context)
@@ -232,6 +234,7 @@ def mode(request):
     user_profile = get_object_or_404(Profile, user=request.user)
     modename = form.cleaned_data.get('mode')
     user_profile.user_type = modename
+    user_profile.save()
     return redirect('stream')
 
 @login_required
