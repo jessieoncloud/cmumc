@@ -15,6 +15,11 @@
 		</h3>
 	    <div>
 	        <form class="form-send-post" method="post" action="{% url 'create' %}">
+	            <p class="error">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
 	            <table class="form_table">
 				<tr>
 					<td>{{ form.title.label_tag }}</td>
