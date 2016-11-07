@@ -83,6 +83,7 @@ def mytask(request):
 def edit_post(request, post_id):
     context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
+    context['post'] = post_item
     if request.method == 'POST':
         post_form = PostForm(request.POST, instance=post_item)
         context['form'] = post_form
@@ -93,7 +94,7 @@ def edit_post(request, post_id):
             return render(request, 'cmumc/edit_post.html', context)
     else:
         post_form = PostForm(instance=post_item)
-    return render(request, 'cmumc/edit_post.html', {'form': post_form})
+    return render(request, 'cmumc/edit_post.html', {'form': post_form, 'post':post_item})
 
 @login_required
 @transaction.atomic
@@ -133,7 +134,6 @@ def view_accept_list(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     accept_list = post_item.accept_list.all()
     context['accept_list'] = accept_list
-
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.get_user_posts

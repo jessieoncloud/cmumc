@@ -38,7 +38,7 @@
 						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
                         {% csrf_token %}
 			        </form>
-			        <a href="{#% url 'deletePost' post.id %#}"><button id="delete_post_btn" class="btn btn-lg btn-primary btn-block" >Delete</button></a>
+			        <a href="{% url 'deletePost' post.post_id %}"><button id="delete_post_btn" class="btn btn-lg btn-primary btn-block" >Delete</button></a>
 			    </div> 
     		</div>
 
