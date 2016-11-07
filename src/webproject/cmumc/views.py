@@ -228,9 +228,14 @@ def mode(request):
 
     form = ModeForm(request.POST)
 
+    print(form)
+
     user_profile = get_object_or_404(Profile, user=request.user)
-    modename = form.cleaned_data.get('modename')
+    modename = form.cleaned_data.get('mode')
     user_profile.user_type = modename
+
+    print(modename)
+    
     return redirect('stream')
 
 @login_required
@@ -245,6 +250,9 @@ def switch(request):
     else:
         user_profile.user_type = 'H'
     user_profile.save()
+
+    print(user_profile.user_type)
+
     return render(request, 'cmumc/stream.html', {})
 
 @login_required
