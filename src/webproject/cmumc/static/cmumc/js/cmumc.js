@@ -17,8 +17,8 @@ $(document).ready(function() {
 	})
 
 	// Change navtop color based on user type
-	$('#switch_btn').click(function() {
-		var user_type = $(this).attr('value');
+	function updateNavColor{
+		var user_type = $('#switch_btn').attr('value');
 		console.log("user type: "+user_type);
 
 		if (user_type == 'H') {
@@ -26,6 +26,6 @@ $(document).ready(function() {
 		} else if (user_type == 'R') {
 			$('.topnav').css("background-color", "#e7e7e7");
 		}
-	})
+	}
 	
 });
