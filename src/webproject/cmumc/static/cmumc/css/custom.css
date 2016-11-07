@@ -886,3 +886,8 @@ p.title {
 .accept_list_options {
     display: block;
 }
+
+.row-post {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
