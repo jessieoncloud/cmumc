@@ -845,6 +845,7 @@ p.title {
 .form-profile {
     margin: 0 auto;
     padding: 30px;
+    padding-bottom: 10px;
 }
 
 .profile_username {
@@ -896,4 +897,8 @@ p.title {
 .row-post {
   margin-left: 10px;
   margin-bottom: 10px;
+}
+
+.profile {
+  padding-bottom: 30px;
 }
