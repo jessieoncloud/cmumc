@@ -2,17 +2,19 @@ $(document).ready(function() {
 
 	console.log("here");
 
-	// // Mode 
-	// $('.mode_option').click(function() {
-	// 	var user_type = $(this).attr('value');
-	// 	console.log("user type: "+user_type);
+	// Mode 
+	$('.mode_option').click(function() {
+		var user_type = $(this).attr('value');
+		console.log("user type: "+user_type);
 
-	// 	// ajax sent to back end
-	// 	$.post("/cmumc/mode", user_type)
-	// 	.done(function(data){
-	// 		alert("You've entered as a "+data.mode);
-	// 	});
-	// })
+		// submit the corrsponding form
+		if (user_type == 'H') {
+			$('.form-mode-H').submit();
+		} else if (user_type == 'R') {
+			$('.form-mode-R').submit();
+		}
+		
+	})
 
 
 	// // CSRF set-up copied from Django docs
