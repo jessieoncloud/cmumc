@@ -7,7 +7,7 @@ $(document).ready(function() {
 		var user_type = $(this).attr('value');
 		console.log("user type: "+user_type);
 
-		// submit the corrsponding form
+		// Submit the corrsponding form
 		if (user_type == 'H') {
 			$('.form-mode-H').submit();
 		} else if (user_type == 'R') {
