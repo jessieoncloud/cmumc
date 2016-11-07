@@ -227,7 +227,8 @@ def mode(request):
         return render(request, 'cmumc/mode.html', context)
 
     form = ModeForm(request.POST)
-
+    ##weird bug, if you remove print, it cannot work
+    print(form)
     user_profile = get_object_or_404(Profile, user=request.user)
     modename = form.cleaned_data.get('mode')
     user_profile.user_type = modename
