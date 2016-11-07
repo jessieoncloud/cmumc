@@ -10,7 +10,7 @@
                 </div>
                 <div class=usermenu_options>
                     <div class="option">
-                        <h4>Name: {{ profile.first_name }} {{ profile.last_name }}</h4>
+                        <h4>Name: {{ user.first_name }} {{ user.last_name }}</h4>
                     </div>
                     <div class="option">
                         <h4>Year: {{ profile.year_in_school }}</h4>
@@ -34,9 +34,9 @@
                 	<h3 class="content_title">Task Posted</h3>
                 	<div class="posts">
 					        {% for post in posts %}  
+                  <div class="row row-post">
                 			<div class="col-mid-3 col25">
-                				<img src="">
-                				<p>img</p>
+                				<a href=""><img src="{#% url 'photo' post.photo %#}" class="img-rounded post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
                					<div class="col-mid-9 col75">
@@ -50,6 +50,7 @@
            							<h1>${{ post.price }}</h1>
                					</div>
                 			</div>
+                  </div>
            			  {% endfor %}
                 	</div>
                 </div>
