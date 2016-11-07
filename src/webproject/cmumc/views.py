@@ -229,8 +229,8 @@ def mode(request):
     form = ModeForm(request.POST)
 
     user_profile = get_object_or_404(Profile, user=request.user)
-    modename = form.cleaned_data.get('modename')
-    user_profile.user_type = modename
+    mode = form.cleaned_data['mode']
+    user_profile.user_type = mode
     return redirect('stream')
 
 @login_required
