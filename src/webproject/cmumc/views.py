@@ -82,8 +82,12 @@ def mytask(request):
 @transaction.atomic
 def edit_post(request, post_id):
     context = {}
+    errors = []
+    context['errors'] = errors
     post_item = get_object_or_404(Post, post_id=post_id)
     context['post'] = post_item
+    if post_item.created_user != request.user:
+        return redirect('stream')
     if request.method == 'POST':
         post_form = PostForm(request.POST, instance=post_item)
         context['form'] = post_form
@@ -94,14 +98,17 @@ def edit_post(request, post_id):
             return render(request, 'cmumc/edit_post.html', context)
     else:
         post_form = PostForm(instance=post_item)
-    return render(request, 'cmumc/edit_post.html', {'form': post_form, 'post': post_item})
+    return render(request, 'cmumc/edit_post.html', {'form': post_form, 'post':post_item})
 
 @login_required
 @transaction.atomic
 def delete_post(request, post_id):
     context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
+    if post_item.created_user != request.user:
+        return redirect('stream')
     post_item.deleted = True
+    post_item.save()
     return render(request, 'cmumc/stream.html', context)
 
 @login_required
@@ -134,7 +141,6 @@ def view_accept_list(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     accept_list = post_item.accept_list.all()
     context['accept_list'] = accept_list
-
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.get_user_posts
@@ -253,7 +259,7 @@ def profile(request, user_name):
     except:
         user_profile = Profile(user=user_item)
     context['profile'] = user_profile
-    user_post = Post.get_user_posts(user_item)
+    user_post = Post.get_user_posts(user_item).filter(deleted=False)
     print(user_post)
     context['posts'] = user_post
     return render(request, 'cmumc/profile.html', context)
