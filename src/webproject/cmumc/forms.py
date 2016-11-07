@@ -55,7 +55,7 @@ class UserForm(forms.ModelForm):
         return cleaned_data
 
 class ModeForm(forms.Form):
-    mode = forms.ChoiceField(choices=UserType)
+    mode = forms.CharField(max_length=1)
 
 class PostForm(forms.ModelForm):
     class Meta:

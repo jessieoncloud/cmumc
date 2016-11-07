@@ -215,25 +215,19 @@ def complete(request, post_id):
     else:
         return render(request, 'cmumc/mytask.html', context)
 
-
-##not very clear
-## needs to be login_required later
+@login_required
 def mode(request):
     context = {}
     if request.method == 'GET':
         context['form'] = ModeForm()
         return render(request, 'cmumc/mode.html', context)
 
-    user_item = get_object_or_404(User, request.user)
-    try:
-        user_profile = Profile.objects.get(user=user_item)
-    except:
-        user_profile = Profle(user=user_item)
+    form = ModeForm(request.POST)
 
-    ## post how to get value
+    user_profile = get_object_or_404(Profile, user=request.user)
+    modename = form.cleaned_data['modename']
     user_profile.user_type = modename
-    context['form'] = ModeForm()
-    return render(request, 'cmumc/stream.html', context)
+    return redirect('stream')
 
 @login_required
 def switch(request):
