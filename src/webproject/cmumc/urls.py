@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'^switch$', cmumc.views.switch, name='switch'),
     url(r'^profile/(?P<user_name>\w+)$', cmumc.views.profile, name='profile'),
     url(r'^edit_profile$', cmumc.views.update_profile, name='edit_profile'),
-    url(r'^profile$', cmumc.views.profile, name='profile'),
     url(r'^photo/(?P<user_name>\w+)$', cmumc.views.get_photo, name='photo'),
     url(r'^mode$', cmumc.views.mode, name='mode'),
     url(r'^stream$', cmumc.views.stream, name='stream'),
