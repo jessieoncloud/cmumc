@@ -16,18 +16,13 @@
                       </tr>
                     </thead>
 
-                    {% comment %}
-                    {% for post in posts %}
-                    {% endcomment %}
+                    {#% for post in posts %#}
 
                     <tbody class="align--top">
-                      {% comment %}
-                      {% if post.status == 'A' %}
-                      {% endcomment %}
-
+                      {#% if post.status == 'A' %#}
                         <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="post_id">
                           <td class="text--center">
-                            <<i class="fa arrow"></i>
+                            <span class="glyphicon glyphicon-triangle-bottom"></span>
                           </td>
                           <td>Help with CS {{ post.title }}</td>
                           <td>Username {{ post.created_by }}</td>
@@ -36,64 +31,74 @@
                           <td>Available {{ post.status }}</td>
                         </tr>
                         
-                      {% comment %}
-                      {% if post.status == 'NC' %}
-                      {% endcomment %}
-                        <tr class="hard collapse in" id="post_id">
-                          <td colspan="8" class="task-expand" id="task-expand">
-                            <div class="col60">
-                              <p>Description: {{post.description}}</p>
-                            </div>
-                            <div class="col40">
-                             <a href="{#% url 'editPost' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
-                             <a href="{#% url 'deletePost' post.id %#}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
+                      {#% if post.status == 'NC' %#}
+                        <tr class="hard" >
+                          <td colspan="8" class="colspan-nopaddingtop">
+                            <div id="post_id" class="collapse in">
+                              <div class="task-expand">
+                                <div class="col60">
+                                  <p>Description: {{post.description}}</p>
+                                </div>
+                                <div class="col40">
+                                 <a href="{#% url 'editPost' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
+                                 <a href="{#% url 'deletePost' post.id %#}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
+                                </div>
+                              </div>
                             </div>
                           </td>
                         </tr>
 
                       {% comment %}
-                      {% if post.status == 'I' %}
-                      {% endcomment %}
-                        <tr class="hard ollapse in" id="post_id">
-                          <td colspan="8" class="task-expand" id="task-expand">
-                            <form>
+                      {#% if post.status == 'I' %#}
+                        <tr class="hard" >
+                          <td colspan="8">
+                          <div id="post_id" class="collapse in">
+                            <div class="task-expand">
+                              <form>
+                                <div class="col60">
+                                    <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
+                                    <div class="accept_list_options form-check">
+                                      <input type="radio" name="requester" value="{{ post.accept_list }}" class="form-check-input"> Requester1: Username</input>
+                                    </div>
+                                    <div class="accept_list_options form-check">
+                                      <input type="radio" class="form-check-input"> Requester2: Username</input>
+                                    </div>
+                                </div>
+                                <div class="col40">
+                                 <a href="{#% url 'accept' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          </td>
+                        </tr>
+
+                      {#% if post.status == 'C' %#}
+                        <tr class="hard" >
+                          <td colspan="8">
+                            <div id="post_id" class="collapse in">
+                              <div class="task-expand">
+                                <div class="col60">
+                                  <p>Description: {{post.description}}</p>
+                                </div>
+                                <div class="col40">
+                                 <a href="{#% url 'complete' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr class="hard" >
+                          <td colspan="8">
+                            <div id="post_id" class="collapse in">
+                              <div class="task-expand">
                               <div class="col60">
-                                  <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
-                                  <div class="accept_list_options form-check">
-                                    <input type="radio" name="requester" value="{{ post.accept_list }}" class="form-check-input"> Requester1: Username</input>
-                                  </div>
-                                  <div class="accept_list_options form-check">
-                                    <input type="radio" class="form-check-input"> Requester2: Username</input>
-                                  </div>
+                                <p>Description: {{post.description}}</p>
                               </div>
                               <div class="col40">
-                               <a href="{#% url 'accept' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
+                               <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
                               </div>
-                            </form>
-                          </td>
-                        </tr>
-
-                      {% comment %}
-                      {% if post.status == 'C' %}
-                      {% endcomment %}
-                        <tr class="hard ollapse in" id="post_id">
-                          <td colspan="8" class="task-expand" id="task-expand">
-                            <div class="col60">
-                              <p>Description: {{post.description}}</p>
-                            </div>
-                            <div class="col40">
-                             <a href="{#% url 'complete' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
-                            </div>
-                          </td>
-                        </tr>
-
-                        <tr class="hard ollapse in" id="post_id">
-                          <td colspan="8" class="task-expand" id="task-expand">
-                            <div class="col60">
-                              <p>Description: {{post.description}}</p>
-                            </div>
-                            <div class="col40">
-                             <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
                             </div>
                           </td>
                         </tr>
@@ -101,8 +106,8 @@
 
                     </tbody>
 
-                    {% comment %}
-                    {% endfor %}
+                    {#% endfor %#}
+
                     {% endcomment %}
 
                   </table>
