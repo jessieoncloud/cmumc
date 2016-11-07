@@ -32,7 +32,7 @@ def stream(request):
         all_posts = Post.objects.filter(post_type='H').filter(deleted=False)
     print(user_profile.user_type)
     print(all_posts)
-    context['post'] = all_posts
+    context['posts'] = all_posts
     context['profile'] = user_profile
     return render(request, 'cmumc/stream.html', context)
 
