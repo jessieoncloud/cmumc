@@ -57,6 +57,10 @@ class UserForm(forms.ModelForm):
 class ModeForm(forms.Form):
     mode = forms.CharField(max_length=1)
 
+    def clean(self):
+        cleaned_data = super(ModeForm, self).clean()
+        return cleaned_data
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
