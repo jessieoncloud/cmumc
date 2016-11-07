@@ -73,10 +73,11 @@ class Rating(models.Model):
 
 class Profile(models.Model):
     YEAR_IN_SCHOOL_CHOICES = (
-        ('FR', 'Freshman'),
-        ('SO', 'Sophomore'),
-        ('JR', 'Junior'),
-        ('SR', 'Senior'),
+        ('Freshman', 'Freshman'),
+        ('Sophomore', 'Sophomore'),
+        ('Junior', 'Junior'),
+        ('Senior', 'Senior'),
+        ('Graduate', 'Graduate'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = PhoneNumberField()
@@ -85,7 +86,7 @@ class Profile(models.Model):
     year_in_school = models.CharField(
         max_length=2,
         choices=YEAR_IN_SCHOOL_CHOICES,
-        default='FR'
+        default='Freshman'
     )
     major = models.CharField(max_length=255, default="", blank=True)
     bio = models.TextField(max_length=420, default="", blank=True)

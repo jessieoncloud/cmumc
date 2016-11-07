@@ -80,7 +80,7 @@ class PostForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'activation_key')
+        exclude = ('user', 'activation_key', 'user_type')
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()
