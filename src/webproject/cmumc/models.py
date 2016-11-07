@@ -15,9 +15,9 @@ StatusType = (
 )
 
 PostCategory = (
-    ('D', 'Driving'),
-    ('T', 'Tutoring'),
-    ('O', 'Others'),
+    ('Driving', 'Driving'),
+    ('Tutoring', 'Tutoring'),
+    ('Others', 'Others'),
 )
 
 TaskStatusType = (
@@ -90,7 +90,7 @@ class Profile(models.Model):
     )
     major = models.CharField(max_length=255, default="", blank=True)
     bio = models.TextField(max_length=420, default="", blank=True)
-    photo = models.ImageField(upload_to="profile_photo", blank=True)
+    photo = models.ImageField(upload_to="profile-photo", blank=True)
     venmo = models.CharField(max_length=20, default="", blank=True)
 
     def is_upperclass(self):

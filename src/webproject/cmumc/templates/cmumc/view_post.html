@@ -57,11 +57,14 @@
 	        </div>
 		</div>
 
-		{% if user.profile.user_type == 'H' and user.username != post.created_user %}
-			<a href="{% url 'acceptPost' %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Request</button></a>
-		{% elif user.profile.user_type == 'R' and user.username != post.created_user %}
-			<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Offer</button></a>
+		{% if user.profile.user_type == 'H' and user.username != post.created_user.username %}
+			<a href="{#% url 'acceptPost' %#}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Request</button></a>
+		{% elif user.profile.user_type == 'R' and user.username != post.created_user.username %}
+			<a href="{#% url 'acceptPost' %#}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Offer</button></a>
+		{% elif user.username == post.created_user.username %}
+			<a href="{#% url 'editPost' post.id %#}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
 		{% endif %}
+
 
 	</div>
     {% endblock %}

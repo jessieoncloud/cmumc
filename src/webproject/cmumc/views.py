@@ -45,6 +45,8 @@ def view_post(request, post_id):
         return render(request, 'cmumc/error.html', context)
     else:
         context['post'] = post_item
+        print(request.user.username)
+        print(post_item.created_user)
         return render(request, 'cmumc/view_post.html', context)
 
 @login_required
@@ -272,12 +274,15 @@ def get_photo(request, user_name):
         raise Http404
 
     content_type = guess_type(profile.photo.name)
+    print(profile.photo)
     return HttpResponse(profile.photo, content_type=content_type)
 
 @login_required
 @transaction.atomic
 def update_profile(request):
     context = {}
+    print("update_profile starts")
+    print(request.method)
     try:
         user_profile = Profile.objects.get(user=request.user)
     except:
@@ -288,16 +293,18 @@ def update_profile(request):
         context['profile_form'] = profile_form
         context['user_form'] = user_form
         if all([user_form.is_valid(), profile_form.is_valid()]):
+            print("update_profile successfully")
             user_form.save()
             profile_form.save()
+            print(profile_form)
             return redirect('profile', user_name=request.user.username)
         else:
-            print("here")
+            print("update_profile fails")
             print(profile_form.errors)
             print(user_form.errors)
             return render(request, 'cmumc/edit_profile.html', context)
     else:
-        print("there")
+        print("update profile get")
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=user_profile)
     return render(request, 'cmumc/edit_profile.html', {

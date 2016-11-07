@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
-                    <a href=""><img src="{% url 'photo' user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
+                    <a href="{% url 'profile' user.username %}"><img src="{% url 'photo' user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
                     <h3 class="profile_username">{{ profile.user }}</h3>
                 </div>
                 <div class=usermenu_options>
@@ -36,11 +36,11 @@
 					        {% for post in posts %}  
                   <div class="row row-post">
                 			<div class="col-mid-3 col25">
-                				<a href=""><img src="{#% url 'photo' post.photo %#}" class="img-rounded post_photo"></a>
+                				<a href="{% url 'viewPost' post.post_id %}"><a href=""><img src="{#% url 'photo' post.photo %#}" class="img-rounded post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
                					<div class="col-mid-9 col75">
-               						<h3>{{ post.title }}</h3>
+               						<a href="{% url 'viewPost' post.post_id %}"><h3>{{ post.title }}</h3></a>
                						<p>Location: {{ post.location }}</p>
                						<p>Time: {{ post.time }}</p>
                						<p>Date: {{ post.date }}</p>

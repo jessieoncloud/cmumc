@@ -21,6 +21,10 @@ h6 {
     font-weight: 700;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 form {
     margin: auto;
     width: 500px;

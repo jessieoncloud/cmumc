@@ -4,7 +4,7 @@
 	        <div class="col-mid-9 col75">
 				<h3 class="content_title">My Info</h3>
 			    <div class="profile">
-			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
+			        <form class="form-profile" method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
 						<p class="error">
 						    {% for error in form.non_field_errors %}
 						        {{ error }}

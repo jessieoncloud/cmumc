@@ -56,7 +56,7 @@
                         <a href="{% url 'mytask' %}">My Task</a>
                     </li>
                     <li>
-                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button">User<span class="caret"></span></a>
+                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button">{{user.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'edit_profile' %} ">Edit Profile</a></li>
@@ -82,7 +82,7 @@
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
-                    <a href=""><img src="{% url 'photo' user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
+                    <a href="{% url 'profile' user.username %}"><img src="{% url 'photo' user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
                     <h3 class="profile_username">{{ user.username }}</h3>
                 </div>
                 <div class=usermenu_options>
