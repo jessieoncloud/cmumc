@@ -17,20 +17,29 @@
 	{% block content %}
     <div class="content-section-b mode_container">
 	    <div class="container">
-	    	<div href="" class="mode_option" value="h" role="button">
-		        <div class="col">
-		            <div class="col-lg-6 col-sm-6 mode_helper_container">
-		            	<h3 class="mode_des">Helper's Mode</h3>
-		            </div>
-		        </div>
-		    </div>
-		    <div href="" class="mode_option" value="h" role="button">
-		        <div class="col">
-		    		<div class="col-lg-6 col-sm-6 mode_receiver_container">
-		    			<h3 class="mode_des">Receiver's Mode</h3>
-		    		</div>
-		    	</div>
-	    	</div>
+		    <form class="form-profile" method="post" action="{% url 'mode' %}">
+		    	<input type="hidden" name="mode" value="H" />
+		    	<input type="submit" class="mode_option" role="button">
+			        <div class="col">
+			            <div class="col-lg-6 col-sm-6 mode_helper_container">
+			            	<h3 class="mode_des">Helper's Mode</h3>
+			            </div>
+			        </div>
+			    </input>
+			    {% csrf_token %}
+			</form>
+
+			<form class="form-profile" method="post" action="{% url 'mode' %}">
+				<input type="hidden" name="mode" value="R" />
+			    <input type="submit" class="mode_option" role="button">
+			        <div class="col">
+			    		<div class="col-lg-6 col-sm-6 mode_receiver_container">
+			    			<h3 class="mode_des">Receiver's Mode</h3>
+			    		</div>
+			    	</div>
+		    	</input>
+		    	{% csrf_token %}
+		    </form>
 	    </div>
     </div>
 	{% endblock %}

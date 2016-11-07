@@ -175,10 +175,12 @@ form {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
+    // Sticky footer
+    // position: absolute;
+    // bottom: 0;
     width: 100%;
     padding: 30px 0;
+    margin-top: 15px;
     background-color: #f8f8f8;
 }
 

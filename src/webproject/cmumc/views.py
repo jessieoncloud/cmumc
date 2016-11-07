@@ -228,23 +228,25 @@ def mode(request):
 
     form = ModeForm(request.POST)
 
+    print(form)
+
     user_profile = get_object_or_404(Profile, user=request.user)
     mode = form.cleaned_data['mode']
     user_profile.user_type = mode
+    print(modename)
     return redirect('stream')
 
 @login_required
 def switch(request):
-    user_item = get_object_or_404(User, username=request.user.username)
-    try:
-        user_profile = Profile.objects.get(user=user_item)
-    except:
-        user_profile = Profle(user=user_item)
+    user_profile = get_object_or_404(Profile, user=request.user)
     if user_profile.user_type == 'H':
         user_profile.user_type = 'R'
     else:
         user_profile.user_type = 'H'
     user_profile.save()
+
+    print(user_profile.user_type)
+
     return render(request, 'cmumc/stream.html', {})
 
 @login_required
