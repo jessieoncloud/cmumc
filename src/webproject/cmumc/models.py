@@ -85,7 +85,7 @@ class Profile(models.Model):
     year_in_school = models.CharField(
         max_length=2,
         choices=YEAR_IN_SCHOOL_CHOICES,
-        default='FR',
+        default='FR'
     )
     major = models.CharField(max_length=255, default="", blank=True)
     bio = models.TextField(max_length=420, default="", blank=True)

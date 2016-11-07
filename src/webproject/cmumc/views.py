@@ -284,8 +284,12 @@ def update_profile(request):
             profile_form.save()
             return redirect('profile', user_name=request.user.username)
         else:
+            print("here")
+            print(profile_form.errors)
+            print(user_form.errors)
             return render(request, 'cmumc/edit_profile.html', context)
     else:
+        print("there")
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=user_profile)
     return render(request, 'cmumc/edit_profile.html', {
