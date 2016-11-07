@@ -33,7 +33,7 @@ def stream(request):
     print(user_profile.user_type)
     print(all_posts)
     context['posts'] = all_posts
-    context['profile'] = user_profile
+    # context['profile'] = user_profile
     return render(request, 'cmumc/stream.html', context)
 
 @login_required
