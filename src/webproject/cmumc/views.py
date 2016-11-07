@@ -261,11 +261,6 @@ def profile(request, user_name):
     context['post'] = user_post
     return render(request, 'cmumc/profile.html', context)
 
-# to be implemented
-@login_required
-def setting(request):
-    pass
-
 def get_photo(request, user_name):
     user_item = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user_item)
