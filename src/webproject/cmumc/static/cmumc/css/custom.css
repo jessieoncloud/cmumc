@@ -829,6 +829,13 @@ p.title {
     width: 50px;   
 }
 
+.post_photo {
+    display: block;
+    margin: auto;
+    height: 180px;
+    width: 180px;
+}
+
 .form-profile {
     margin: 0 auto;
     padding: 30px;

@@ -114,8 +114,7 @@
                 	<div class="posts">
 						{% for post in posts %}  
                 			<div class="col-mid-3 col25">
-                				<a href=""><img src="{#% url 'photo' profile.user.username %#}" alt="{# profile.user.username #}" class="img-circle avatar_profile"></a>
-                				img
+                				<a href=""><img src="{#% url 'photo' post.photo %#}" class="img-rounded post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
                					<div class="col-mid-9 col75">

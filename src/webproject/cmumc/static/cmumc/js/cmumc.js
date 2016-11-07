@@ -16,16 +16,19 @@ $(document).ready(function() {
 		
 	})
 
-	// Change navtop color based on user type
-	$('#switch_btn').click(function() {
-		var user_type = $(this).attr('value');
-		console.log("user type: "+user_type);
+	window.onload
 
+	// Change navtop color based on user type
+	function updateNavColor() { 
+		if ($('#switch_btn').attr('value')) {
+			var user_type = $('#switch_btn').attr('value');
+		}
+		console.log("user type: "+user_type);
 		if (user_type == 'H') {
 			$('.topnav').css("background-color", "#404040");
 		} else if (user_type == 'R') {
 			$('.topnav').css("background-color", "#e7e7e7");
 		}
-	})
+	}
 	
 });
