@@ -9,11 +9,10 @@
 		    <div class="col-lg-12 col60">
 				<div class="view_post_header">
 					<p class="title">
-						Post Title
 						{{ post.title }}
 					</p>
 					<p>
-						Created on ...
+						Created on
 						{{ post.created_time }}
 					</p>
 				</div>
@@ -22,14 +21,14 @@
 				<div class="view_post_header2">
 					<div class="col-lg-12 col60">
 						<div class="row">
-							<a href=""><img src="{% url 'photo' profile.user.username %}" alt="{{ profile.user.username }}" class="img-circle avatar_post"></a>
+							<a href=""><img src="{#% url 'photo' post.photo %#}" lass="img-rounded post_photo"></a>
 						</div>
 						<div class="row">
-							<p class="created_user">Created user {{ post.created_user }}</p>
+							<p class="created_user">Created by {{ post.created_user }}</p>
 						</div>
 					</div>
 					<div class="col-lg-12 col40">
-						<span>Rating</span>
+						<span>Rating: </span>
 						<input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact">
 					</div>
 				</div>
@@ -42,10 +41,10 @@
 	        	<p><span> {{ post.description }}</span></p>
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Category: </h3><span>tutoring{{ post.description }}</span>	
+	        	<h3 class="inline">Category: </h3><span>{{ post.category }}</span>	
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Location: </h3><span>hunt{{ post.location }}</spanp>	
+	        	<h3 class="inline">Location: </h3><span>{{ post.location }}</spanp>	
 	        </div>
 	        <div class="post_attr">
 	        	<h3 class="inline">Date: </h3><span>{{ post.date }}</span>	

@@ -95,6 +95,7 @@ def edit_post(request, post_id):
             post_form.save()
             return redirect('viewPost', post_id = post_id)
         else:
+            print(post_form.errors)
             return render(request, 'cmumc/edit_post.html', context)
     else:
         post_form = PostForm(instance=post_item)

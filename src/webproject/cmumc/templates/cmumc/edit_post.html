@@ -4,35 +4,47 @@
 	        <div class="col-mid-9 col75">
 				<h3 class="content_title">My Post</h3>
 			    <div class="profile">
-			        <form class="form-profile" method="post" action="{% url 'edit_profile' %}">
+			        <form class="form-profile" method="post" action="{% url 'editPost' post.post_id %}">
+			            <p class="error">
+		                    {% for error in form.non_field_errors %}
+		                        {{ error }}
+		                    {% endfor %}
+		                </p>
 			            <table class="form_table">
 						<tr>
 							<td>{{ form.title.label_tag }}</td>
 							<td>{{ form.title }}</td>
+							<td>{{ form.title.errors }}</td>
 						</tr>
 						<tr>
-							<td>{{ form.Description.label_tag }}</td>
-							<td>{{ form.Description }}</td>
+							<td>{{ form.description.label_tag }}</td>
+							<td>{{ form.description }}</td>
+							<td>{{ form.description.errors }}</td>
 						</tr>
 						<tr>
 							<td>{{ form.category.label_tag }}</td>
 							<td>{{ form.category }}</td>
+							<td>{{ form.category.errors }}</td>
 						</tr>
 						<tr>
 							<td>{{ form.location.label_tag }}</td>
 							<td>{{ form.location }}</td>
+							<td>{{ form.location.errors }}</td>
 						</tr>
 						<tr>
 							<td>{{ form.date.label_tag }}</td>
 							<td>{{ form.date }}</td>
+							<td>{{ form.date.errors }}</td>
 						</tr>
 						<tr>
 							<td>{{ form.time.label_tag }}</td>
 							<td>{{ form.time }}</td>
+							<td>{{ form.time.errors }}</td>
 						</tr>
 						<tr>
 							<td>{{ form.price.label_tag }}</td>
 							<td>{{ form.price }}</td>
+							<td>{{ form.price.errors }}</td>
 						</tr>
 			            </table>
 						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
