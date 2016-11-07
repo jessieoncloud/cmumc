@@ -30,14 +30,8 @@ def stream(request):
         all_posts = Post.objects.all().filter(post_type='R').filter(deleted=False)
     elif user_profile.user_type == 'R':
         all_posts = Post.objects.all().filter(post_type='H').filter(deleted=False)
-    print(user_profile.user_type)
-    print(all_posts)
+
     context['posts'] = all_posts
-<<<<<<< HEAD
-    #context['profile'] = user_profile
-=======
-    # context['profile'] = user_profile
->>>>>>> 4bab8c446ee0d507b3558215ee00a8b646a77dfe
     return render(request, 'cmumc/stream.html', context)
 
 @login_required
@@ -74,7 +68,6 @@ def send_post(request):
             return redirect('stream')
 
         form.save()
-        print(new_post.post_type)
         return redirect('stream')
     else:
         return render(request, 'cmumc/login.html', context)
@@ -248,7 +241,7 @@ def switch(request):
         user_profile.user_type = 'H'
     user_profile.save()
 
-    return render(request, 'cmumc/stream.html', {})
+    return redirect('stream')
 
 @login_required
 def profile(request, user_name):
