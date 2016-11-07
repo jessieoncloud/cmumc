@@ -228,26 +228,19 @@ def mode(request):
 
     form = ModeForm(request.POST)
 
-    print(form)
-
     user_profile = get_object_or_404(Profile, user=request.user)
     mode = form.cleaned_data['mode']
     user_profile.user_type = mode
-    print(mode)
     return redirect('stream')
 
 @login_required
 def switch(request):
-    print("here1")
     user_profile = get_object_or_404(Profile, user=request.user)
-    print("here2")
     if user_profile.user_type == 'H':
         user_profile.user_type = 'R'
     else:
         user_profile.user_type = 'H'
     user_profile.save()
-    print("here3")
-    print(user_profile.user_type)
 
     return render(request, 'cmumc/stream.html', {})
 
@@ -261,7 +254,8 @@ def profile(request, user_name):
         user_profile = Profile(user=user_item)
     context['profile'] = user_profile
     user_post = Post.get_user_posts(user_item)
-    context['post'] = user_post
+    print(user_post)
+    context['posts'] = user_post
     return render(request, 'cmumc/profile.html', context)
 
 def get_photo(request, user_name):
