@@ -222,7 +222,8 @@ def complete(request, post_id):
 def mode(request):
     context = {}
     if request.method == 'GET':
-        context['form'] = ModeForm()
+        context['helper_form'] = ModeForm()
+        context['receiver_form'] = ModeForm()
         return render(request, 'cmumc/mode.html', context)
 
     form = ModeForm(request.POST)
