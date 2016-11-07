@@ -65,7 +65,7 @@ def send_post(request):
         context['profile'] = user_profile
 
         if not form.is_valid():
-            return redirect('stream')
+            return render(request, 'cmumc/create_post.html', context)
 
         form.save()
         return redirect('stream')
