@@ -87,7 +87,7 @@ class ProfileForm(forms.ModelForm):
         return cleaned_data
 
 class MessageForm(forms.Form):
-    body = forms.TextField(max_length=500, blank=False)
+    body = forms.CharField(max_length=500, widget=forms.Textarea())
 
     def clean(self):
         cleaned_data = super(MessageForm, self).clean()
