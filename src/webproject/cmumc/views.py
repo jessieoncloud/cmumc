@@ -389,26 +389,40 @@ def confirm_register(request, user_name, token):
 ##messaging module
 def send_message(request, post_id):
     context = {}
+    msgs = []
+    context['msgs'] = msgs
     context['form'] = MessageForm()
+    post_item = get_object_or_404(Post, post_id=post_id)
+    context['post'] = post_item
     if request.method == "GET":
         return render(request, 'cmumc/contact.html', context)
-    post_item = get_object_or_404(Post, post_id=post_id)
     from_profile = get_object_or_404(Profile, user=request.user)
     to_user = post_item.created_user
     to_profile = get_object_or_404(Profile, user=to_user)
+
     form = MessageForm(request.POST)
+    # print(form)
+    context['form'] = form
+
+    if not form.is_valid():
+        msgs.append("Your message is not valid.")
+        return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
-    msg_body = "Your post " + post_item.title + "has been viewed by" + from_profile.username + "." \
-            + from_profile.username + "would like to send you a message:" + body + "." \
-            + "You can contact him/her by " + from_profile.phone + "."
+    #print(body)
+    msg_body = "Your post " + post_item.title + "has been viewed by" + from_profile.user.username + "." \
+            + from_profile.user.username + "would like to send you a message:" + body + "." \
+            + "You can contact him/her by " + str(from_profile.phone) + "."
     try:
         message = client.messages.create(body=msg_body,
                                          to="+14125396418",  # Replace with your phone number
                                          #to=to_profile.phone,
                                         #from=twilio_number)
                                          from_="+15005550006")  # Replace with your Twilio number
+        msgs.append("Your message has been sent sucessfully")
     except TwilioRestException as e:
         print(e)
+        msgs.append("You message fails to send, please try again")
+    return render(request, 'cmumc/contact.html', context)
 
 
 

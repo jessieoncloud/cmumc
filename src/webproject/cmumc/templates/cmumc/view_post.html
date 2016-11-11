@@ -30,7 +30,7 @@
 					<div class="col-lg-12 col40">
 						<span>Rating: </span>
 						{# <input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact"> #}
-						<a href="{% url 'sendMessage' %}"><button id="contact_btn" class="btn btn-md btn-primary btn-block" >Contact</button></a>
+						<a href="{% url 'sendMessage' post.post_id %}"><button id="contact_btn" class="btn btn-md btn-primary btn-block" >Contact</button></a>
 					</div>
 				</div>
 			</div>
