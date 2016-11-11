@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^accept/(?P<post_id>\d+)$', cmumc.views.accept, name='accept'),
     url(r'^complete/(?P<post_id>\d+)$', cmumc.views.complete, name='complete'),
     url(r'^mytask$', cmumc.views.mytask, name='mytask'),
+    url(r'^send_message/(?P<post_id>\d+)$', cmumc.views.send_message, name='sendMessage'),
 ]

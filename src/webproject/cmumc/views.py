@@ -18,6 +18,17 @@ from cmumc import *
 from cmumc.models import *
 from cmumc.forms import *
 
+##twilio
+from twilio import TwilioRestException
+from twilio.rest import TwilioRestClient
+
+##global variables
+account_sid = "AC62277389af8bc0a7fc1e0ab6d0c63994"
+auth_token  = "3669b7ba50772b26d37983af9522d862"
+twilio_number = "+14126936893"
+client = TwilioRestClient(account_sid, auth_token)
+
+
 # Create your views here.
 def home(request):
     return render(request, 'cmumc/index.html', {})
@@ -274,15 +285,12 @@ def get_photo(request, user_name):
         raise Http404
 
     content_type = guess_type(profile.photo.name)
-    print(profile.photo)
     return HttpResponse(profile.photo, content_type=content_type)
 
 @login_required
 @transaction.atomic
 def update_profile(request):
     context = {}
-    print("update_profile starts")
-    print(request.method)
     try:
         user_profile = Profile.objects.get(user=request.user)
     except:
@@ -369,6 +377,28 @@ def confirm_register(request, user_name, token):
         return redirect('index')
     except:
         return redirect('index')
+
+##messaging module
+def send_message(request, post_id):
+    post_item = get_object_or_404(Post, post_id=post_id)
+    from_profile = get_object_or_404(Profile, user=request.user)
+    to_user = post_item.created_user
+    to_profile = get_object_or_404(Profile, user=to_user)
+    form = MessageForm(request)
+    body = form.cleaned_data['body']
+    msg_body = "Your post " + post_item.title + "has been viewed by" + from_profile.username + "." \
+            + from_profile.username + "would like to send you a message:" + body + "." \
+            + "You can contact him/her by " + from_profile.phone + "."
+    try:
+        message = client.messages.create(body=msg_body,
+                                         to="+14125396418",  # Replace with your phone number
+                                         #to=to_profile.phone,
+                                         from_="+15005550006")  # Replace with your Twilio number
+    except TwilioRestException as e:
+        print(e)
+
+
+
 
 
 
