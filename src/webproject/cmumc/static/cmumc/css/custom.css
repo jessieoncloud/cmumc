@@ -809,6 +809,10 @@ p.title {
     font-size: 30px;
 }
 
+.form-msg {
+  font: red;
+}
+
 .send_post_table, .form_table {
     border-collapse: separate;
     border-spacing: 20px 10px;
