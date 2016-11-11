@@ -16,7 +16,27 @@ $(document).ready(function() {
 		
 	})
 
-	window.onload
+
+	// Switch mode ajax
+	$('#switch_btn').click(function() {
+		var username = $('#nav-username').val();
+		var usertype = $('#switch_btn').val();
+		console.log("username: "+username);
+		console.log("usertype: "+usertype);
+
+		var userdata = [];
+		userdata[0] = {username: username};
+		userdata[1] = {usertype: usertype};
+		console.log("userdata: "+userdata);
+
+		$.post("/cmumc/switch", userdata)
+		.done(function(data) {
+			console.log(data);
+			
+			updateNavColor();
+		});
+	})
+
 
 	// Change navtop color based on user type
 	function updateNavColor() { 
@@ -30,5 +50,30 @@ $(document).ready(function() {
 			$('.topnav').css("background-color", "#e7e7e7");
 		}
 	}
+
+
+
+	// CSRF set-up copied from Django docs
+	function getCookie(name) {  
+		var cookieValue = null;
+		if (document.cookie && document.cookie != '') {
+		    var cookies = document.cookie.split(';');
+		    for (var i = 0; i < cookies.length; i++) {
+		        var cookie = jQuery.trim(cookies[i]);
+		        // Does this cookie string begin with the name we want?
+		        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		            break;
+		        }
+		    }
+		}
+		return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+		$.ajaxSetup({
+		beforeSend: function(xhr, settings) {
+		    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		}
+	});
 	
 });
