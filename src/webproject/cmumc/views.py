@@ -388,11 +388,15 @@ def confirm_register(request, user_name, token):
 
 ##messaging module
 def send_message(request, post_id):
+    context = {}
+    context['form'] = MessageForm()
+    if request.method == "GET":
+        return render(request, 'cmumc/contact.html', context)
     post_item = get_object_or_404(Post, post_id=post_id)
     from_profile = get_object_or_404(Profile, user=request.user)
     to_user = post_item.created_user
     to_profile = get_object_or_404(Profile, user=to_user)
-    form = MessageForm(request)
+    form = MessageForm(request.POST)
     body = form.cleaned_data['body']
     msg_body = "Your post " + post_item.title + "has been viewed by" + from_profile.username + "." \
             + from_profile.username + "would like to send you a message:" + body + "." \
