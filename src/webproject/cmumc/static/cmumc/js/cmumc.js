@@ -32,7 +32,7 @@ $(document).ready(function() {
 		$.post("/cmumc/switch", userdata)
 		.done(function(data) {
 			console.log(data);
-			
+			$('#switch_btn').attr('value', data.usertype);
 			updateNavColor();
 		});
 	})
