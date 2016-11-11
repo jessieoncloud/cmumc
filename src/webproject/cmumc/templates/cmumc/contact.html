@@ -1,0 +1,29 @@
+{% extends "cmumc/base2.html" %}
+
+    {% block usermenu %}
+    {% endblock %}
+
+	{% block content %}
+	<div class="top_container">
+		<h3 class="send_post_header">Send SMS to the creator{{ post.created_user }}</h3>
+		<div>
+			<form class="form-send-post" method="post" action="{% url 'contact' %}">
+				<p class="error">
+	                {% for error in form.non_field_errors %}
+	                    {{ error }}
+	                {% endfor %}
+	            </p>
+	            <table class="form_table">
+	            <tr>
+	            	<td>{{ form.message.label_tag }}</td>
+	            	<td>{{ form.message }}</td>
+	            	<td>{{ form.message.errors }}</td>
+	            </tr>
+	            </table>
+	            <input type="hidden" name="post_id" value="{{ post.post_id }}">
+	            <input type="submit" id="create_btn" class="btn btn-lg btn-primary btn-block" value="Send Message">
+                {% csrf_token %}
+	        </form>
+		</div>
+	</div>
+    {% endblock %}
