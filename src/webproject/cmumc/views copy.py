@@ -10,4 +10,8 @@ def switch(request):
         user_profile.user_type = 'H'
     user_profile.save()
 
-    return redirect('stream')
+    response = json.dumps({"usertype": user_profile.user_type})
+
+    print(response)
+
+    return HttpResponse(response, content_type="application/json")

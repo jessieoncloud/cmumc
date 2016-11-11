@@ -31,6 +31,7 @@ $(document).ready(function() {
 
 		$.post("/cmumc/switch", userdata)
 		.done(function(data) {
+			console.log("switch ajax done!");
 			console.log(data);
 			$('#switch_btn').attr('value', data.usertype);
 			updateNavColor();
@@ -43,7 +44,7 @@ $(document).ready(function() {
 		if ($('#switch_btn').attr('value')) {
 			var user_type = $('#switch_btn').attr('value');
 		}
-		console.log("user type: "+user_type);
+		// console.log("user type: "+user_type);
 		if (user_type == 'H') {
 			$('.topnav').css("background-color", "#404040");
 		} else if (user_type == 'R') {

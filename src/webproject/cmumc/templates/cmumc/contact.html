@@ -7,7 +7,7 @@
 	<div class="top_container">
 		<h3 class="send_post_header">Send SMS to the creator{{ post.created_user }}</h3>
 		<div>
-			<form class="form-send-post" method="post" action="{% url 'contact' %}">
+			<form class="form-send-post" method="post" action="{% url 'sendMessage' %}">
 				<p class="error">
 	                {% for error in form.non_field_errors %}
 	                    {{ error }}
