@@ -86,6 +86,12 @@ class ProfileForm(forms.ModelForm):
         cleaned_data = super(ProfileForm, self).clean()
         return cleaned_data
 
+class MessageForm(forms.Form):
+    body = forms.TextField(max_length=500, blank=False)
+
+    def clean(self):
+        cleaned_data = super(MessageForm, self).clean()
+        return cleaned_data
 
 
 
