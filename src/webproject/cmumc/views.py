@@ -22,6 +22,10 @@ from cmumc.forms import *
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
+# test delete later
+def contact(request):
+    return render(request, 'cmumc/contact.html', {})
+
 @login_required
 def stream(request):
     context = {}
