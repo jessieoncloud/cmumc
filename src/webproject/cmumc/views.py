@@ -99,7 +99,7 @@ def mytask(request):
     context = {}
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.get_user_posts.exclude(post_type=user.profile.user_type)
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(post_type=user_profile.user_type)
     context['user_post'] = user_post
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     context['accept_post'] = accept_post
