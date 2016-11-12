@@ -101,16 +101,16 @@ def mytask(request):
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
-    context['posts'] = posts
+    context['posts'] = posts.distinct()
 
     return render(request,'cmumc/mytask.html', context)
 
 def notification(post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     if post_item.status == 'I':
-        msg_body = "Your post " + post_item.title + " is now in progress."
+        msg_body = "Your post \"" + post_item.title + "\" is now in progress."
     elif post_item.status == 'C':
-        msg_body = "Your post " + post_item.title + " is now complete. Rate this task on CMUMC!"
+        msg_body = "Your post \"" + post_item.title + "\" is now complete. Rate this task on CMUMC!"
 
     try:
         message = client.messages.create(body=msg_body,
@@ -173,7 +173,7 @@ def accept_post(request, post_id):
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
-    context['posts'] = posts
+    context['posts'] = posts.distinct()
     post_item = get_object_or_404(Post, post_id=post_id)
 
     if post_item.status == 'I' or post_item.status == 'C':
@@ -198,7 +198,7 @@ def view_accept_list(request, post_id):
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
-    context['posts'] = posts
+    context['posts'] = posts.distinct()
 
     return render(request, 'cmumc/mytask.html', context)
 
@@ -224,7 +224,7 @@ def accept(request, post_id):
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
-    context['posts'] = posts
+    context['posts'] = posts.distinct()
 
     try:
         accepted_user = post_item.accept_list.get(username=username)
@@ -266,7 +266,7 @@ def complete(request, post_id):
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
-    context['posts'] = posts
+    context['posts'] = posts.distinct()
 
     if not post_item.status == 'I':
         errors.append("This post status is not in progress and you cannot complete it")
