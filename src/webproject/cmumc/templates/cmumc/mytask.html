@@ -61,14 +61,15 @@
 									
                                     <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
                                     <div class="accept_list_options form-check">
-                                      <input type="radio" name="requester" value="{{ post.accept_list }}" class="form-check-input" />
-                                      <label>Requester: {{requester}}</label>
+                                      <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" />
+                                      <label>Requester: {{ requester.username }}</label>
                                     </div>
                                 </div>
                                 <div class="col40">
                                  <input type="submit" id="edit_post_btn" class="btn btn-md btn-primary btn-block" value="Confirm">
                                 </div>
                               {% endfor %}
+							  {% csrf_token %}
                               </form>
                             </div>
                           </div>
