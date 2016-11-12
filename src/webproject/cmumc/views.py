@@ -32,7 +32,6 @@ auth_token  = "3669b7ba50772b26d37983af9522d862"
 twilio_number = "+14126936893"
 client = TwilioRestClient(account_sid, auth_token)
 
-
 # Create your views here.
 def home(request):
     return render(request, 'cmumc/index.html', {})
@@ -99,12 +98,18 @@ def mytask(request):
     context = {}
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(post_type=user_profile.user_type)
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
     context['posts'] = posts
 
     return render(request,'cmumc/mytask.html', context)
+
+# def notification(post_id):
+#     post_item = get_object_or_404(Post, post_id=post_id)
+
+
+
 
 @login_required
 @transaction.atomic
@@ -149,7 +154,7 @@ def accept_post(request, post_id):
     context = {}
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
@@ -174,7 +179,7 @@ def view_accept_list(request, post_id):
     context['accept_list'] = accept_list
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
@@ -198,7 +203,7 @@ def accept(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
@@ -234,7 +239,7 @@ def complete(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
@@ -248,15 +253,11 @@ def complete(request, post_id):
         task_item = Task.objects.get(post=post_item)
     except:
         task_item = Task(post=post_item)
-    if user_profile.user_type == 'H':
+    if request.user == task_item.helper:
         task_item.helper_status = 'C'
     else:
         task_item.receiver_status = 'C'
     task_item.save()
-    print("helper")
-    print(task_item.helper_status)
-    print("receiver")
-    print(task_item.receiver_status)
     if task_item.helper_status == 'C' and task_item.receiver_status == 'C':
         task_item.task_status = 'C'
         task_item.save()
