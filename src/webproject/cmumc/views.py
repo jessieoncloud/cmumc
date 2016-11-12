@@ -185,11 +185,15 @@ def view_accept_list(request, post_id):
 ##choose one user from accept_list to accept
 @login_required
 @transaction.atomic
-def accept(request, post_id, username):
+def accept(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
-
+    if 'requester' in request.POST and request.POST['requester']:
+        username = requester.username
+    else:
+        errors.append("Request user does not exist")
+        return render(request, 'cmumc/errors.html', context)
     print(post_id)
     print(username)
 
@@ -201,7 +205,6 @@ def accept(request, post_id, username):
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
     context['posts'] = posts
-
 
     try:
         accepted_user = post_item.accept_list.get(username=username)
