@@ -105,10 +105,25 @@ def mytask(request):
 
     return render(request,'cmumc/mytask.html', context)
 
-# def notification(post_id):
-#     post_item = get_object_or_404(Post, post_id=post_id)
+def notification(post_id):
+    post_item = get_object_or_404(Post, post_id=post_id)
+    if post_item.status == 'I':
+        msg_body = "Your post " + post_item.title + " is now in progress."
+    elif post_item.status == 'C':
+        msg_body = "Your post " + post_item.title + " is now complete. Rate this task on CMUMC!"
 
+    try:
+        message = client.messages.create(body=msg_body,
+                                         #to="+14125396418",  # Replace with your phone number
+                                         to=str(to_profile.phone),
+                                        #from_=twilio_number)
+                                         from_="+15005550006")  # Replace with your Twilio number
+        success = True
+    except TwilioRestException as e:
+        print(e)
+        success = False
 
+    return success
 
 
 @login_required
@@ -194,6 +209,8 @@ def accept(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
+    message = []
+    context['message'] = message
     if 'requester' in request.POST and request.POST['requester']:
         username = request.POST['requester']
     else:
@@ -227,6 +244,11 @@ def accept(request, post_id):
                         receiver=request.user)
     new_task.save()
     post_item.save()
+    sent = notification(post_id)
+    if sent:
+        message.append("Your message has been sent")
+    else:
+        message.append("Your message failed to send")
     return render(request, 'cmumc/mytask.html', context)
 
 @login_required
@@ -263,6 +285,11 @@ def complete(request, post_id):
         task_item.save()
         post_item.status = 'C'
         post_item.save()
+        sent = notification(post_id)
+        if sent:
+            message.append("Your message has been sent")
+        else:
+            message.append("Your message failed to send")
         return render(request, 'cmumc/mytask.html', context)
     else:
         return render(request, 'cmumc/mytask.html', context)
