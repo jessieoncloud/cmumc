@@ -39,7 +39,7 @@
                                 <div class="col60">
                                   <p>Description: {{post.description}}</p>
                                 </div>
-                                {% if user == post.created_user %}
+                                {% if user.username == post.created_user %}
                                 <div class="col40">
                                  <a href="{#% url 'editPost' post.id %#}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
                                  <a href="{#% url 'deletePost' post.id %#}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
