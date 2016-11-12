@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="col40">
-                                 <a href="{% url 'accept' n1=post.post_id n2=requester.username %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
+                                 <a href="{% url 'accept' post_id=post.post_id user_name=requester.username %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Confirm</button></a>
                                 </div>
                               </form>
                               {% endfor %}
