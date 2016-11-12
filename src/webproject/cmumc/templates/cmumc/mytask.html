@@ -27,7 +27,7 @@
 
                     <tbody class="align--top">
                       
-                        <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="{{ post.post_id }}">
+                        <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="post{{ post.post_id }}">
                           <td class="text--center">
                             <span class="glyphicon glyphicon-triangle-bottom"></span>
                           </td>
@@ -41,7 +41,7 @@
                       {% if post.status == 'A' %}
                         <tr class="hard" >
                           <td colspan="8" class="colspan-nopaddingtop">
-                            <div id="{{ post.post_id }}" class="collapse in">
+                            <div id="post{{ post.post_id }}" class="collapse in">
                               <div class="task-expand">
                                 <div class="col60">
                                   <p>Description: {{post.description}}</p>
@@ -60,12 +60,11 @@
                       {% elif post.status == 'NC' and user == post.created_user %}
                         <tr class="hard" >
                           <td colspan="8">
-                          <div id="{{ post.post_id }}" class="collapse in">
+                          <div id="post{{ post.post_id }}" class="collapse in">
                             <div class="task-expand">
                               <form method="post" action="{% url 'accept' post.post_id %}">
                                 {% for requester in post.accept_list.all %}
                                 <div class="col60">
-									
                                     <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
                                     <div class="accept_list_options form-check">
                                       <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" />
@@ -86,7 +85,7 @@
                       {% elif post.status == 'I' %}
                         <tr class="hard" >
                           <td colspan="8">
-                            <div id="{{ post.post_id }}" class="collapse in">
+                            <div id="post{{ post.post_id }}" class="collapse in">
                               <div class="task-expand">
                                 <div class="col60">
                                   <p>Description: {{post.description}}</p>
@@ -102,7 +101,7 @@
                         {% elif post.status == 'C' %}
                         <tr class="hard" >
                           <td colspan="8">
-                            <div id="{{ post.post_id }}" class="collapse in">
+                            <div id="post{{ post.post_id }}" class="collapse in">
                               <div class="task-expand">
                               <div class="col60">
                                 <p>Description: {{post.description}}</p>
