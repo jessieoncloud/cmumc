@@ -47,7 +47,7 @@ class Post(models.Model):
 
     @staticmethod
     def get_user_posts(created_user):
-        return Post.objects.filter(created_user=created_user)
+        return Post.objects.filter(created_user=created_user).filter(deleted=False)
 
     class Meta:
         ordering = ['-created_time']
