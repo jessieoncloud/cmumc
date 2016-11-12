@@ -253,6 +253,10 @@ def complete(request, post_id):
     else:
         task_item.receiver_status = 'C'
     task_item.save()
+    print("helper")
+    print(task_item.helper_status)
+    print("receiver")
+    print(task_item.receiver_status)
     if task_item.helper_status == 'C' and task_item.receiver_status == 'C':
         task_item.task_status = 'C'
         task_item.save()
