@@ -23,11 +23,11 @@ from twilio import TwilioRestException
 from twilio.rest import TwilioRestClient
 
 ##global variables
-account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
-auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twilio.com/console
+#account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
+#auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twilio.com/console
 ##test
-#account_sid = "AC62277389af8bc0a7fc1e0ab6d0c63994"
-#auth_token  = "3669b7ba50772b26d37983af9522d862"
+account_sid = "AC62277389af8bc0a7fc1e0ab6d0c63994"
+auth_token  = "3669b7ba50772b26d37983af9522d862"
 
 twilio_number = "+14126936893"
 client = TwilioRestClient(account_sid, auth_token)
@@ -93,7 +93,6 @@ def send_post(request):
     else:
         return render(request, 'cmumc/login.html', context)
 
-# to be implemented 
 # return all tasks related to the current user
 @login_required
 def mytask(request):
@@ -423,15 +422,15 @@ def send_message(request, post_id):
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
     #print(body)
-    msg_body = "Message from CMUMC.\n\n Your post " + post_item.title + " has been viewed by " + from_profile.user.username + ".\n" \
+    msg_body = "Message from CMUMC.\n\nYour post " + post_item.title + " has been viewed by " + from_profile.user.username + ".\n" \
             + from_profile.user.username + " would like to send you a message:\n\n" + body + ".\n \n" \
             + "You can contact him/her by " + str(from_profile.phone) + "."
     try:
         message = client.messages.create(body=msg_body,
-                                         to="+14125396418",  # Replace with your phone number
-                                         #to=to_profile.phone,
-                                        from_=twilio_number)
-                                         #from_="+15005550006")  # Replace with your Twilio number
+                                         #to="+14125396418",  # Replace with your phone number
+                                         to=str(to_profile.phone),
+                                        #from_=twilio_number)
+                                         from_="+15005550006")  # Replace with your Twilio number
         msgs.append("Your message has been sent sucessfully")
     except TwilioRestException as e:
         print(e)
