@@ -23,11 +23,11 @@ from twilio import TwilioRestException
 from twilio.rest import TwilioRestClient
 
 ##global variables
-#account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
-#auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twilio.com/console
+account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
+auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twilio.com/console
 ##test
-account_sid = "AC62277389af8bc0a7fc1e0ab6d0c63994"
-auth_token  = "3669b7ba50772b26d37983af9522d862"
+#account_sid = "AC62277389af8bc0a7fc1e0ab6d0c63994"
+#auth_token  = "3669b7ba50772b26d37983af9522d862"
 
 twilio_number = "+14126936893"
 client = TwilioRestClient(account_sid, auth_token)
@@ -114,10 +114,10 @@ def notification(post_id):
 
     try:
         message = client.messages.create(body=msg_body,
-                                         #to="+14125396418",  # Replace with your phone number
-                                         to=str(to_profile.phone),
-                                        #from_=twilio_number)
-                                         from_="+15005550006")  # Replace with your Twilio number
+                                         to="+14125396418",  # Replace with your phone number
+                                         #to=str(to_profile.phone),
+                                        from_=twilio_number)
+                                         #from_="+15005550006")  # Replace with your Twilio number
         success = True
     except TwilioRestException as e:
         print(e)
@@ -257,7 +257,8 @@ def complete(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
-
+    message = []
+    context['message'] = message
     post_item = get_object_or_404(Post, post_id=post_id)
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
