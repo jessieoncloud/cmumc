@@ -151,13 +151,15 @@ def accept_post(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
+    context = {}
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
+    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(
+        post_type=user_profile.user_type)
+    accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
+    posts = user_post | accept_post
+    context['posts'] = posts
     post_item = get_object_or_404(Post, post_id=post_id)
-    user_post = Post.get_user_posts
-    context['user_post'] = user_post
-    accept_post = user_item.post_set.exclude(post_type=user_profile.user_type)
-    context['accept_post'] = accept_post
 
     if post_item.status == 'I' or post_item.status == 'C':
         errors.append("You cannot accept for this post")
