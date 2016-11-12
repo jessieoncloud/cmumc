@@ -63,7 +63,7 @@
                           <div id="post_id" class="collapse in">
                             <div class="task-expand">
                               <form method="post" action="{% url 'accept' post.post_id %}">
-                              {% for requester in post.accept_list.all %}
+                                {% for requester in post.accept_list.all %}
                                 <div class="col60">
 									
                                     <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
@@ -72,10 +72,10 @@
                                       <label>Requester: {{ requester.username }}</label>
                                     </div>
                                 </div>
+                                {% endfor %}
                                 <div class="col40">
                                  <input type="submit" id="edit_post_btn" class="btn btn-md btn-primary btn-block" value="Confirm">
                                 </div>
-                              {% endfor %}
                               {% csrf_token %}
                               </form>
                             </div>
