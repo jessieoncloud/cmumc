@@ -66,6 +66,10 @@
 			{% elif user.username == post.created_user.username %}
 				<a href="{% url 'editPost' post.post_id %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
 			{% endif %}
+		{% elif post.status == "I" %}
+			<button id="post_btn" class="btn btn-md btn-primary btn-block" >In Progress</button>
+		{% elif post.status == "C" %}
+			<button id="post_btn" class="btn btn-md btn-primary btn-block" >Complete</button>
 		{% endif %}
 
 
