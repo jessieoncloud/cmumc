@@ -190,12 +190,10 @@ def accept(request, post_id):
     errors = []
     context['errors'] = errors
     if 'requester' in request.POST and request.POST['requester']:
-        username = requester.username
+        username = request.POST['requester']
     else:
         errors.append("Request user does not exist")
         return render(request, 'cmumc/errors.html', context)
-    print(post_id)
-    print(username)
 
     post_item = get_object_or_404(Post, post_id=post_id)
     user_item = get_object_or_404(User, username=request.user.username)
