@@ -56,7 +56,7 @@
                           <div id="post_id" class="collapse in">
                             <div class="task-expand">
                               {% for requester in post.accept_list.all %}
-                              <form>
+                              <form method="post" action="{% url 'accept' %}">
                                 <div class="col60">
 									
                                     <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
