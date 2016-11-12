@@ -27,7 +27,7 @@
 
                     <tbody class="align--top">
                       
-                        <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="post{{ post.post_id }}">
+                        <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="#post{{ post.post_id }}">
                           <td class="text--center">
                             <span class="glyphicon glyphicon-triangle-bottom"></span>
                           </td>
@@ -101,7 +101,7 @@
                         {% elif post.status == 'C' %}
                         <tr class="hard" >
                           <td colspan="8">
-                            <div id="post{{ post.post_id }}" class="collapse in">
+                            <div id="post{{ post.post_id" class="collapse in">
                               <div class="task-expand">
                               <div class="col60">
                                 <p>Description: {{post.description}}</p>
