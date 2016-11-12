@@ -112,16 +112,20 @@ def notification(post_id):
     elif post_item.status == 'C':
         msg_body = "Your post \"" + post_item.title + "\" is now complete! Please rate this task on CMUMC."
 
-    try:
-        message = client.messages.create(body=msg_body,
-                                         to="+14125396418",  # Replace with your phone number
-                                         #to=str(to_profile.phone),
-                                        from_=twilio_number)
-                                         #from_="+15005550006")  # Replace with your Twilio number
-        success = True
-    except TwilioRestException as e:
-        print(e)
-        success = False
+    task_item = get_object_or_404(Task, post=post_item)
+    recipient_list = [task_item.helper, task_item.receiver]
+    for recipient in recipient_list:
+        to_profile = Profile.objects.get(user=recipient)
+        try:
+            message = client.messages.create(body=msg_body,
+                                             #to="+14125396418",  # Replace with your phone number
+                                             to=str(to_profile.phone),
+                                            from_=twilio_number)
+                                             #from_="+15005550006")  # Replace with your Twilio number
+            success = True
+        except TwilioRestException as e:
+            print(e)
+            success = False
 
     return success
 
