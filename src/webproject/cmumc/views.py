@@ -110,7 +110,7 @@ def notification(post_id):
     if post_item.status == 'I':
         msg_body = "Your post \"" + post_item.title + "\" is now in progress."
     elif post_item.status == 'C':
-        msg_body = "Your post \"" + post_item.title + "\" is now complete. Rate this task on CMUMC!"
+        msg_body = "Your post \"" + post_item.title + "\" is now complete! Please rate this task on CMUMC."
 
     try:
         message = client.messages.create(body=msg_body,
@@ -487,7 +487,7 @@ def send_message(request, post_id):
         msgs.append("Your message has been sent sucessfully")
     except TwilioRestException as e:
         print(e)
-        msgs.append("You message fails to send, please try again")
+        msgs.append("Sent message failed, please try again")
     return render(request, 'cmumc/contact.html', context)
 
 
