@@ -19,6 +19,7 @@ $(document).ready(function() {
 
 	// Switch mode ajax
 	$('#switch_btn').click(function() {
+		console.log("here");
 		var username = $('#nav-username').val();
 		var usertype = $('#switch_btn').val();
 		console.log("username: "+username);

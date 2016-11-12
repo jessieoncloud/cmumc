@@ -50,13 +50,14 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{% url 'switch' %}" value="{{ user.profile.user_type }}" id="switch_btn">Switch Mode</a>
+                        {# <a href="{% url 'switch' %}" value="{{ user.profile.user_type }}" id="switch_btn">Switch Mode</a> #}
+                        <a href="#" value="{{ user.profile.user_type }}" id="switch_btn">Switch Mode</a>
                     </li>
                     <li>
                         <a href="{% url 'mytask' %}">My Task</a>
                     </li>
                     <li>
-                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button" id="nav-username" val="{user.username}}">{{user.username}} <span class="caret"></span></a>
+                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'edit_profile' %} ">Edit Profile</a></li>

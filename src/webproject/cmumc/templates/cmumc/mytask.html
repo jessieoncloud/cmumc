@@ -16,22 +16,22 @@
                       </tr>
                     </thead>
 
-                    {#% for post in posts %#}
+                    {% for post in posts %}
 
                     <tbody class="align--top">
-                      {#% if post.status == 'A' %#}
+                      {% if post.status == 'A' %}
                         <tr data-toggle="collapse" data-target="#post_id" role="button" aria-expanded="false" aria-controls="post_id">
                           <td class="text--center">
                             <span class="glyphicon glyphicon-triangle-bottom"></span>
                           </td>
-                          <td>Help with CS {{ post.title }}</td>
-                          <td>Username {{ post.created_by }}</td>
-                          <td>Tutoring {{ post.category }}</td>
-                          <td>$12 {{ post.price }}</td>
-                          <td>Available {{ post.status }}</td>
+                          <td>{{ post.title }}</td>
+                          <td>{{ post.created_by }}</td>
+                          <td>{{ post.category }}</td>
+                          <td>${{ post.price }}</td>
+                          <td>{{ post.status }}</td>
                         </tr>
                         
-                      {#% if post.status == 'NC' %#}
+                      {% elif post.status == 'NC' %}
                         <tr class="hard" >
                           <td colspan="8" class="colspan-nopaddingtop">
                             <div id="post_id" class="collapse in">
@@ -48,8 +48,7 @@
                           </td>
                         </tr>
 
-                      {% comment %}
-                      {#% if post.status == 'I' %#}
+                      {% elif post.status == 'I' %}
                         <tr class="hard" >
                           <td colspan="8">
                           <div id="post_id" class="collapse in">
@@ -73,7 +72,7 @@
                           </td>
                         </tr>
 
-                      {#% if post.status == 'C' %#}
+                      {% elif post.status == 'C' %}
                         <tr class="hard" >
                           <td colspan="8">
                             <div id="post_id" class="collapse in">
@@ -103,12 +102,12 @@
                           </td>
                         </tr>
 
+                      {% endif %}
+
 
                     </tbody>
 
                     {#% endfor %#}
-
-                    {% endcomment %}
 
                   </table>
             </div>
