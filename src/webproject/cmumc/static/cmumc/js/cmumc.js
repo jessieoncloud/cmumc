@@ -20,15 +20,15 @@ $(document).ready(function() {
 	// Switch mode ajax
 	$('#switch_btn').click(function() {
 		console.log("here");
-		var username = $('#nav-username').val();
-		var usertype = $('#switch_btn').val();
+		var username = $('#nav-username').attr("value");
+		var usertype = $('#switch_btn').attr("value");
 		console.log("username: "+username);
 		console.log("usertype: "+usertype);
 
 		var userdata = [];
-		userdata[0] = {username: username};
-		userdata[1] = {usertype: usertype};
-		console.log("userdata: "+userdata);
+		userdata[0] = {mode_username: username};
+		userdata[1] = {mode_usertype: usertype};
+		console.log(userdata);
 
 		$.post("/cmumc/switch", userdata)
 		.done(function(data) {
