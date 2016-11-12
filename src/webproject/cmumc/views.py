@@ -100,9 +100,15 @@ def mytask(request):
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).exclude(post_type=user_profile.user_type)
-    context['user_post'] = user_post
+    ##context['user_post'] = user_post
+    print(user_post)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
-    context['accept_post'] = accept_post
+    print(accept_post)
+    ##context['accept_post'] = accept_post
+    posts = user_post | accept_post
+    print(posts)
+    context['posts'] = posts
+
     return render(request,'cmumc/mytask.html', context)
 
 @login_required
