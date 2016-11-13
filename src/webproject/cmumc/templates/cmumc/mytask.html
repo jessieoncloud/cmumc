@@ -40,7 +40,7 @@
 
                       {% if post.status == 'A' %}
                         <tr class="hard" >
-                          <td colspan="8" class="colspan-nopaddingtop">
+                          <td colspan="8" class="colspan-nopadding">
                             <div id="post{{ post.post_id }}" class="collapse in">
                               <div class="task-expand">
                                 <div class="col60">
@@ -59,7 +59,7 @@
 
                       {% elif post.status == 'NC' and user == post.created_user %}
                         <tr class="hard" >
-                          <td colspan="8">
+                          <td colspan="8" class="colspan-nopadding">
                           <div id="post{{ post.post_id }}" class="collapse in">
                             <div class="task-expand">
                               <form method="post" action="{% url 'accept' post.post_id %}">
@@ -84,7 +84,7 @@
 
                       {% elif post.status == 'I' %}
                         <tr class="hard" >
-                          <td colspan="8">
+                          <td colspan="8" class="colspan-nopadding">
                             <div id="post{{ post.post_id }}" class="collapse in">
                               <div class="task-expand">
                                 <div class="col60">
@@ -100,14 +100,15 @@
 
                         {% elif post.status == 'C' %}
                         <tr class="hard" >
-                          <td colspan="8">
+                          <td colspan="8" class="colspan-nopadding">
                             <div id="post{{ post.post_id" class="collapse in">
                               <div class="task-expand">
-                              <div class="col60">
-                                <p>Description: {{post.description}}</p>
-                              </div>
-                              <div class="col40">
-                               <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
+                                <div class="col60">
+                                  <p>Description: {{post.description}}</p>
+                                </div>
+                                <div class="col40">
+                                 <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
+                                </div>
                               </div>
                             </div>
                           </td>
