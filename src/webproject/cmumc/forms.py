@@ -93,5 +93,11 @@ class MessageForm(forms.Form):
         cleaned_data = super(MessageForm, self).clean()
         return cleaned_data
 
+class SearchForm(forms.Form):
+    keyword = forms.CharField(max_length=40)
+
+    def clean(self):
+        cleaned_data = super(SearchForm, self).clean()
+        return cleaned_data
 
 

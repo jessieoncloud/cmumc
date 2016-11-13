@@ -494,6 +494,25 @@ def send_message(request, post_id):
         msgs.append("You message fails to send, please try again")
     return render(request, 'cmumc/contact.html', context)
 
+@login_required
+def search_post(request):
+    context = {}
+    user_profile = get_object_or_404(Profile, user=request.user)
+    form = SearchForm(request.POST)
+    keyword = form.cleaned_data['keyword']
+    posts = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).filter(title__icontains=keyword)
+    context['posts']
+    return render(request, 'cmumc/search.html', context)
+
+##how to pass the value to the server?? filter by what??
+@login_required
+def filter_post(request):
+    context = {}
+    pass
+
+
+
+
 
 
 
