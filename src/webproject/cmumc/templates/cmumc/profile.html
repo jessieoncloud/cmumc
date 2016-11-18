@@ -35,11 +35,11 @@
                 	<div class="posts">
 					        {% for post in posts %}  
                   <div class="row row-post">
-                			<div class="col-mid-3 col25">
+                			<div class="col-mid-3 col25 post_img">
                 				<a href="{% url 'viewPost' post.post_id %}"><a href=""><img src="{#% url 'photo' post.photo %#}" class="img-rounded img-responsive post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
-               					<div class="col-mid-9 col75">
+               					<div class="col-mid-9 col75 post_content">
                						<a href="{% url 'viewPost' post.post_id %}"><h3>{{ post.title }}</h3></a>
                						<p>Location: {{ post.location }}</p>
                						<p>Time: {{ post.time }}</p>
