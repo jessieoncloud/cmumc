@@ -5,7 +5,7 @@
 
 	{% block content %}
 	<div class="top_container">
-		<h3 class="send_post_header">Send SMS to the creator{{ post.created_user }}</h3>
+		<h3 class="send_post_header">Send SMS to: {{ post.created_user }}</h3>
 		<p class="form-msg">{{ msgs }}</p>
 		<div>
 			<form class="form-send-post" method="post" action="{% url 'sendMessage' post.post_id %}">

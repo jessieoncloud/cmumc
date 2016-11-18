@@ -912,3 +912,8 @@ p.title {
   padding: 0px !important;
   border-top: none !important;
 }
+
+#id_body {
+  height: 100%;
+  top: 0;
+}

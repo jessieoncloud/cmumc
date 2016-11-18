@@ -18,6 +18,9 @@ from cmumc import *
 from cmumc.models import *
 from cmumc.forms import *
 
+from django.core import serializers
+import json
+
 ##twilio
 from twilio import TwilioRestException
 from twilio.rest import TwilioRestClient
@@ -316,31 +319,18 @@ def mode(request):
     user_profile.save()
     return redirect('stream')
 
+# Ajax switch mode
 @login_required
 def switch(request):
-    user_profile = get_object_or_404(Profile, user=request.user)
+    user = get_object_or_404(User, username=request.POST['mode_username'])
+    user_profile = get_object_or_404(Profile, user=user.id)
     if user_profile.user_type == 'H':
         user_profile.user_type = 'R'
     else:
         user_profile.user_type = 'H'
     user_profile.save()
-
-    return redirect('stream')
-
-# @login_required
-# def switch(request):
-#     print("switch backend")
-#     print(request.POST)
-#     user_profile = get_object_or_404(Profile, user=request.POST['mode_username'])
-#     if user_profile.user_type == 'H':
-#         user_profile.user_type = 'R'
-#     else:
-#         user_profile.user_type = 'H'
-#     user_profile.save()
-#     response = json.dumps({"usertype": user_profile.user_type})
-#     print(response)
-#     return HttpResponse(response, content_type="application/json")
-#     # return redirect('stream')
+    response = json.dumps({"usertype": user_profile.user_type})
+    return HttpResponse(response, content_type="application/json")
 
 @login_required
 def profile(request, user_name):

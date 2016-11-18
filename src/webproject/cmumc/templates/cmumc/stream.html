@@ -103,9 +103,9 @@
 	            <div class="row">
 	                <div class="col-lg-12">
                     {% if user.profile.user_type == 'H' %}
-	                    <h1 class="page-header">Welcome Helper</h1>
+	                    <h1 class="page-header">Welcome, <span class="user_mode">Helper</span></h1>
                     {% elif user.profile.user_type == 'R' %}
-                        <h1 class="page-header">Welcome Receiver</h1>
+                        <h1 class="page-header">Welcome, <span class="user_mode">Receiver</span></h1>
                     {% endif %}
 	                </div>
 	                <!-- /.col-lg-12 -->
