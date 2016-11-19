@@ -34,8 +34,7 @@ $(document).ready(function() {
 			$('#switch_btn').attr('value', data.usertype);
 			updateNavColor();
 			updateUserTypeDisplay();
-			// See if the current page is mytask or profile
-			console.log("here2");
+			// If the current page is mytask or profile, refresh
 			var url = document.URL;
 			var regMyTask = new RegExp("mytask$");
 			var regProfile = new RegExp("profile");
@@ -45,6 +44,15 @@ $(document).ready(function() {
 			}
 		});
 	})
+
+	// Profile menu bar highlight
+	$('.profileOpt').hover(function() {
+		$(this).css("background-color", "#404040");
+		$(this).find('h4').css("color", "#ffffff")
+		}, function() {
+		$(this).css("background-color", "#ffffff");
+		$(this).find('h4').css("color", "#404040");
+	}) 
 
 
 	// Change navtop color based on user type

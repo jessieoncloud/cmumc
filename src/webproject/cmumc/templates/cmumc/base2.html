@@ -87,16 +87,16 @@
                     <h3 class="profile_username">{{ user.username }}</h3>
                 </div>
                 <div class=usermenu_options>
-                    <div class="usermenu_mytask option">
+                    <div class="usermenu_mytask option profileOpt">
                         <a href="{% url 'mytask' %}" role="button"><h4>MyTask</h4></a>
                     </div>
-                    <div class="usermenu_profile option">
+                    <div class="usermenu_profile option profileOpt">
                         <a href="{% url 'profile' user.username %}" role="button"><h4>Profile</h4></a>
                     </div>
-                    <div class="usermenu_setting option">
+                    <div class="usermenu_setting option profileOpt">
                         <a href="{% url 'password_change' %}" role="button"><h4>Setting</h4></a>
                     </div>
-                    <div class="usermenu_logout option">
+                    <div class="usermenu_logout option profileOpt">
                         <a href="{% url 'logout' %}" role="button"><h4>Log out</h4></a>
                     </div>
                 </div>

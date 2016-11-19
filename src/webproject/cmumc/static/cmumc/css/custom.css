@@ -899,6 +899,10 @@ p.title {
     border-top-color: #e6e6e6;
 }
 
+.option > a {
+  color: #404040;
+}
+
 .option:last-child {
     border-bottom: 1px solid;
     border-bottom-color: #ffffff;
