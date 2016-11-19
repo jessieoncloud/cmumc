@@ -65,7 +65,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'description', 'category', 'date', 'time', 'location', 'price')
-        widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'})}
+        widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}), 'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'})}
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()
@@ -81,6 +81,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ('user', 'activation_key', 'user_type')
+        widgets = {'phone': forms.TextInput(attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121111111'}), 'photo': forms.FileInput()}
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()

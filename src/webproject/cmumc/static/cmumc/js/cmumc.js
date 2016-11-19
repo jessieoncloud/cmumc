@@ -8,6 +8,8 @@ $(document).ready(function() {
 	//   http://stackoverflow.com/questions/20700185/how-to-use-datepicker-in-django
 	$('.datepicker').datepicker();
 
+	$('[data-toggle="tooltip"]').tooltip(); 
+
 	// Mode 
 	$('.mode_option').click(function() {
 		var user_type = $(this).attr('value');
