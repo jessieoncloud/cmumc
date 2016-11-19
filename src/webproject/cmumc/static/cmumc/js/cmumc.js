@@ -26,6 +26,7 @@ $(document).ready(function() {
 		var usertype = $('#switch_btn').attr("value");
 		console.log("username: "+username);
 		console.log("usertype: "+usertype);
+		console.log("here"+document.URL);
 
 		$.post("/cmumc/switch", {mode_username: username, mode_usertype: usertype})
 		.done(function(data) {
@@ -55,14 +56,14 @@ $(document).ready(function() {
 				$(this).css("background-color", "#404040");
 			});
 		} else if (user_type == 'R') {
-			$('.topnav').css("background-color", "#f8f8f8");
+			$('.topnav').css("background-color", "#f2f2f2");
 			$('#logo').css("color", "#777");
 			$('.topnavOptions').css("color", "#777");
-			$('.topnavOptions').css("background-color", "#f8f8f8");
+			$('.topnavOptions').css("background-color", "#f2f2f2");
 			$('.topnavOptions').hover(function() {
 				$(this).css("background-color", "#ffffff");
 				}, function() {
-				$(this).css("background-color", "#f8f8f8");
+				$(this).css("background-color", "#f2f2f2");
 			});
 		}
 	}

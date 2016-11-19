@@ -79,7 +79,7 @@
 
 
     {% block usermenu %}
-    <div class="container top_container">
+    <div class="user_container">
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
@@ -88,16 +88,16 @@
                 </div>
                 <div class=usermenu_options>
                     <div class="usermenu_mytask option">
-                        <a href="{% url 'mytask' %}"><h4>MyTask</h4></a>
+                        <a href="{% url 'mytask' %}" role="button"><h4>MyTask</h4></a>
                     </div>
                     <div class="usermenu_profile option">
-                        <a href="{% url 'profile' user.username %}"><h4>Profile</h4></a>
+                        <a href="{% url 'profile' user.username %}" role="button"><h4>Profile</h4></a>
                     </div>
                     <div class="usermenu_setting option">
-                        <a href="{% url 'password_change' %}"><h4>Setting</h4></a>
+                        <a href="{% url 'password_change' %}" role="button"><h4>Setting</h4></a>
                     </div>
                     <div class="usermenu_logout option">
-                        <a href="{% url 'logout' %}"><h4>Log out</h4></a>
+                        <a href="{% url 'logout' %}" role="button"><h4>Log out</h4></a>
                     </div>
                 </div>
             </div>
