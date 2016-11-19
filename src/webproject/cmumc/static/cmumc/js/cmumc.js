@@ -26,7 +26,6 @@ $(document).ready(function() {
 		var usertype = $('#switch_btn').attr("value");
 		console.log("username: "+username);
 		console.log("usertype: "+usertype);
-		console.log("here"+document.URL);
 
 		$.post("/cmumc/switch", {mode_username: username, mode_usertype: usertype})
 		.done(function(data) {
@@ -35,6 +34,15 @@ $(document).ready(function() {
 			$('#switch_btn').attr('value', data.usertype);
 			updateNavColor();
 			updateUserTypeDisplay();
+			// See if the current page is mytask or profile
+			console.log("here2");
+			var url = document.URL;
+			var regMyTask = new RegExp("mytask$");
+			var regProfile = new RegExp("profile");
+			console.log(regMyTask.test(url));
+			if (regMyTask.test(url) || regProfile.test(url)) {
+				location.reload();
+			}
 		});
 	})
 
