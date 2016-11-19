@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	console.log("here");
 	updateNavColor();
-	updateUserTypeDisplay();
+	// updateUserTypeDisplay();
 
 	// Mode 
 	$('.mode_option').click(function() {
@@ -33,13 +33,16 @@ $(document).ready(function() {
 			console.log(data);
 			$('#switch_btn').attr('value', data.usertype);
 			updateNavColor();
-			updateUserTypeDisplay();
+			// updateUserTypeDisplay();
 			// If the current page is mytask or profile, refresh
 			var url = document.URL;
+			var regStream = new RegExp("stream$");
 			var regMyTask = new RegExp("mytask$");
 			var regProfile = new RegExp("profile");
+			var regCreatePost = new RegExp("send_post$");
+			var regViewPost = new RegExp("view_post");
 			console.log(regMyTask.test(url));
-			if (regMyTask.test(url) || regProfile.test(url)) {
+			if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url)) {
 				location.reload();
 			}
 		});
@@ -84,19 +87,19 @@ $(document).ready(function() {
 		}
 	}
 
-	function updateUserTypeDisplay() {
-		if ($('#switch_btn').attr('value')) {
-			var user_type = $('#switch_btn').attr('value');
-		}
-		if (user_type == 'H') {
-			$('.user_mode').empty();
-			$('.user_mode').html('Helper');
-		}
-		if (user_type == 'R') {
-			$('.user_mode').empty();
-			$('.user_mode').html('Receiver');
-		}
-	}
+	// function updateUserTypeDisplay() {
+	// 	if ($('#switch_btn').attr('value')) {
+	// 		var user_type = $('#switch_btn').attr('value');
+	// 	}
+	// 	if (user_type == 'H') {
+	// 		$('.user_mode').empty();
+	// 		$('.user_mode').html('Helper');
+	// 	}
+	// 	if (user_type == 'R') {
+	// 		$('.user_mode').empty();
+	// 		$('.user_mode').html('Receiver');
+	// 	}
+	// }
 
 
 	// CSRF set-up copied from Django docs

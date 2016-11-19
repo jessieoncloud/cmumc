@@ -67,9 +67,9 @@
 				<a href="{% url 'editPost' post.post_id %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
 			{% endif %}
 		{% elif post.status == "I" %}
-			<button id="post_btn" class="btn btn-md btn-primary btn-block" >In Progress</button>
+			<button id="post_btn" class="btn-block btn-unclickable" >In Progress</button>
 		{% elif post.status == "C" %}
-			<button id="post_btn" class="btn btn-md btn-primary btn-block" >Complete</button>
+			<div id="post_btn" class="btn-block btn-unclickable" >Complete</div>
 		{% endif %}
 
 

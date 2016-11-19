@@ -968,3 +968,21 @@ p.title {
 // .table-title > th {
 //   color: #fff;
 // }
+
+.btn-unclickable {
+  background-color: grey;
+  color: #fff;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-weight: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
