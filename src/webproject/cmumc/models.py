@@ -40,6 +40,7 @@ class Post(models.Model):
     status = models.CharField(max_length=20, default="A", choices=StatusType)
     deleted = models.BooleanField(default=False)
     accept_list = models.ManyToManyField(User)
+    post_photo = models.ImageField(upload_to="post-photo", blank=True)
 
     @staticmethod
     def get_all_posts():

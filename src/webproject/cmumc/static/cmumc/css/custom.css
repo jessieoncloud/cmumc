@@ -30,6 +30,29 @@ form {
     width: 500px;
 }
 
+.col25, .col75, .col40, .col60{
+    position: relative;
+    float: left;
+    // padding: 10px;
+}
+
+.col25 {
+    width: 25%;
+}
+.col75 {
+    width: 75%;
+}
+.col40 {
+    width: 40%;
+}
+.col60 {
+    width: 60%;
+}
+
+.mytask_col {
+    padding-right: 20px;
+}
+
 #warp_container {
     height: 100%;
     min-height: 560px;
@@ -99,8 +122,12 @@ form {
     }
 }
 
-.top_container {
+.top_container, .user_container {
     margin-top: 50px;
+}
+
+.user_container {
+    margin-left: 0px;
 }
 
 .network-name {
@@ -157,6 +184,17 @@ form {
     ul.banner-social-buttons {
         float: left;
         margin-top: 15px;
+    }
+}
+
+@media(max-width:990px) {
+    .usermenu_col {
+      display: none;
+    }
+    .mytask_col {
+      width: 100%;
+      min-width: 700px;
+      padding-left: 10px;
     }
 }
 
@@ -657,6 +695,12 @@ table.dataTable thead .sorting:after {
     margin: auto;
 }
 
+#contact_btn {
+    width: 100px;
+    min-width: 80px;
+    margin-top: 20px;
+}
+
 // login, register, reset/forget pwd - specific
 .form_table {
     margin-top: 5%;
@@ -677,12 +721,12 @@ table.dataTable thead .sorting:after {
 #edit_post_btn {
     width: 150px;
     margin: auto;
+    margin-bottom: 10px;
 }
 
 #delete_post_btn {
     width: 150px;
     margin: auto;
-    margin-top: 10px;
 }
 
 #edit_profile_btn {
@@ -718,11 +762,17 @@ table.dataTable thead .sorting:after {
 }
 
 .mode_helper_container {
-    background-color: #d9d9d9;
+    background-color: #404040;
+    background: url(../img/helper.jpg) no-repeat center center;
 }
 
 .mode_receiver_container {
     background-color: #f2f2f2;
+    background: url(../img/receiver.jpg) no-repeat center center;
+}
+
+.mode_helper_container>h3, .mode_receiver_container>h3{
+    color: #ffffff;
 }
 
 .stream_title {
@@ -732,30 +782,16 @@ table.dataTable thead .sorting:after {
     text-align: center;
 }
 
-.col25, .col75, .col40, .col60{
-    position: relative;
-    float: left;
-    // padding: 10px;
-}
-
-.col25 {
-    width: 25%;
-}
-.col75 {
-    width: 75%;
-}
-.col40 {
-    width: 40%;
-}
-.col60 {
-    width: 60%;
-}
-
 .usermenu_col {
-    background-color: #f2f2f2; 
-    padding: 30px;
+    // background-color: #f2f2f2;
+    background-color: #ffffff;  
+    padding: 40px;
     padding-top: 50px;
-    min-width: 250px;
+    padding-bottom: 10px;
+    width: 260px;
+    border-right: solid #f2f2f2;
+    border-right-width: 1px;
+    box-shadow: inset -7px 0 9px -10px rgba(0,0,0,0.7);
     // padding-bottom: 50px;
 }
 
@@ -785,6 +821,7 @@ table.dataTable thead .sorting:after {
     margin-left: 45px;
     margin: auto;
     display: block;
+    padding-left: 6%;
 }
 
 .post_attr, .post_attr:last-child {
@@ -798,10 +835,16 @@ table.dataTable thead .sorting:after {
 .post_attr > span {
     font-size: 20px;
     font-weight: lighter;
-    margin-left: 3%;
+    margin-left: 15px;
 }
 
-h3.inline {
+.post_attr > p {
+    font-size: 20px;
+    font-weight: lighter;
+    margin-bottom: 30px;
+}
+
+.inline {
     display: inline;
 }
 
@@ -828,8 +871,10 @@ p.title {
 .avatar_profile {
     display: block;
     margin: auto;
-    height: 180px;
-    width: 180px;
+    height: 150px;
+    width: 150px;
+    border: solid black;
+    border-width: 1px;
 }
 
 .avatar_post {
@@ -850,6 +895,7 @@ p.title {
     margin: 0 auto;
     padding: 30px;
     padding-bottom: 10px;
+    width: 80%;
 }
 
 .profile_username {
@@ -860,7 +906,11 @@ p.title {
 .option {
     padding: 1px 10px 5px 10px;
     border-top: 1px solid;
-    border-top-color: #ffffff;
+    border-top-color: #e6e6e6;
+}
+
+.option > a {
+  color: #404040;
 }
 
 .option:last-child {
@@ -871,12 +921,14 @@ p.title {
 .content_title {
     font-size: 30px;
     padding-left: 50px;
+    margin-bottom: 20px;
     // padding-bottom: 20px;
 }
 
 .profile {
     height: 100%;
     background-color: #f2f2f2;
+    min-width: 800px;
 }
 
 .posts {
@@ -912,3 +964,36 @@ p.title {
   padding: 0px !important;
   border-top: none !important;
 }
+
+.post_content, .post_img {
+  padding-left: 20px;
+}
+
+.align--top:last-child {
+  border-bottom: 2px solid #ddd;
+}
+
+.table-title {
+  background-color: #f2f2f2;
+}
+// .table-title > th {
+//   color: #fff;
+// }
+
+.btn-unclickable {
+  background-color: grey;
+  color: #fff;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-weight: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+

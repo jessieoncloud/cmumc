@@ -1,7 +1,7 @@
 {% extends "cmumc/base2.html" %}
 
     {% block usermenu %}
-    <div class="container top_container">
+    <div class="container user_container">
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
@@ -22,7 +22,7 @@
 						            <h4>Bio: <p>{{ profile.bio }}</p></h4>
                     </div>
                     <div class="option">
-                        <h4>User type: <p>{{ profile.user_type }}</p></h4>
+                        <h4>User type: <p class="user_mode">{{ profile.user_type }}</p></h4>
                     </div>
                 </div>  
             </div>
@@ -35,11 +35,11 @@
                 	<div class="posts">
 					        {% for post in posts %}  
                   <div class="row row-post">
-                			<div class="col-mid-3 col25">
-                				<a href="{% url 'viewPost' post.post_id %}"><a href=""><img src="{#% url 'photo' post.photo %#}" class="img-rounded img-responsive post_photo"></a>
+                			<div class="col-mid-3 col25 post_img">
+                				<a href="{% url 'viewPost' post.post_id %}"><a href=""><img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
-               					<div class="col-mid-9 col75">
+               					<div class="col-mid-9 col75 post_content">
                						<a href="{% url 'viewPost' post.post_id %}"><h3>{{ post.title }}</h3></a>
                						<p>Location: {{ post.location }}</p>
                						<p>Time: {{ post.time }}</p>

@@ -18,6 +18,9 @@ from cmumc import *
 from cmumc.models import *
 from cmumc.forms import *
 
+from django.core import serializers
+import json
+
 ##twilio
 from twilio import TwilioRestException
 from twilio.rest import TwilioRestClient
@@ -57,6 +60,7 @@ def view_post(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
+    user_profile = get_object_or_404(Profile, user=request.user)
     post_item = get_object_or_404(Post, post_id=post_id)
     if post_item.deleted:
         errors.append("The post has been deleted")
@@ -65,6 +69,9 @@ def view_post(request, post_id):
         context['post'] = post_item
         print(request.user.username)
         print(post_item.created_user)
+        # Check if the usertype and post type is correct
+        if (user_profile.user_type == 'H' and post_item.post_type == 'H') or (user_profile.user_type == 'R' and post_item.post_type == 'R'):
+            return redirect('stream')
         return render(request, 'cmumc/view_post.html', context)
 
 @login_required
@@ -72,6 +79,7 @@ def view_post(request, post_id):
 def send_post(request):
     context = {}
     user_profile = get_object_or_404(Profile, user=request.user)
+    print(request.POST)
 
     if request.method == 'GET':
         context['form'] = PostForm()
@@ -79,7 +87,12 @@ def send_post(request):
         return render(request, 'cmumc/create_post.html', context)
 
     if request.user.is_authenticated:
-        new_post = Post(created_user=request.user, post_type=user_profile.user_type)
+        photo_type = "post-photo/others.jpg"
+        if (request.POST['category'] == "Driving"):
+            photo_type = "post-photo/driving.png"
+        elif (request.POST['category'] == "Tutoring"):
+            photo_type = "post-photo/tutoring.png"
+        new_post = Post(created_user=request.user, post_type=user_profile.user_type, post_photo=photo_type)
         form = PostForm(request.POST, instance=new_post)
         context['form'] = form
         context['profile'] = user_profile
@@ -316,31 +329,18 @@ def mode(request):
     user_profile.save()
     return redirect('stream')
 
+# Ajax switch mode
 @login_required
 def switch(request):
-    user_profile = get_object_or_404(Profile, user=request.user)
+    user = get_object_or_404(User, username=request.POST['mode_username'])
+    user_profile = get_object_or_404(Profile, user=user.id)
     if user_profile.user_type == 'H':
         user_profile.user_type = 'R'
     else:
         user_profile.user_type = 'H'
     user_profile.save()
-
-    return redirect('stream')
-
-# @login_required
-# def switch(request):
-#     print("switch backend")
-#     print(request.POST)
-#     user_profile = get_object_or_404(Profile, user=request.POST['mode_username'])
-#     if user_profile.user_type == 'H':
-#         user_profile.user_type = 'R'
-#     else:
-#         user_profile.user_type = 'H'
-#     user_profile.save()
-#     response = json.dumps({"usertype": user_profile.user_type})
-#     print(response)
-#     return HttpResponse(response, content_type="application/json")
-#     # return redirect('stream')
+    response = json.dumps({"usertype": user_profile.user_type})
+    return HttpResponse(response, content_type="application/json")
 
 @login_required
 def profile(request, user_name):
@@ -364,6 +364,14 @@ def get_photo(request, user_name):
 
     content_type = guess_type(profile.photo.name)
     return HttpResponse(profile.photo, content_type=content_type)
+
+def get_post_photo(request, post_id):
+    post_item = get_object_or_404(Post, post_id=post_id)
+    if not post_item.post_photo:
+        raise Http404
+
+    content_type = guess_type(post_item.post_photo.name)
+    return HttpResponse(post_item.post_photo, content_type=content_type)
 
 @login_required
 @transaction.atomic
@@ -423,7 +431,7 @@ def register(request):
 
     token = default_token_generator.make_token(new_user)
 
-    user_profile = Profile(user=new_user, activation_key=token)
+    user_profile = Profile(user=new_user, photo="profile-photo/avatar.png", activation_key=token)
     user_profile.save()
 
     email_body = """

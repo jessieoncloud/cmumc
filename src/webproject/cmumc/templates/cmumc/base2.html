@@ -10,6 +10,9 @@
 
     <title>CMUMC</title>
 
+    <!-- datepicker plugin -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"> 
+
     <!-- Bootstrap Core CSS -->
     {% load static %}
     <link href="{% static 'cmumc/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -44,24 +47,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="{% url 'stream' %}">CMUMC</a>
+                <a class="navbar-brand topnav" id="logo" href="{% url 'stream' %}">CMUMC</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{% url 'switch' %}" value="{{ user.profile.user_type }}" id="switch_btn">Switch Mode</a> 
-                        {# <a href="#" value="{{ user.profile.user_type }}" id="switch_btn">Switch Mode</a> #}
+                        <a value="{{ user.profile.user_type }}" id="switch_btn" role="button" class="topnavOptions">Switch Mode</a> 
+                        {# <a href="#" value="{{ user.profile.user_type }}" id="switch_btn" class="topnavOptions">Switch Mode</a> #}
                     </li>
                     <li>
-                        <a href="{% url 'mytask' %}">My Task</a>
+                        <a href="{% url 'mytask' %}" class="topnavOptions">My Task</a>
                     </li>
                     <li>
-                        <a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
+                        <a class="dropdown-toggle topnavOptions" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'edit_profile' %} ">Edit Profile</a></li>
-                            <li><a href="{% url 'password_change' %}">Setting</a></li>
+                            <li><a href="{% url 'password_change' %}">Change Password</a></li>
                             <li><a href="{% url 'logout' %}">Log Out</a></li>
                         </ul>
                     </li>
@@ -79,7 +82,7 @@
 
 
     {% block usermenu %}
-    <div class="container top_container">
+    <div class="user_container">
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
@@ -87,17 +90,19 @@
                     <h3 class="profile_username">{{ user.username }}</h3>
                 </div>
                 <div class=usermenu_options>
-                    <div class="usermenu_mytask option">
-                        <a href="{% url 'mytask' %}"><h4>MyTask</h4></a>
+                    <div class="usermenu_mytask option profileOpt">
+                        <a href="{% url 'mytask' %}" role="button"><h4>MyTask</h4></a>
                     </div>
-                    <div class="usermenu_profile option">
-                        <a href="{% url 'profile' user.username %}"><h4>Profile</h4></a>
+                    <div class="usermenu_profile option profileOpt">
+                        <a href="{% url 'profile' user.username %}" role="button"><h4>Profile</h4></a>
                     </div>
-                    <div class="usermenu_setting option">
-                        <a href="{% url 'password_change' %}"><h4>Setting</h4></a>
-                    </div>
-                    <div class="usermenu_logout option">
-                        <a href="{% url 'logout' %}"><h4>Log out</h4></a>
+                    {% comment %}
+                    <div class="usermenu_setting option profileOpt">
+                        <a href="{% url 'password_change' %}" role="button"><h4>Change Password</h4></a>
+                    </div> 
+                    {% endcomment %}
+                    <div class="usermenu_logout option profileOpt">
+                        <a href="{% url 'logout' %}" role="button"><h4>Log out</h4></a>
                     </div>
                 </div>
             </div>
@@ -143,6 +148,7 @@
     <!-- jQuery -->
     <script src="{% static 'cmumc/js/jquery.js' %}"></script>
     <script src="{% static 'cmumc/js/cmumc.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'cmumc/js/bootstrap.min.js' %}"></script>
@@ -151,6 +157,9 @@
     <script src="{% static 'cmumc/js/metisMenu.min.js' %}"></script>
 
     <script src="{% static 'cmumc/js/sb-admin-2.js' %}"></script>
+
+    <!-- datepicker plugin -->
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     {% endblock %}
 </body>
 

@@ -12,7 +12,6 @@
 						{{ post.title }}
 					</p>
 					<p>
-						Created on
 						{{ post.created_time }}
 					</p>
 				</div>
@@ -21,16 +20,18 @@
 				<div class="view_post_header2">
 					<div class="col-lg-12 col60">
 						<div class="row">
-							<a href=""><img src="{#% url 'photo' post.photo %#}" lass="img-rounded post_photo"></a>
+							<a href="{% url 'profile' user.username %}"><img src="{% url 'photo' post.created_user %}" alt="{{ user.username }}" class="img-circle avatar_post"></a>
 						</div>
 						<div class="row">
-							<p class="created_user">Created by {{ post.created_user }}</p>
+							<p class="created_user">Posted by {{ post.created_user }}</p>
 						</div>
 					</div>
 					<div class="col-lg-12 col40">
 						<span>Rating: </span>
 						{# <input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact"> #}
+						{% if user.username != post.created_user.username %}
 						<a href="{% url 'sendMessage' post.post_id %}"><button id="contact_btn" class="btn btn-md btn-primary btn-block" >Contact</button></a>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -42,19 +43,19 @@
 	        	<p><span> {{ post.description }}</span></p>
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Category: </h3><span>{{ post.category }}</span>	
+	        	<h4 class="inline">Category: </h4><span>{{ post.category }}</span>	
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Location: </h3><span>{{ post.location }}</spanp>	
+	        	<h4 class="inline">Location: </h4><span>{{ post.location }}</spanp>	
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Date: </h3><span>{{ post.date }}</span>	
+	        	<h4 class="inline">Date: </h4><span>{{ post.date }}</span>	
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Time: </h3><span>{{ post.time }}</span>	
+	        	<h4 class="inline">Time: </h4><span>{{ post.time }}</span>	
 	        </div>
 	        <div class="post_attr">
-	        	<h3 class="inline">Price: </h3><span>${{ post.price }}</span>	
+	        	<h4 class="inline">Price: </h4><span>${{ post.price }}</span>	
 	        </div>
 		</div>
 
@@ -67,9 +68,9 @@
 				<a href="{% url 'editPost' post.post_id %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
 			{% endif %}
 		{% elif post.status == "I" %}
-			<button id="post_btn" class="btn btn-md btn-primary btn-block" >In Progress</button>
+			<button id="post_btn" class="btn-block btn-unclickable" >In Progress</button>
 		{% elif post.status == "C" %}
-			<button id="post_btn" class="btn btn-md btn-primary btn-block" >Complete</button>
+			<div id="post_btn" class="btn-block btn-unclickable" >Completed</div>
 		{% endif %}
 
 
