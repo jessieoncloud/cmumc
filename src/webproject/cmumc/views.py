@@ -203,6 +203,7 @@ def accept_post(request, post_id):
             post_item.accept_list.add(request.user)
             post_item.status = 'NC'
             post_item.save()
+        print(context['accepted'])
         return render(request, 'cmumc/mytask.html', context)
 
 @login_required
