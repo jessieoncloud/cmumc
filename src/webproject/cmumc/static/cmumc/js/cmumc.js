@@ -47,8 +47,9 @@ $(document).ready(function() {
 			var regProfile = new RegExp("profile");
 			var regCreatePost = new RegExp("send_post$");
 			var regViewPost = new RegExp("view_post");
+			var regSearchPost = new RegExp("search_post");
 			console.log(regMyTask.test(url));
-			if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url)) {
+			if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearchPost.test(url)) {
 				location.reload();
 			}
 		});
