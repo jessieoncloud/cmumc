@@ -60,6 +60,7 @@ def view_post(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
+    context['accepted'] = False
     user_profile = get_object_or_404(Profile, user=request.user)
     post_item = get_object_or_404(Post, post_id=post_id)
     if post_item.deleted:
@@ -67,11 +68,11 @@ def view_post(request, post_id):
         return render(request, 'cmumc/error.html', context)
     else:
         context['post'] = post_item
-        print(request.user.username)
-        print(post_item.created_user)
         # Check if the usertype and post type is correct
         if (user_profile.user_type == 'H' and post_item.post_type == 'H') or (user_profile.user_type == 'R' and post_item.post_type == 'R'):
             return redirect('stream')
+        if len(post_item.accept_list.filter(username=request.user.username)) != 0:
+            context['accepted'] = True
         return render(request, 'cmumc/view_post.html', context)
 
 @login_required
@@ -197,6 +198,7 @@ def accept_post(request, post_id):
         return render(request, 'cmumc/error.html', context)
     else:
         if len(post_item.accept_list.filter(username=request.user.username)) != 0:
+            print(post_item.accept_list)
             errors.append("You have already accepted")
         else:
             post_item.accept_list.add(request.user)
