@@ -30,7 +30,7 @@ class RegistrationForm(forms.Form):
     def clean_user_name(self):
         user_name = self.cleaned_data.get('user_name')
         if User.objects.filter(username__exact=user_name):
-            raise forms.ValidationError("User name has already taken")
+            raise forms.ValidationError("User name is already taken")
         return user_name
 
     ##show detailed messages when register errors
@@ -42,7 +42,7 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("Email format is not valid")
 
         if not email.endswith("cmu.edu"):
-            raise forms.ValidationError("Email is not cmu email")
+            raise forms.ValidationError("Please enter a valid CMU email address")
         return email
 
 class UserForm(forms.ModelForm):
