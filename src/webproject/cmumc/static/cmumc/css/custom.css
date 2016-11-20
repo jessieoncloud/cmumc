@@ -21,6 +21,17 @@ h6 {
     font-weight: 700;
 }
 
+footer {
+    // Sticky footer
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 30px 0;
+    margin-top: 15px;
+    background-color: #f8f8f8;
+}
+
+
 a:hover {
   text-decoration: none;
 }
@@ -214,16 +225,6 @@ form {
     ul.banner-social-buttons > li:last-child {
         margin-bottom: 0;
     }
-}
-
-footer {
-    // Sticky footer
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 30px 0;
-    margin-top: 15px;
-    background-color: #f8f8f8;
 }
 
 p.copyright {
