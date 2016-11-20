@@ -522,10 +522,19 @@ def search_post(request):
     context['form'] = form
     return render(request, 'cmumc/stream.html', context)
 
-##how to pass the value to the server?? filter by what??
 @login_required
-def filter_post(request):
+def filter_available(request):
     context = {}
+    messages = []
+    context['messages'] = messages
+    posts = Post.objects.filter(deleted=False).exclude(status='C').exclude(status='I')
+    context['posts'] = posts
+    if len(posts) == 0:
+        messages.append("No Results Found.")
+    return render(request, 'cmumc/stream.html', context)
+
+@login_required
+def filter_type(request):
     pass
 
 
