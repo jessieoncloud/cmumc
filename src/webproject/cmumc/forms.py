@@ -65,7 +65,8 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'description', 'category', 'date', 'time', 'location', 'price')
-        widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}), 'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'})}
+        widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}),
+                   'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'})}
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()
@@ -80,8 +81,10 @@ class PostForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'activation_key', 'user_type')
-        widgets = {'phone': forms.TextInput(attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121111111'}), 'photo': forms.FileInput()}
+        exclude = ('user', 'activation_key', 'user_type', 'helper_punctuality_score', 'helper_quality_score',
+                   'receiver_punctuality_score', 'receiver_quality_score')
+        widgets = {'phone': forms.TextInput(
+            attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121111111'}), 'photo': forms.FileInput()}
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()
@@ -101,4 +104,24 @@ class SearchForm(forms.Form):
         cleaned_data = super(SearchForm, self).clean()
         return cleaned_data
 
+class RateForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        exclude = ('created_user', 'task')
+
+    def clean(self):
+        cleaned_data = super(RateForm, self).clean()
+        return cleaned_data
+
+    def clean_quality_score(self):
+        quality_score = self.cleaned_data['quality_score']
+        if quality_score < 0.0 or quality_score > 5.0:
+            raise forms.ValidationError("Rating score is out of range")
+        return quality_score
+
+    def clean_punctuality_score(self):
+        punctuality_score = self.cleaned_data['punctuality_score']
+        if punctuality_score < 0.0 or punctuality_score > 5.0:
+            raise forms.ValidationError("Rating score is out of range")
+        return punctuality_score
 

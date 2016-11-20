@@ -67,10 +67,11 @@ class Notification(models.Model):
     content = models.TextField(max_length=1000)
 
 class Rating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=10, choices=UserType)
-    quality_score = models.IntegerField()
-    punctuality_score = models.IntegerField()
+    created_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    rated_user_type = models.CharField(max_length=10, choices=UserType)
+    quality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    punctuality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
     review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):
@@ -94,9 +95,10 @@ class Profile(models.Model):
     bio = models.TextField(max_length=420, default="", blank=True)
     photo = models.ImageField(upload_to="profile-photo", blank=True)
     venmo = models.CharField(max_length=20, default="", blank=True)
-
-    def is_upperclass(self):
-        return self.year_in_school in (self.JUNIOR, self.SENIOR)
+    helper_punctuality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    helper_quality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    receiver_punctuality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    receiver_quality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
 
 
 
