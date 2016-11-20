@@ -20,7 +20,7 @@
 				<div class="view_post_header2">
 					<div class="col-lg-12 col60">
 						<div class="row">
-							<a href="{% url 'profile' user.username %}"><img src="{% url 'photo' user.username %}" alt="{{ user.username }}" class="img-circle avatar_post"></a>
+							<a href="{% url 'profile' user.username %}"><img src="{% url 'photo' post.created_user %}" alt="{{ user.username }}" class="img-circle avatar_post"></a>
 						</div>
 						<div class="row">
 							<p class="created_user">Posted by {{ post.created_user }}</p>
@@ -29,7 +29,9 @@
 					<div class="col-lg-12 col40">
 						<span>Rating: </span>
 						{# <input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact"> #}
+						{% if user.username != post.created_user.username %}
 						<a href="{% url 'sendMessage' post.post_id %}"><button id="contact_btn" class="btn btn-md btn-primary btn-block" >Contact</button></a>
+						{% endif %}
 					</div>
 				</div>
 			</div>
