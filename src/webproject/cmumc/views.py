@@ -197,13 +197,9 @@ def accept_post(request, post_id):
         errors.append("You cannot accept for this post")
         return render(request, 'cmumc/error.html', context)
     else:
-        if len(post_item.accept_list.filter(username=request.user.username)) != 0:
-            print(post_item.accept_list)
-            errors.append("You have already accepted")
-        else:
-            post_item.accept_list.add(request.user)
-            post_item.status = 'NC'
-            post_item.save()
+        post_item.accept_list.add(request.user)
+        post_item.status = 'NC'
+        post_item.save()
 
         return render(request, 'cmumc/mytask.html', context)
 
