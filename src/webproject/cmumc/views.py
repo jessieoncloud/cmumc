@@ -202,7 +202,6 @@ def accept_post(request, post_id):
         post_item.save()
         return render(request, 'cmumc/mytask.html', context)
 
-##using ajax
 @login_required
 def view_accept_list(request, post_id):
     context = {}
@@ -506,6 +505,8 @@ def send_message(request, post_id):
 @login_required
 def search_post(request):
     context = {}
+    messages = []
+    context['messages'] = messages
     user_profile = get_object_or_404(Profile, user=request.user)
     form = SearchForm(request.POST)
     keyword = form.cleaned_data['keyword']
