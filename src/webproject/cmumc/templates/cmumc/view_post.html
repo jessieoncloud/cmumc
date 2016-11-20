@@ -59,14 +59,16 @@
 	        </div>
 		</div>
 
+		{{errors}}
+
 		{% if post.status == "A" or post.status == "NC" %}
-			{% if accepted == True %}
+			{% if accepted %}
 				<div id="post_btn" class="btn-block btn-unclickable" >Already Accepted</div>
-			{% elif user.profile.user_type == 'H' and user.username != post.created_user.username and accepted != True %}
+			{% elif user.profile.user_type == 'H' and user.username != post.created_user.username %}
 				<a href="{% url 'acceptPost' post.post_id %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Request</button></a>
-			{% elif user.profile.user_type == 'R' and user.username != post.created_user.username and accepted != True %}
+			{% elif user.profile.user_type == 'R' and user.username != post.created_user.username %}
 				<a href="{% url 'acceptPost' post.post_id %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Accept Offer</button></a>
-			{% elif user.username == post.created_user.username and accepted != True %}
+			{% elif user.username == post.created_user.username %}
 				<a href="{% url 'editPost' post.post_id %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
 			{% endif %}
 		{% elif post.status == "I" %}
