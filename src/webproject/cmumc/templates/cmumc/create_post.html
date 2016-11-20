@@ -5,15 +5,17 @@
 
 	{% block content %}
 	<div class="top_container">
-		<h3 class="send_post_header">
-			{% if profile.user_type == 'H' %}
-				I can help!
-			{% elif profile.user_type == 'R' %}
-				I need help!
-			{% endif %}
-		</h3>
+		<div class="send_post_header">
+			<h3>
+				{% if profile.user_type == 'H' %}
+					I can help!
+				{% elif profile.user_type == 'R' %}
+					I need help!
+				{% endif %}
+			</h3>
+		</div>
 	    <div>
-	        <form class="form-send-post" method="post" action="{% url 'create' %}">
+	        <form class="form-send-post controls boxed line-top" method="post" action="{% url 'create' %}">
 	            <p class="error">
                     {% for error in form.non_field_errors %}
                         {{ error }}
@@ -53,7 +55,7 @@
 				</tr>
 				<tr>
 					<td>{{ form.price.label_tag }}</td>
-					<td>$ {{ form.price }}</td>
+					<td>{{ form.price }}</td>
 					<td>{{ form.price.errors }}</td>
 				</tr>
 				<tr>
@@ -67,7 +69,11 @@
 					<td>{{ form.photo.errors }}</td>
 				</tr>
 	            </table>
-				<input type="submit" id="create_btn" class="btn btn-lg btn-primary btn-block" value="Create">
+	            <div class="text-center">
+					<span class="btn">
+						<input type="submit" id="create_btn" class="gradient" value="Create">
+					</span>
+				</div>
                 {% csrf_token %}
 	        </form>
 	    </div> 

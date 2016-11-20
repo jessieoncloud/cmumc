@@ -30,8 +30,8 @@
 
     {% block content %}
             <div class="col-mid-9 col75">
-                <div class="row">
-                	<h3 class="content_title">{{user.username}}'s Posts</h3>
+                <div class="panel panel-default">
+                	<h3 class="content_title panel-heading">{{user.username}}'s Posts</h3>
                 	<div class="posts">
 					        {% for post in posts %}  
                   <div class="row row-post">
@@ -54,8 +54,8 @@
            			  {% endfor %}
                 	</div>
                 </div>
-                <div class="row">
-                	<h3 class="content_title">Rating &amp; Reviews</h3>
+                <div class="panel panel-default">
+                	<h3 class="content_title panel-heading">Rating &amp; Reviews</h3>
                 </div>
             </div>
 

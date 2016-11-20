@@ -57,7 +57,7 @@ $(document).ready(function() {
 
 	// Profile menu bar highlight
 	$('.profileOpt').hover(function() {
-		$(this).css("background-color", "#404040");
+		$(this).css("background-color", "#960000");
 		$(this).find('h4').css("color", "#ffffff")
 		}, function() {
 		$(this).css("background-color", "#ffffff");
@@ -71,25 +71,29 @@ $(document).ready(function() {
 			var user_type = $('#switch_btn').attr('value');
 		}
 		// console.log("user type: "+user_type);
-		if (user_type == 'H') {
-			$('.topnav').css("background-color", "#404040");
+		if (user_type == 'R') {
+			$('.topnav').css("background-color", "#e1932d");
 			$('#logo').css("color", "#ffffff");
 			$('.topnavOptions').css("color", "#ffffff");
-			$('.topnavOptions').css("background-color", "#404040");
+			$('.topnavOptions').css("background-color", "#e1932d");
+			$('.navbar-fixed-top').css("border-color", "#e1932d");
 			$('.topnavOptions').hover(function() {
-				$(this).css("background-color", "#777");
+				// hover color
+				$(this).css("background-color", "#ebb670");
 				}, function() {
-				$(this).css("background-color", "#404040");
+				$(this).css("background-color", "#e1932d");
 			});
-		} else if (user_type == 'R') {
-			$('.topnav').css("background-color", "#f2f2f2");
-			$('#logo').css("color", "#777");
-			$('.topnavOptions').css("color", "#777");
-			$('.topnavOptions').css("background-color", "#f2f2f2");
+		} else if (user_type == 'H') {
+			$('.topnav').css("background-color", "#960000");
+			$('#logo').css("color", "#fff");
+			$('.topnavOptions').css("color", "#fff");
+			$('.topnavOptions').css("background-color", "#960000");
+			$('.navbar-fixed-top').css("border-color", "#960000");
 			$('.topnavOptions').hover(function() {
-				$(this).css("background-color", "#ffffff");
+				// hover color
+				$(this).css("background-color", "#ff4747");
 				}, function() {
-				$(this).css("background-color", "#f2f2f2");
+				$(this).css("background-color", "#960000");
 			});
 		}
 	}

@@ -6,124 +6,130 @@
 
             {% endcomment %}
 
+            {% if message %}
             <p>{{ message }}</p>
+            {% endif %}
 
             <div class="col-mid-9 col75 mytask_col">
-                	<h3 class="content_title">My Task</h3>
-                  <table id="tasks-table" class="table tbale-bordered table--highlighted flush--bottom">
-                    <thead>
-                      <tr class="table-title">
-                        <th class="text--center"></th>
-                        <th>Title</th>
-                        <th>Poster</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Status</th>
+              <div class="panel panel-default">
+                	<h3 class="content_title panel-heading">My Task</h3>
+                  <div class="">
+                    <table id="tasks-table" class="table tbale-bordered table--highlighted flush--bottom">
+                      <thead>
+                        <tr class="table-title">
+                          <th class="text--center"></th>
+                          <th>Title</th>
+                          <th>Poster</th>
+                          <th>Category</th>
+                          <th>Price</th>
+                          <th>Status</th>
+                          </tr>
                         </tr>
-                      </tr>
-                    </thead>
+                      </thead>
 
-                    {% for post in posts %}
+                      {% for post in posts %}
 
-                    <tbody class="align--top">
-                      
-                        <tr data-toggle="collapse" data-target="#post{{ post.post_id }}" role="button" aria-expanded="false" aria-controls="post{{ post.post_id }}">
-                          <td class="text--center">
-                            {% if post.status != 'NC' %}
-                            <span class="glyphicon glyphicon-triangle-bottom"></span>
-                            {% endif %}
-                          </td>
-                          <td>{{ post.title }}</td>
-                          <td>{{ post.created_user }}</td>
-                          <td>{{ post.category }}</td>
-                          <td>${{ post.price }}</td>
-                          <td>{{ post.status }}</td>
-                        </tr>
+                      <tbody class="align--top">
+                        
+                          <tr data-toggle="collapse" data-target="#post{{ post.post_id }}" role="button" aria-expanded="false" aria-controls="post{{ post.post_id }}">
+                            <td class="text--center">
+                              {% if post.status != 'NC' %}
+                              <span class="glyphicon glyphicon-triangle-bottom"></span>
+                              {% endif %}
+                            </td>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.created_user }}</td>
+                            <td>{{ post.category }}</td>
+                            <td>${{ post.price }}</td>
+                            <td>{{ post.status }}</td>
+                          </tr>
 
-                      {% if post.status == 'A' %}
-                        <tr class="hard" >
-                          <td colspan="8" class="colspan-nopadding">
-                            <div id="post{{ post.post_id }}" class="collapse">
-                              <div class="task-expand">
-                                <div class="col60">
-                                  <p>Description: {{post.description}}</p>
-                                </div>
-                                {% if user == post.created_user %}
-                                <div class="col40">
-                                 <a href="{% url 'editPost' post.post_id %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
-                                 <a href="{% url 'deletePost' post.post_id %}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
-                                </div>
-                                {% endif %}
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-
-                      {% elif post.status == 'NC' and user == post.created_user %}
-                        <tr class="hard" >
-                          <td colspan="8" class="colspan-nopadding">
-                          <div id="post{{ post.post_id }}" class="collapse">
-                            <div class="task-expand">
-                              <form method="post" action="{% url 'accept' post.post_id %}">
-                                {% for requester in post.accept_list.all %}
-                                <div class="col60">
-                                    <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
-                                    <div class="accept_list_options form-check">
-                                      <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" />
-                                      <label>Requester: {{ requester.username }}</label>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                <div class="col40">
-                                 <input type="submit" id="edit_post_btn" class="btn btn-md btn-primary btn-block" value="Confirm">
-                                </div>
-                              {% csrf_token %}
-                              </form>
-                            </div>
-                          </div>
-                          </td>
-                        </tr>
-
-                      {% elif post.status == 'I' %}
-                        <tr class="hard" >
-                          <td colspan="8" class="colspan-nopadding">
-                            <div id="post{{ post.post_id }}" class="collapse">
-                              <div class="task-expand">
-                                <div class="col60">
-                                  <p>Description: {{post.description}}</p>
-                                </div>
-                                <div class="col40">
-                                 <a href="{% url 'complete' post.post_id %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
+                        {% if post.status == 'A' %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
+                              <div id="post{{ post.post_id }}" class="collapse">
+                                <div class="task-expand">
+                                  <div class="col60">
+                                    <p>Description: {{post.description}}</p>
+                                  </div>
+                                  {% if user == post.created_user %}
+                                  <div class="col40">
+                                   <a href="{% url 'editPost' post.post_id %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
+                                   <a href="{% url 'deletePost' post.post_id %}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
+                                  </div>
+                                  {% endif %}
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                        </tr>
+                            </td>
+                          </tr>
 
-                        {% elif post.status == 'C' %}
-                        <tr class="hard" >
-                          <td colspan="8" class="colspan-nopadding">
+                        {% elif post.status == 'NC' and user == post.created_user %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
                             <div id="post{{ post.post_id }}" class="collapse">
                               <div class="task-expand">
-                                <div class="col60">
-                                  <p>Description: {{post.description}}</p>
-                                </div>
-                                <div class="col40">
-                                 <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
-                                </div>
+                                <form method="post" action="{% url 'accept' post.post_id %}">
+                                  {% for requester in post.accept_list.all %}
+                                  <div class="col60">
+                                      <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
+                                      <div class="accept_list_options form-check">
+                                        <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" />
+                                        <label>Requester: {{ requester.username }}</label>
+                                      </div>
+                                  </div>
+                                  {% endfor %}
+                                  <div class="col40">
+                                   <input type="submit" id="edit_post_btn" class="btn btn-md btn-primary btn-block" value="Confirm">
+                                  </div>
+                                {% csrf_token %}
+                                </form>
                               </div>
                             </div>
-                          </td>
-                        </tr>
+                            </td>
+                          </tr>
 
-                      {% endif %}
+                        {% elif post.status == 'I' %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
+                              <div id="post{{ post.post_id }}" class="collapse">
+                                <div class="task-expand">
+                                  <div class="col60">
+                                    <p>Description: {{post.description}}</p>
+                                  </div>
+                                  <div class="col40">
+                                   <a href="{% url 'complete' post.post_id %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          {% elif post.status == 'C' %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
+                              <div id="post{{ post.post_id }}" class="collapse">
+                                <div class="task-expand">
+                                  <div class="col60">
+                                    <p>Description: {{post.description}}</p>
+                                  </div>
+                                  <div class="col40">
+                                   <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                        {% endif %}
 
 
-                    </tbody>
+                      </tbody>
 
-                    {% endfor %}
+                      {% endfor %}
 
-                  </table>
+                    </table>
+                  </div>
+              </div>
             </div>
 
         </div>

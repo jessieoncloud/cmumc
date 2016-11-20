@@ -1,15 +1,17 @@
 {% extends "cmumc/base2.html" %}
 
 	{% block content %}
-	        <div class="col-mid-9 col75">
-				<h3 class="content_title">My Info</h3>
+	        <div class="col-mid-9 col75 panel panel-default">
+				<h3 class="content_title panel-heading">My Info</h3>
 			    <div class="profile">
 			        <form class="form-profile" method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
+			        	{% if form.non_field_errors %}
 						<p class="error">
 						    {% for error in form.non_field_errors %}
 						        {{ error }}
 						    {% endfor %}
-						</p>			            
+						</p>		
+						{% endif %}	            
 			            <table class="form_table">
 						<tr>
 							<td>{{ user_form.username.label_tag }}</td>
@@ -62,7 +64,11 @@
 							<td>{{ profile_form.photo.errors }}</td>
 						</tr>
 			            </table>
-						<input type="submit" id="edit_profile_btn" class="btn btn-lg btn-primary btn-block" value="Edit">
+			            <div class="text-center">
+							<span class="btn">
+								<input type="submit" id="edit_profile_btn" class="gradient" value="Edit">
+							</span>
+						</div>
                         {% csrf_token %}
 			        </form>
 			    </div> 
