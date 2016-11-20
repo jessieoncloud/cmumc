@@ -510,8 +510,8 @@ def search_post(request):
     form = SearchForm(request.POST)
     keyword = form.cleaned_data['keyword']
     posts = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).filter(title__icontains=keyword)
-    context['posts']
-    return render(request, 'cmumc/search.html', context)
+    context['posts'] = posts
+    return render(request, 'cmumc/stream.html', context)
 
 ##how to pass the value to the server?? filter by what??
 @login_required
