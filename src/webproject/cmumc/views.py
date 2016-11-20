@@ -448,7 +448,6 @@ def confirm_register(request, user_name, token):
         if user_profile.activation_key == token:
             user_item.is_active = True
             user_item.save()
-            # Logs in the new user and redirects to his/her profile page
             new_user = authenticate(username=user_item.username, \
                             password=user_item.password)
             login(request, new_user)
