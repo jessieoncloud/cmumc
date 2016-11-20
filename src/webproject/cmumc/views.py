@@ -197,7 +197,7 @@ def accept_post(request, post_id):
         errors.append("You cannot accept for this post")
         return render(request, 'cmumc/error.html', context)
     else:
-        if len(post_item.accept_list.filter(request.user)) != 0:
+        if len(post_item.accept_list.filter(username=request.user.username)) != 0:
             context['accepted'] = True
         else:
             post_item.accept_list.add(request.user)
