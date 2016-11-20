@@ -183,7 +183,7 @@ def accept_post(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
-    context = {}
+    context['accepted'] = False
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
@@ -197,9 +197,12 @@ def accept_post(request, post_id):
         errors.append("You cannot accept for this post")
         return render(request, 'cmumc/error.html', context)
     else:
-        post_item.accept_list.add(request.user)
-        post_item.status = 'NC'
-        post_item.save()
+        if len(post_item.accept_list.filter(request.user)) != 0:
+            context['accepted'] = True
+        else:
+            post_item.accept_list.add(request.user)
+            post_item.status = 'NC'
+            post_item.save()
         return render(request, 'cmumc/mytask.html', context)
 
 @login_required
