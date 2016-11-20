@@ -538,6 +538,10 @@ def filter_available(request):
 def filter_type(request):
     pass
 
+@login_required
+def rate_task(request, post_id):
+    pass
+
 
 
 

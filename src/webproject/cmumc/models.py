@@ -69,7 +69,8 @@ class Notification(models.Model):
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=10, choices=UserType)
-    score = models.IntegerField()
+    quality_score = models.IntegerField()
+    punctuality_score = models.IntegerField()
     review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):
