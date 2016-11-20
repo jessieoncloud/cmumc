@@ -17,6 +17,9 @@
                         </form>
 		            </div><!-- /input-group -->
 		        </div>
+                <div class="input-group">
+                    <a href="{% url 'filter_available' %}"><button class="btn btn-md btn-primary btn-block">Show available only</button></a>
+                </div>
 	        </div>
 	        <div class="col25">
 	        	<a href="{% url 'create' %}"><button id="post_btn" class="btn btn-md btn-primary btn-block" >Post</button></a>
@@ -38,6 +41,7 @@
                         <li>
                             <a href="#">Task type<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                {% comment }
                                 <li>
                                     <a class="sidebar-option-tasktype" val="Tutoring">Tutoring</a>
                                 </li>
@@ -47,6 +51,10 @@
                                 <li>
                                     <a class="sidebar-option-tasktype" val="Others">Others</a>
                                 </li>
+                                {% endcomment %}
+                                <form method="post" action="{% url 'filter_tasktype' %}">
+                                    <li>
+                                </form>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
