@@ -356,6 +356,7 @@ def profile(request, user_name):
     context['posts'] = user_post
     return render(request, 'cmumc/profile.html', context)
 
+@login_required
 def get_photo(request, user_name):
     user_item = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user_item)
@@ -365,6 +366,7 @@ def get_photo(request, user_name):
     content_type = guess_type(profile.photo.name)
     return HttpResponse(profile.photo, content_type=content_type)
 
+@login_required
 def get_post_photo(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     if not post_item.post_photo:
