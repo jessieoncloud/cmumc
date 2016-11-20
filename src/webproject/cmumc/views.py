@@ -86,7 +86,11 @@ def send_post(request):
         return render(request, 'cmumc/create_post.html', context)
 
     if request.user.is_authenticated:
-        new_post = Post(created_user=request.user, post_type=user_profile.user_type)
+        if (user_profile.user_type == "Driving"):
+            photo_type = "profile-photo/driving.png"
+        if (user_profile.user_type == "Tutoring"):
+            photo_type = "profile-photo/tutoring.png"
+        new_post = Post(created_user=request.user, post_type=user_profile.user_type, post_photo=photo_type)
         form = PostForm(request.POST, instance=new_post)
         context['form'] = form
         context['profile'] = user_profile
@@ -417,7 +421,7 @@ def register(request):
 
     token = default_token_generator.make_token(new_user)
 
-    user_profile = Profile(user=new_user, activation_key=token)
+    user_profile = Profile(user=new_user, photo="profile-photo/avatar.png", activation_key=token)
     user_profile.save()
 
     email_body = """
