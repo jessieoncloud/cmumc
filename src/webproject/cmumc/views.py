@@ -509,11 +509,17 @@ def search_post(request):
     context['messages'] = messages
     user_profile = get_object_or_404(Profile, user=request.user)
     form = SearchForm(request.POST)
+    if not form.is_valid():
+        messages.append("Form contained invalid data.")
+        context['form'] = form
+        return render(request, 'cmumc/stream.html', context)
+    
     keyword = form.cleaned_data['keyword']
     posts_title = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).filter(title__icontains=keyword)
     posts_description = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).filter(description__icontains=keyword)
     posts = posts_description | posts_title
     context['posts'] = posts.distinct()
+    context['form'] = form
     return render(request, 'cmumc/stream.html', context)
 
 ##how to pass the value to the server?? filter by what??
