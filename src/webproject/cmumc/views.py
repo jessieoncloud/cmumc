@@ -80,7 +80,6 @@ def view_post(request, post_id):
 def send_post(request):
     context = {}
     user_profile = get_object_or_404(Profile, user=request.user)
-    print(request.POST)
 
     if request.method == 'GET':
         context['form'] = PostForm()
@@ -88,13 +87,8 @@ def send_post(request):
         return render(request, 'cmumc/create_post.html', context)
 
     if request.user.is_authenticated:
-        photo_type = "post-photo/others.jpg"
-        if (request.POST['category'] == "Driving"):
-            photo_type = "post-photo/driving.png"
-        elif (request.POST['category'] == "Tutoring"):
-            photo_type = "post-photo/tutoring.png"
-        new_post = Post(created_user=request.user, post_type=user_profile.user_type, post_photo=photo_type)
-        form = PostForm(request.POST, instance=new_post)
+        new_post = Post(created_user=request.user, post_type=user_profile.user_type)
+        form = PostForm(request.POST, request.Files, instance=new_post)
         context['form'] = form
         context['profile'] = user_profile
 
@@ -102,6 +96,7 @@ def send_post(request):
             return render(request, 'cmumc/create_post.html', context)
 
         form.save()
+
         return redirect('stream')
     else:
         return render(request, 'cmumc/login.html', context)
@@ -370,7 +365,13 @@ def get_photo(request, user_name):
 def get_post_photo(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     if not post_item.post_photo:
-        raise Http404
+        if (post_item.category == "Driving"):
+            post_item.post_photo = "post-photo/driving.png"
+        elif (post_item.category == "Tutoring"):
+            post_item.post_photo = "post-photo/tutoring.png"
+        else:
+            post_item.post_photo = "post-photo/others.jpg"
+        post_item.save()
 
     content_type = guess_type(post_item.post_photo.name)
     return HttpResponse(post_item.post_photo, content_type=content_type)
@@ -480,14 +481,14 @@ def send_message(request, post_id):
     to_profile = get_object_or_404(Profile, user=to_user)
 
     form = MessageForm(request.POST)
-    # print(form)
+
     context['form'] = form
 
     if not form.is_valid():
         msgs.append("Your message is not valid.")
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
-    #print(body)
+
     msg_body = "Message from CMUMC.\n\nYour post " + post_item.title + " has been viewed by " + from_profile.user.username + ".\n" \
             + from_profile.user.username + " would like to send you a message:\n\n" + body + ".\n \n" \
             + "You can contact him/her by " + str(from_profile.phone) + "."
@@ -540,7 +541,53 @@ def filter_type(request):
 
 @login_required
 def rate_task(request, post_id):
-    pass
+    context = {}
+    messages = []
+    context['messages'] = messages
+    post_item = get_object_or_404(Post, post_id=post_id)
+    task_item = get_object_or_404(Task, post=post_item)
+
+    new_rating = Rating(created_user=request.user, task=task_item)
+    form = RateForm(request.POST, instance=new_rating)
+    context['form'] = form
+
+    if not form.is_valid():
+        messages.append("Form contained invalid data")
+        return render(request, 'cmumc/rating.html', context)
+
+    form.save()
+
+    ##update rated user score
+    rated_user_type = form.cleaned_data['rated_user_type']
+    if rated_user_type == 'H':
+        rated_user = task_item.helper
+    else:
+        rated_user = task_item.receiver
+
+    rated_user_profile = get_object_or_404(Profile, user=rated_user)
+
+    if rated_user_type == 'H':
+        task_set = Task.objects.filter(helper=rated_user).filter(task_status='C')
+    else:
+        task_set = Task.object.filter(receiver=rated_user).filter(task_status='C')
+
+    rating_set = Rating.objects.filter(task__in=task_set).filter(rated_user_type=rated_user_type)
+    total_quality_score = 0.0
+    total_punctuality_score = 0.0
+    length = len(rating_set)
+    for i in range(0, length):
+        total_quality_score += rating_set[i].quality_score
+        total_punctuality_score += rating_set[i].punctuality_score
+
+    if rated_user_type == 'H':
+        rated_user_profile.helper_punctuality_score = total_punctuality_score / length
+        rated_user_profile.helper_quality_score = total_quality_score / length
+    else:
+        rated_user_profile.receiver_punctuality_score = total_punctuality_score / length
+        rated_user_profile.receiver_quality_score = total_quality_score / length
+
+    return render(request, 'cmumc/rating.html', context)
+
 
 
 
