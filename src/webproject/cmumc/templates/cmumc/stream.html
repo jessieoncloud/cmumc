@@ -113,7 +113,7 @@
 						{% for post in posts %}  
                         <div class="row row-post">
                 			<div class="col-mid-3 col25 post_img">
-                				<a href="{% url 'viewPost' post.post_id %}"><img src="{#% url 'photo' post.photo %#}" class="img-rounded img-responsive post_photo"></a>
+                				<a href="{% url 'viewPost' post.post_id %}"><img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
                					<div class="col-mid-9 col75 post_content">

@@ -79,6 +79,7 @@ def view_post(request, post_id):
 def send_post(request):
     context = {}
     user_profile = get_object_or_404(Profile, user=request.user)
+    print(request.POST)
 
     if request.method == 'GET':
         context['form'] = PostForm()
@@ -86,10 +87,11 @@ def send_post(request):
         return render(request, 'cmumc/create_post.html', context)
 
     if request.user.is_authenticated:
-        if (user_profile.user_type == "Driving"):
-            photo_type = "profile-photo/driving.png"
-        if (user_profile.user_type == "Tutoring"):
-            photo_type = "profile-photo/tutoring.png"
+        photo_type = "post-photo/others.jpg"
+        if (request.POST['category'] == "Driving"):
+            photo_type = "post-photo/driving.png"
+        elif (request.POST['category'] == "Tutoring"):
+            photo_type = "post-photo/tutoring.png"
         new_post = Post(created_user=request.user, post_type=user_profile.user_type, post_photo=photo_type)
         form = PostForm(request.POST, instance=new_post)
         context['form'] = form
@@ -362,6 +364,14 @@ def get_photo(request, user_name):
 
     content_type = guess_type(profile.photo.name)
     return HttpResponse(profile.photo, content_type=content_type)
+
+def get_post_photo(request, post_id):
+    post_item = get_object_or_404(Post, post_id=post_id)
+    if not post_item.post_photo:
+        raise Http404
+
+    content_type = guess_type(post_item.post_photo.name)
+    return HttpResponse(post_item.post_photo, content_type=content_type)
 
 @login_required
 @transaction.atomic
