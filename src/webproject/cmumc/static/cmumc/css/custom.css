@@ -701,6 +701,10 @@ table.dataTable thead .sorting:after {
     margin-top: 20px;
 }
 
+#search_btn {
+    display: inherit;
+}
+
 // login, register, reset/forget pwd - specific
 .form_table {
     margin-top: 5%;
