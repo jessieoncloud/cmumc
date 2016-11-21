@@ -26,11 +26,11 @@
                            {% csrf_token %}
                         </form>
 		            </div><!-- /input-group -->
-                    <span><a href="{% url 'filterAvailable' %}" class="btn"><span class="gradient">Available posts only</span></a></span>
+                    <span><a href="{% url 'filterAvailable' %}" class="btn"><span class="gradient">Available tasks only</span></a></span>
 		        </div>
 	        </div>
 	        <div class="col25">
-	        	<a href="{% url 'create' %}" class="btn"><span id="post_btn" class="gradient" >Post</span></a>
+	        	<a href="{% url 'create' %}" class="btn"><span id="post_btn" class="gradient" >Post Task</span></a>
 	        </div>
 		</div>
 	</div>
