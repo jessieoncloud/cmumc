@@ -37,7 +37,7 @@
                               <span class="glyphicon glyphicon-triangle-bottom"></span>
                               {% endif %}
                             </td>
-                            <td>{{ post.title }}</td>
+                            <td><a href="{% url 'viewPost' post.post_id %}">{{ post.title }}</a></td>
                             <td>{{ post.created_user }}</td>
                             <td>{{ post.category }}</td>
                             <td>${{ post.price }}</td>
@@ -102,6 +102,9 @@
                                 <div class="task-expand">
                                   <div class="col60">
                                     <p>Description: {{post.description}}</p>
+                                        <p>Helper: <a href="{% url 'profile' post.task.helper.username %}">{{ post.task.helper }}</a></p>
+                                        <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
+                                    </p>
                                   </div>
                                   <div class="col40 right-btn-container">
                                    <span><a href="{% url 'complete' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Complete</span></a></span>
