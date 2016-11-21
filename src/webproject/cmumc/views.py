@@ -475,7 +475,7 @@ def send_message(request, post_id):
     post_item = get_object_or_404(Post, post_id=post_id)
     context['post'] = post_item
     if request.method == "GET":
-        return render(request, 'cmumc/contact.html', context)
+        return render(request, 'cmumc/contact2.html', context)
     from_profile = get_object_or_404(Profile, user=request.user)
     to_user = post_item.created_user
     to_profile = get_object_or_404(Profile, user=to_user)
