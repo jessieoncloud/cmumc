@@ -107,7 +107,13 @@
                                     </p>
                                   </div>
                                   <div class="col40 right-btn-container">
-                                   <span><a href="{% url 'complete' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Complete</span></a></span>
+                                    {% if user.profile.user_type == 'H' and post.task.helper_status == "C" %}
+                                    <span id="unclickable_btn" class="btn-unclickable" >Waiting for receiver</span>
+                                    {% elif user.profile.user_type == 'R' and post.task.receiver_status == "C" %}
+                                    <span id="unclickable_btn" class="btn-unclickable" >Waiting for helper</span>
+                                    {% else %}
+                                    <span><a href="{% url 'complete' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Complete</span></a></span>
+                                    {% endif %}
                                   </div>
                                 </div>
                               </div>
