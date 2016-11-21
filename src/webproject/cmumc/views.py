@@ -554,6 +554,10 @@ def filter_post(request):
     return render(request, 'cmumc/stream.html', context)
 
 @login_required
+def clear_filter(request):
+    return redirect('stream')
+
+@login_required
 def rate_task(request, post_id):
     context = {}
     messages = []

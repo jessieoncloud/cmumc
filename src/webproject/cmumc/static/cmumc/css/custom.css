@@ -755,6 +755,10 @@ table.dataTable thead .sorting:after {
     margin-bottom: 20px;  
 }
 
+#clear_filter_btn {
+    color: #337ab7;
+}
+
 .login_container, .register_container, .reset_container {
     float: none;
     margin: 0 auto;
