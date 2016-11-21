@@ -325,6 +325,7 @@ def mode(request):
     return redirect('stream')
 
 # Ajax switch mode
+# need validation
 @login_required
 def switch(request):
     user = get_object_or_404(User, username=request.POST['mode_username'])
@@ -540,9 +541,17 @@ def filter_available(request):
         messages.append("No Results Found.")
     return render(request, 'cmumc/stream.html', context)
 
+# Ajax filter post
+# need validation
 @login_required
-def filter_type(request):
-    pass
+def filter_post(request):
+    print(request.POST)
+    context = {}
+    messages = []
+    context['messages'] = messages
+    user_profile = get_object_or_404(Profile, user=request.user)
+    # Filter based on request.POST data
+    return render(request, 'cmumc/stream.html', context)
 
 @login_required
 def rate_task(request, post_id):

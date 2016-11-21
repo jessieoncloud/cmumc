@@ -101,20 +101,95 @@ $(document).ready(function() {
 		}
 	}
 
-	// function updateUserTypeDisplay() {
-	// 	if ($('#switch_btn').attr('value')) {
-	// 		var user_type = $('#switch_btn').attr('value');
-	// 	}
-	// 	if (user_type == 'H') {
-	// 		$('.user_mode').empty();
-	// 		$('.user_mode').html('Helper');
-	// 	}
-	// 	if (user_type == 'R') {
-	// 		$('.user_mode').empty();
-	// 		$('.user_mode').html('Receiver');
-	// 	}
-	// }
+	// Filter Options
+    // Price Range Input
+    $("#price_range").rangeslider({
+        from: 0,
+        to: 300,
+        limits: false,
+        // scale: ['$0', '$300'],
+        // heterogeneity: ['100/300'],
+        step: 5,
+        smooth: true,
+        dimension: '$',
+        onstatechange: function(value) {
+        	// console.dir(this);
+        	console.log("price");
+        	filterAjax();
+        }
+    });
 
+    // Price Range Input
+    //   https://egorkhmelev.github.io/jslider/
+    $("#time_range").rangeslider({
+        from: 0,
+        to: 1440,
+        limits: false,
+        // scale: ['0:00', '24:00'],
+        step: 15,
+        smooth: true,
+        dimension: '',
+		calculate: function( value ){
+			var hours = Math.floor( value / 60 );
+			var mins = ( value - hours*60 );
+			return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
+		},
+		onstatechange: function(value) {
+			// console.dir(this);
+			console.log("time");
+			filterAjax();
+		}
+    });
+
+    // Tasktype is clicked
+    $('.sidebar-option-tasktype').click(function(){
+    	filterAjax();
+    });
+
+    // Date is clicked
+    $('.sidebar-option-date').click(function() {
+    	// Uncheck all of the dates
+    	$('.sidebar-option-date').css("color", "#8e8071");
+    	$('.sidebar-option-date').attr("checked", false);
+    	// Check the date clicked
+    	$(this).css("color", "#960000");
+    	$(this).attr("checked", true);
+    	filterAjax();
+    })
+
+    // Filter check and ajax to backend
+    function filterAjax() {
+    	var filtered = {tasktype:[], date:null, time:null, price:null};
+    	// Get the filtered tasktype
+    	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
+    	for (i=0; i<tasktype.length; i++) {
+    		filtered.tasktype[i] = tasktype[i].value;
+    	} 
+    	// Get the filtered date
+    	//   http://stackoverflow.com/questions/33023806/typeerror-1-attr-is-not-a-function
+    	//   use eq(i) instead of [i]
+    	var date = $('.sidebar-option-date');
+    	for (i=0; i<date.length; i++) {
+    		if (date.eq(i).attr("checked") == "checked") {
+     			filtered.date = date.eq(i).attr("value");  			
+    		}
+    	} 
+    	// Get the filtered time
+    	var time = $('#time_range');
+    	filtered.time = time[0].value;
+    	// Get the filtered price
+		var price = $('#price_range');
+    	filtered.price = price[0].value;
+    	
+    	// filter options result  
+    	console.log(filtered);  
+
+    	// Ajax to backend
+    	$.post("/cmumc/filter_post", {tasktype: filtered.tasktype, date: filtered.date, time: filtered.time, price: filtered.price})
+		.done(function(data) {
+			console.log("filter ajax done!");
+		});
+    }
 
 	// CSRF set-up copied from Django docs
 	function getCookie(name) {  

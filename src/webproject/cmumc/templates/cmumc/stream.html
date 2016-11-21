@@ -48,18 +48,25 @@
                         </li>
                         <li>
                             <a href="#">Task type<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                {% comment %}
-                                <li>
-                                    <a class="sidebar-option-tasktype" val="Tutoring">Tutoring</a>
+                            <ul class="nav nav-second-level form-check">
+                                <li class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="sidebar-option sidebar-option-tasktype form-check-input" id="sidebar-option-tasktype-tutoring" type= "checkbox" value="Tutoring">
+                                        Tutoring
+                                    </label>
                                 </li>
-                                <li>
-                                    <a class="sidebar-option-tasktype" val="Driving">Driving</a>
+                                <li class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="sidebar-option sidebar-option-tasktype form-check-input" id="sidebar-option-tasktype-driving" type= "checkbox" value="Driving">
+                                        Driving
+                                    </label>
                                 </li>
-                                <li>
-                                    <a class="sidebar-option-tasktype" val="Others">Others</a>
+                                <li class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="sidebar-option sidebar-option-tasktype form-check-input" id="sidebar-option-tasktype-others" type= "checkbox" value="Others">
+                                        Others
+                                    </label>
                                 </li>
-                                {% endcomment %}
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -67,13 +74,13 @@
                             <a href="#">Date<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a class="sidebar-option-date" val="today">Today</a>
+                                    <a class="sidebar-option sidebar-option-date" id="sidebar-option-date-today" value="today">Today</a>
                                 </li>
                                 <li>
-                                    <a class="sidebar-option-date" val="threedays">In 3 days</a>
+                                    <a class="sidebar-option sidebar-option-date" value="threedays">In 3 days</a>
                                 </li>
                                 <li>
-                                    <a class="sidebar-option-date" val="aweek">In a week</a>
+                                    <a class="sidebar-option sidebar-option-date" value="aweek">In a week</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -81,30 +88,20 @@
                         <li>
                             <a href="#">Time<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a class="sidebar-option-time" val="morning">Morning</a>
-                                </li>
-                                <li>
-                                    <a class="sidebar-option-time" val="afternoon">Afternoon</a>
-                                </li>
-                                <li>
-                                    <a class="sidebar-option-time" val="evening">Evening</a>
-                                </li>
+                                <!-- Range slider -->
+                                <div class="range-slider styled">
+                                    <input class="sidebar-option sidebar-option-time" id="time_range" type="text" name="time_range" value="0;1440">
+                                </div>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#">Price<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a>Available</a>
-                                </li>
-                                <li>
-                                    <a>In progress</a>
-                                </li>
-                                <li>
-                                    <a>Completed</a>
-                                </li>
+                                <!-- Range slider -->
+                                <div class="range-slider styled">
+                                    <input class="sidebar-option sidebar-option-price" id="price_range" type="text" name="price_range" value="0;300">
+                                </div>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
