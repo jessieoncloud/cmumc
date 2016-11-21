@@ -193,7 +193,7 @@ form {
     }
 }
 
-@media(max-width:990px) {
+@media(max-width:1200px) {
     .usermenu_col {
       display: none;
     }
@@ -1089,7 +1089,11 @@ p.title {
 }
 
 .nav>li>a {
-  color: #8e8071;
+    color: #8e8071;
+}
+
+.profile-post-container {
+    min-width: 800px;
 }
 
 footer {
