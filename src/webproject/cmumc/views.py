@@ -506,13 +506,15 @@ def send_message(request, post_id):
 
 @login_required
 def search_post(request):
+    print(request.POST)
     context = {}
     messages = []
     context['messages'] = messages
     user_profile = get_object_or_404(Profile, user=request.user)
     form = SearchForm(request.POST)
+
     if not form.is_valid():
-        messages.append("Form contained invalid data.")
+        messages.append("Invalid search")
         context['form'] = form
         return render(request, 'cmumc/stream.html', context)
     
@@ -522,6 +524,8 @@ def search_post(request):
     posts = posts_description | posts_title
     context['posts'] = posts.distinct()
     context['form'] = form
+    if len(context['posts']) == 0:
+        messages.append("No results found")
     return render(request, 'cmumc/stream.html', context)
 
 @login_required

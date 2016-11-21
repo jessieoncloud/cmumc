@@ -10,7 +10,6 @@
                             <div class="clearfix">
                                 {% comment %}
                                 <input type="text" class="form-control" placeholder="Search..." name="keyword" value="{{ keyword }}">
-
         		                <span class="input-group-btn" id="search_btn">
             		                <button class="btn btn-default" type="submit">
             		                    <i class="fa fa-search"></i>
@@ -21,7 +20,7 @@
                                     <input type="submit" value="Search" class="gradient">
                                </span>
                                <div class="field_text search_input">
-                                    <input name="keyword" value="{{ keyword }}" type="text" placeholder="Search...">
+                                    <input name="keyword" value="{{ keyword }}" type="text" placeholder="Search..." required>
                                </div>
                            </div>
                            {% csrf_token %}
@@ -125,6 +124,15 @@
                     {% endif %}
 	                </div>
 	                <!-- /.col-lg-12 -->
+                    {% if messages %}
+                    <div>  
+                        <p class="message">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                        </p>
+                    </div>
+                    {% endif %}
                 	<div class="posts">
 						{% for post in posts %}  
                         <div class="row row-post">

@@ -65,31 +65,6 @@ $(document).ready(function() {
 	}) 
 
 
-	// // Ajax message box
-	// $('.contact').click(function(ev) {
-	// 	ev.preventDefault(); // prevent navigation
-	// 	console.log("here2");
-	// 	var url = $(this).data("form"); // get the contact form url
-	// 	console.log(url);
-	// 	$("#contactModal").load(url, function() { // load the url into the modal
-	// 		console.log("here3");
- //            $(this).modal('show'); // display the modal on url load
- //        });
- //        return false; // prevent the click propagation
-	// })
-
-    // $('.contact-form').live('submit', function() {
-    //     $.ajax({ 
-    //         type: $(this).attr('method'), 
-    //         url: this.action, 
-    //         data: $(this).serialize(),
-    //         context: this,
-    //         success: function(data, status) {
-    //             $('#contactModal').html(data);
-    //         }
-    //     });
-    //     return false;
-    // });	
 
 
 	// Change navtop color based on user type
