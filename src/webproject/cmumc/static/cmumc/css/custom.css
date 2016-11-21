@@ -717,6 +717,10 @@ table.dataTable thead .sorting:after {
     margin-bottom: 20px;
 }
 
+.right-btn-container {
+    text-align: right;
+}
+
 #login_btn, #register_btn,  #change_btn{
     width: 150px;
     margin: auto;
@@ -732,7 +736,7 @@ table.dataTable thead .sorting:after {
 #edit_post_btn {
     width: 150px;
     margin: auto;
-    margin-top: 10px;
+    //margin-top: 10px;
     //margin-bottom: 10px;
 }
 

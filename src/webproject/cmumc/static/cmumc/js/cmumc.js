@@ -40,7 +40,7 @@ $(document).ready(function() {
 			$('#switch_btn').attr('value', data.usertype);
 			updateNavColor();
 			// updateUserTypeDisplay();
-			// If the current page is mytask or profile, refresh
+			// If the current page is the following, refresh
 			var url = document.URL;
 			var regStream = new RegExp("stream$");
 			var regMyTask = new RegExp("mytask$");
@@ -48,8 +48,9 @@ $(document).ready(function() {
 			var regCreatePost = new RegExp("send_post$");
 			var regViewPost = new RegExp("view_post");
 			var regSearchPost = new RegExp("search_post");
+			var regFilterAvailable = new RegExp("filter_available$");
 			console.log(regMyTask.test(url));
-			if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearchPost.test(url)) {
+			if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearchPost.test(url) || regFilterAvailable.test(url)) {
 				location.reload();
 			}
 		});

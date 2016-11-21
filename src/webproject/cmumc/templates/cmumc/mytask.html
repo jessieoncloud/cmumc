@@ -79,7 +79,14 @@
                                   </div>
                                   {% endfor %}
                                   <div class="col40">
+                                   {% comment %}
                                    <input type="submit" id="edit_post_btn" class="btn btn-md btn-primary btn-block" value="Confirm">
+                                   {% endcomment %}
+                                    <div class="right-btn-container">
+                                      <span class="btn">
+                                        <input type="submit" id="edit_post_btn" class="gradient" value="Confirm">
+                                      </span>
+                                    </div>
                                   </div>
                                 {% csrf_token %}
                                 </form>
@@ -96,8 +103,8 @@
                                   <div class="col60">
                                     <p>Description: {{post.description}}</p>
                                   </div>
-                                  <div class="col40">
-                                   <a href="{% url 'complete' post.post_id %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Complete</button></a>
+                                  <div class="col40 right-btn-container">
+                                   <span><a href="{% url 'complete' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Complete</span></a></span>
                                   </div>
                                 </div>
                               </div>
@@ -112,8 +119,8 @@
                                   <div class="col60">
                                     <p>Description: {{post.description}}</p>
                                   </div>
-                                  <div class="col40">
-                                   <a href=""><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Rate</button></a>
+                                  <div class="col40 right-btn-container">
+                                   <span><a href="{# % url 'rate' post.post_id % #}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Rate</span></a></span>
                                   </div>
                                 </div>
                               </div>
