@@ -848,6 +848,7 @@ table.dataTable thead .sorting:after {
     padding: 30px;
     padding-left: 6%;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .post_attr, .post_attr:last-child {
