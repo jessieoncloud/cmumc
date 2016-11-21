@@ -102,8 +102,8 @@
                                 <div class="task-expand">
                                   <div class="col60">
                                     <p>Description: {{post.description}}</p>
-                                        <p>Helper: <a href="{% url 'profile' post.task.helper.username %}">{{ post.task.helper }}</a></p>
-                                        <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
+                                    <p>Helper: <a href="{% url 'profile' post.task.helper.username %}">{{ post.task.helper }}</a></p>
+                                    <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
                                     </p>
                                   </div>
                                   <div class="col40 right-btn-container">
@@ -127,6 +127,8 @@
                                 <div class="task-expand">
                                   <div class="col60">
                                     <p>Description: {{post.description}}</p>
+                                    <p>Helper: <a href="{% url 'profile' post.task.helper.username %}">{{ post.task.helper }}</a></p>
+                                    <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
                                   </div>
                                   <div class="col40 right-btn-container">
                                    <span><a href="{# % url 'rate' post.post_id % #}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Rate</span></a></span>
