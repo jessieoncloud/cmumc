@@ -53,9 +53,9 @@
                                     <p>Description: {{post.description}}</p>
                                   </div>
                                   {% if user == post.created_user %}
-                                  <div class="col40">
-                                   <a href="{% url 'editPost' post.post_id %}"><button id="edit_post_btn" class="btn btn-md btn-primary btn-block" >Edit</button></a>
-                                   <a href="{% url 'deletePost' post.post_id %}"><button id="delete_post_btn" class="btn btn-md btn-primary btn-block" >Delete</button></a>
+                                  <div class="col40 mytask_btn_container">
+                                  <span><a href="{% url 'editPost' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Edit</span></a></span>
+                                  <span><a href="{% url 'deletePost' post.post_id %}" class="btn btn-small"><span class="gradient" id="delete_post_btn">Delete</span></a></span>
                                   </div>
                                   {% endif %}
                                 </div>

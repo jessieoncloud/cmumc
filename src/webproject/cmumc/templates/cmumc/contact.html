@@ -5,12 +5,14 @@
 
 	{% block content %}
 	<div class="top_container">
-		<h3 class="send_post_header">Send SMS to <a href="{% url 'profile' user.username %}">{{ post.created_user }}</a> </h3>
+		<div class="send_post_header">
+			<h3>Send SMS to <a href="{% url 'profile' user.username %}">{{ post.created_user }}</a></h3>
+		</div>
 		{% if msgs %}
 		<p class="form-msg">{{ msgs }}</p>
 		{% endif %}
-		<div>
-			<form class="form-send-post" method="post" action="{% url 'sendMessage' post.post_id %}">
+		<div >
+			<form class="form-send-post controls boxed line-top" method="post" action="{% url 'sendMessage' post.post_id %}">
 				<p class="error">
 	                {% for error in form.non_field_errors %}
 	                    {{ error }}
@@ -24,7 +26,11 @@
 	            </tr>
 	            </table>
 	            <input type="hidden" name="post_id" value="{{ post.post_id }}">
-	            <input type="submit" id="create_btn" class="btn btn-lg btn-primary btn-block" value="Send Message">
+	            <div class="text-center">
+					<span class="btn">
+						<input type="submit" id="create_btn" class="gradient" value="Send Message">
+					</span>
+				</div>
                 {% csrf_token %}
 	        </form>
 		</div>

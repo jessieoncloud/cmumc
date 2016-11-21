@@ -147,6 +147,11 @@ form {
     padding: 50px 0;
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
+    background-color: #fff;
+}
+
+.content-section-c {
+    padding: 50px 0;
 }
 
 .section-heading {
@@ -703,6 +708,10 @@ table.dataTable thead .sorting:after {
 //     margin-bottom: 5%;
 // }
 
+.form-signin {
+    width: auto;
+}
+
 .form-signin-heading {
     text-align: center;
     margin-bottom: 20px;
@@ -710,14 +719,21 @@ table.dataTable thead .sorting:after {
 
 #login_btn, #register_btn,  #change_btn{
     width: 150px;
-    margin-top: 20px;
     margin: auto;
+    margin-bottom: 20px;
+}
+
+#changepwd_btn {
+    width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #edit_post_btn {
     width: 150px;
     margin: auto;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    //margin-bottom: 10px;
 }
 
 #delete_post_btn {
@@ -735,6 +751,8 @@ table.dataTable thead .sorting:after {
 .login_container, .register_container, .reset_container {
     float: none;
     margin: 0 auto;
+    margin-top: 20px;
+    width: 400px;
 }
 
 .description {
@@ -820,7 +838,8 @@ table.dataTable thead .sorting:after {
 }
 
 .created_user {
-    text-align:center;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .post_attrs {
@@ -1018,6 +1037,11 @@ p.title {
    color: #fff;
 }
 
+.panel-default .panel-heading {
+   background-color: #960000;
+   color: #fff;
+}
+
 .stream_top_container {
    margin-top: 70px;
 }
@@ -1038,16 +1062,20 @@ p.title {
     margin-top: 20px;
 }
 
+.mytask_btn_container {
+    text-align: right;
+}
+
 footer {
     // Sticky footer
     position: absolute;
     bottom: 0;
     width: 100%;
     padding: 30px 0;
-    margin-top: 15px;
+    //margin-top: 15px;
     background-color: #f8f8f8;
 }
 // Override bootstrap
-.navbar-default {
-    border-color: none;
+.page-header {
+    margin-top: 20px;
 }

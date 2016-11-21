@@ -1,13 +1,13 @@
 {% extends "cmumc/base.html" %}
 
     {% block content %}
-    <div class="content-section-b">
+    <div class="content-section-c">
 
       <div class="container">
 
         <div class="row">
 
-          <div class="col-lg-5 col-sm-6 register_container">
+          <div class="col-lg-5 col-sm-6 register_container controls boxed line-top">
 
             <form class="form-signin" action="{% url 'register' %}" method="POST"> {% csrf_token %}
               <h2 class="form-signin-heading">Register here</h2>
@@ -32,7 +32,11 @@
       			{{ field.errors }}
       		</p>
       		{% endfor %}
-              <input type="submit" id="register_btn" class="btn btn-lg btn-primary btn-block" value="Register">
+              <div class="text-center">
+                  <span class="btn">
+                      <input type="submit" id="register_btn" class="gradient" value="Register">
+                  </span>
+              </div>
             </form>
           </div>
         </div>

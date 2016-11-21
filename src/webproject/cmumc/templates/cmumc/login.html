@@ -1,11 +1,11 @@
 {% extends "cmumc/base.html" %}
 
     {% block content %}
-    <div class="content-section-b">
+    <div class="content-section-c">
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-sm-6 login_container">
+                <div class="login_container controls boxed line-top">
 
                 	{% if form.errors %}
                         <p class="errors">
@@ -26,7 +26,11 @@
                             </tr>
                         </table>
                         <a href="{% url 'reset' %}" ><p class="text--center">Forgot Password?</p></a>
-                        <input type="submit" id="login_btn" class="btn btn-lg btn-primary btn-block" value="Log in"><br>
+                        <div class="text-center">
+                            <span class="btn">
+                                <input type="submit" id="login_btn" class="gradient" value="Log in">
+                            </span>
+                        </div>
                         {% csrf_token %}
                     </form>
                 </div>
