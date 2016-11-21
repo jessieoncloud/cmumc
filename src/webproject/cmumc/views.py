@@ -533,7 +533,8 @@ def filter_available(request):
     context = {}
     messages = []
     context['messages'] = messages
-    posts = Post.objects.filter(deleted=False).exclude(status='C').exclude(status='I')
+    user_profile = get_object_or_404(Profile, user=request.user)
+    posts = Post.objects.filter(deleted=False).exclude(status='C').exclude(status='I').exclude(post_type=user_profile.user_type)
     context['posts'] = posts
     if len(posts) == 0:
         messages.append("No Results Found.")
