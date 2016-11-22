@@ -551,6 +551,7 @@ def filter_available(request):
 def filter_post(request):
     print(request.POST)
     print(request.POST.getlist('tasktype[]'))
+    user_profile = get_object_or_404(Profile, user=request.user)
     # Validation
     if request.method == 'GET':
         return redirect('stream')
@@ -586,6 +587,7 @@ def filter_post(request):
 
     else:
         return redirect('stream')
+    filtered_post.exclude(post_type=user_profile.user_type)
     print(filtered_post)
     response = serializers.serialize('json', filtered_post)
     return HttpResponse(response, content_type="application/json")
