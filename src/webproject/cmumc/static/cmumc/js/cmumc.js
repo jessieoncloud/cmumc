@@ -100,25 +100,6 @@ $(document).ready(function() {
 			});
 		}
 	}
-
-	function getUpdates() {
-    var list = $("#todo-list")
-    var max_time = list.data("max-time")
-    $.get("shared-todo-list/get-changes/"+ max_time)
-      .done(function(data) {
-          list.data('max-time', data['max-time']);
-          for (var i = 0; i < data.items.length; i++) {
-              var item = data.items[i];
-              if (item.deleted) {
-                  $("#item_" + item.id).remove();
-              } else {
-                  var new_item = $(item.html);
-                  new_item.data("item-id", item.id);
-                  list.append(new_item);
-              }
-          }
-      });
-}
 	
 	function getUpdates(data) {
 		var list = $(".posts");
