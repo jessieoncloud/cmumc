@@ -21,7 +21,6 @@ $(document).ready(function() {
 		} else if (user_type == 'R') {
 			$('.form-mode-R').submit();
 		}
-		
 	})
 
 
@@ -64,8 +63,6 @@ $(document).ready(function() {
 		$(this).css("background-color", "#ffffff");
 		$(this).find('h4').css("color", "#404040");
 	}) 
-
-
 
 
 	// Change navtop color based on user type
