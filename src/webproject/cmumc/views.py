@@ -551,10 +551,11 @@ def filter_available(request):
 @login_required
 def filter_post(request):
     print(request.POST)
-    # print(request.POST['price'][0])
+    print(request.POST['price'][0])
     # Validation
     if request.method == 'GET':
         return redirect('stream')
+        
     # Filter based on filtered items
     filtered_post_date = Post.objects.all()
     if 'date' in request.POST and request.POST['date']:
@@ -567,10 +568,10 @@ def filter_post(request):
             filtered_post_date = Post.objects.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=7)))
     else:
         return redirect('stream')
+
     filtered_post_price = Post.objects.all()
     # if 'price' in request.POST and request.POST['price']:
     #     price_start = request.POST['price']
-    # elif 'price' in request.POST and request.POST['price']:
     # elif 'tasktype' in request.POST and request.POST['tasktype']:
     # elif 'time' in request.POST and request.POST['time']:
     context = {}
