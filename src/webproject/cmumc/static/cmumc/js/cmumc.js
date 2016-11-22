@@ -109,7 +109,7 @@ $(document).ready(function() {
 			
 			var $new_post = $('<div class="row row-post"> \
                 			<div class="col-mid-3 col25 post_img"> \
-                				<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
+                				<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + data[i].pk + '" class="img-rounded img-responsive post_photo"></a> \
                 			</div> \
                				<div class="col-mid-3 col75"> \
                					<div class="col-mid-9 col75 post_content"> \
