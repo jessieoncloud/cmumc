@@ -9,8 +9,11 @@
 			<h3>Send SMS to <a href="{% url 'profile' user.username %}">{{ post.created_user }}</a></h3>
 		</div>
 		{% if msgs %}
-		<p class="form-msg">{{ msgs }}</p>
+			{% for msg in msgs %}
+			<p class="form-msg">{{ msg }}</p>
+			{% endfor %}
 		{% endif %}
+		{% comment %}
 		<div >
 			<form class="form-send-post controls boxed line-top" method="post" action="{% url 'sendMessage' post.post_id %}">
 				<p class="error">
@@ -34,5 +37,6 @@
                 {% csrf_token %}
 	        </form>
 		</div>
+		{% endcomment %}
 	</div>
     {% endblock %}

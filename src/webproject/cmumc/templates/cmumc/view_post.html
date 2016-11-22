@@ -32,8 +32,8 @@
 						{% if user.username != post.created_user.username %}
 						{% comment %}
 						<a href="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
-						
 						<a class="contact" href="#" data-form="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
+						<a href="{% url 'contact_test' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact test" class="gradient"></span></a>
 						{% endcomment %}
 						<a data-toggle="modal" data-target="#contactModal" href="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
 						{% include "cmumc/contact2.html" %}

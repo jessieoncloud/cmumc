@@ -64,9 +64,10 @@ class ModeForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'description', 'category', 'date', 'time', 'location', 'price')
+        fields = ('title', 'description', 'category', 'date', 'time', 'location', 'price', 'post_photo')
         widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}),
-                   'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'})}
+                   'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'}),
+                   'post_photo': forms.FileInput()}
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()

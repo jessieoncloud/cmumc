@@ -896,7 +896,9 @@ p.title {
 }
 
 .form-msg {
-  font: red;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 1em;
 }
 
 .send_post_table, .form_table {

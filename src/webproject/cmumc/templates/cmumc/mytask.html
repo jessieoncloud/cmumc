@@ -76,7 +76,7 @@
                                       <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
                                       <div class="accept_list_options form-check">
                                         <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" />
-                                        <label>Requester: {{ requester.username }}</label>
+                                        <label>Requester: <a href="{% url 'profile' requester.username %}">{{ requester.username }}</a></label>
                                       </div>
                                   </div>
                                   {% endfor %}

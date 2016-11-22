@@ -43,13 +43,14 @@ auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twi
 twilio_number = "+14126936893"
 client = TwilioRestClient(account_sid, auth_token)
 
+# def contact_test(request, post_id):
+#     context = {}
+#     context['msgs'] = "hello"
+#     return render(request, 'cmumc/contact.html', context)
+
 # Create your views here.
 def home(request):
     return render(request, 'cmumc/index.html', {})
-
-# test delete later
-def contact(request):
-    return render(request, 'cmumc/contact.html', {})
 
 @login_required
 def stream(request):
@@ -96,7 +97,7 @@ def send_post(request):
 
     if request.user.is_authenticated:
         new_post = Post(created_user=request.user, post_type=user_profile.user_type)
-        form = PostForm(request.POST, request.Files, instance=new_post)
+        form = PostForm(request.POST, request.FILES, instance=new_post)
         context['form'] = form
         context['profile'] = user_profile
 
@@ -158,7 +159,7 @@ def edit_post(request, post_id):
     if post_item.created_user != request.user:
         return redirect('stream')
     if request.method == 'POST':
-        post_form = PostForm(request.POST, instance=post_item)
+        post_form = PostForm(request.POST, request.FILES, instance=post_item)
         context['form'] = post_form
         if post_form.is_valid():
             post_form.save()
