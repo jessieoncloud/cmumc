@@ -502,8 +502,8 @@ def send_message(request, post_id):
         message = client.messages.create(body=msg_body,
                                          #to="+14125396418",  # Replace with your phone number
                                          to=str(to_profile.phone),
-                                        #from_=twilio_number)
-                                         from_="+15005550006")  # Replace with your Twilio number
+                                        from_=twilio_number)
+                                         #from_="+15005550006")  # Replace with your Twilio number
         msgs.append("Your message has been sent sucessfully")
     except TwilioRestException as e:
         print(e)
