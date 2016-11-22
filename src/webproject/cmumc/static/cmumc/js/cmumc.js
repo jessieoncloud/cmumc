@@ -101,6 +101,52 @@ $(document).ready(function() {
 		}
 	}
 
+	function getUpdates() {
+    var list = $("#todo-list")
+    var max_time = list.data("max-time")
+    $.get("shared-todo-list/get-changes/"+ max_time)
+      .done(function(data) {
+          list.data('max-time', data['max-time']);
+          for (var i = 0; i < data.items.length; i++) {
+              var item = data.items[i];
+              if (item.deleted) {
+                  $("#item_" + item.id).remove();
+              } else {
+                  var new_item = $(item.html);
+                  new_item.data("item-id", item.id);
+                  list.append(new_item);
+              }
+          }
+      });
+}
+	
+	function getUpdates(data) {
+		var list = $(".posts");
+		list.empty();
+		for (var i = 0; i < data.length; i++) {
+			var post = data[i].fields;
+			
+			var $new_post = $('<div class="row row-post"> \
+                			<div class="col-mid-3 col25 post_img"> \
+                				<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
+                			</div> \
+               				<div class="col-mid-3 col75"> \
+               					<div class="col-mid-9 col75 post_content"> \
+               						<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
+               						<p>Location: ' + post.location + '</p> \
+               						<p>Time: ' + post.time + '</p> \
+               						<p>Date: ' + post.date + '</p> \
+               						<p>Posted by: ' + post.created_user.username + '</p> \
+               					</div> \
+           						<div class="col-mid-3 col25"> \
+           							<h1>$' + post.price + '</h1> \
+               					</div> \
+                			</div> \
+                        </div>');
+			list.append($new_post);
+		}
+	}
+	
 	// Filter Options
     // Price Range Input
     $("#price_range").rangeslider({
@@ -196,7 +242,7 @@ $(document).ready(function() {
 		.done(function(data) {
 			console.log("filter ajax done!");
 			console.log(data);
-			
+			getUpdates(data);
 		});
     }
 
