@@ -114,7 +114,6 @@ $(document).ready(function() {
         dimension: '$',
         onstatechange: function(value) {
         	// console.dir(this);
-        	console.log("price");
         	filterAjax();
         }
     });
@@ -123,7 +122,7 @@ $(document).ready(function() {
     //   https://egorkhmelev.github.io/jslider/
     $("#time_range").rangeslider({
         from: 0,
-        to: 1440,
+        to: 1425,
         limits: false,
         // scale: ['0:00', '24:00'],
         step: 15,
@@ -136,7 +135,6 @@ $(document).ready(function() {
 		},
 		onstatechange: function(value) {
 			// console.dir(this);
-			console.log("time");
 			filterAjax();
 		}
     });
@@ -188,7 +186,7 @@ $(document).ready(function() {
 		var checked_price = price[0].value.split(";");
     	filtered.price[0] = checked_price[0];  // start price
     	filtered.price[1] = checked_price[1];  // end price
-    	console.log(filtered.price);
+    	// console.log(filtered.price);
     	
     	// filter options result  
     	console.log(filtered);  
@@ -197,9 +195,12 @@ $(document).ready(function() {
     	$.post("/cmumc/filter_post", {tasktype: filtered.tasktype, date: filtered.date, time: filtered.time, price: filtered.price})
 		.done(function(data) {
 			console.log("filter ajax done!");
+			console.log(data);
+			
 		});
     }
 
+    
 	// CSRF set-up copied from Django docs
 	function getCookie(name) {  
 		var cookieValue = null;
@@ -222,5 +223,6 @@ $(document).ready(function() {
 		    xhr.setRequestHeader("X-CSRFToken", csrftoken);
 		}
 	});
-	
+
 });
+
