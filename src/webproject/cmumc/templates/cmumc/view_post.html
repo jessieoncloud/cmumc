@@ -20,7 +20,7 @@
 				<div class="view_post_header2">
 					<div class="col-lg-12 col60">
 						<div class="row">
-							<a href="{% url 'profile' user.username %}"><img src="{% url 'photo' post.created_user %}" alt="{{ user.username }}" class="img-circle avatar_post"></a>
+							<a href="{% url 'profile' post.created_user.username %}"><img src="{% url 'photo' post.created_user %}" alt="{{ post.created_user.username }}" class="img-circle avatar_post"></a>
 						</div>
 						<div class="row">
 							<p class="created_user">Posted by {{ post.created_user }}</p>
