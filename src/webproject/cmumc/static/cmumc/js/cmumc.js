@@ -159,7 +159,7 @@ $(document).ready(function() {
 
     // Filter check and ajax to backend
     function filterAjax() {
-    	var filtered = {tasktype:[], date:null, time:null, price:null};
+    	var filtered = {tasktype:[], date:null, time:[], price:[]};
     	// Get the filtered tasktype
     	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
     	for (i=0; i<tasktype.length; i++) {
@@ -176,10 +176,19 @@ $(document).ready(function() {
     	} 
     	// Get the filtered time
     	var time = $('#time_range');
-    	filtered.time = time[0].value;
+    	var checked_time = time[0].value.split(";");
+    	filtered.time[0] = Math.floor(checked_time[0]/60);   // start time hour
+    	filtered.time[1] = checked_time[0]%60;   // start time min
+    	filtered.time[2] = Math.floor(checked_time[1]/60);   // end time hour
+    	filtered.time[3] = checked_time[1]%60;   // end time min
+    	// console.log(filtered.time);
+
     	// Get the filtered price
 		var price = $('#price_range');
-    	filtered.price = price[0].value;
+		var checked_price = price[0].value.split(";");
+    	filtered.price[0] = checked_price[0];  // start price
+    	filtered.price[1] = checked_price[1];  // end price
+    	console.log(filtered.price);
     	
     	// filter options result  
     	console.log(filtered);  

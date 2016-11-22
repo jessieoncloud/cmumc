@@ -25,6 +25,11 @@ import json
 from twilio import TwilioRestException
 from twilio.rest import TwilioRestClient
 
+import datetime
+from datetime import date
+from datetime import timedelta
+from django.utils import timezone
+
 ##global variables
 account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
 auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twilio.com/console
@@ -546,11 +551,32 @@ def filter_available(request):
 @login_required
 def filter_post(request):
     print(request.POST)
+    # print(request.POST['price'][0])
+    # Validation
+    if request.method == 'GET':
+        return redirect('stream')
+    # Filter based on filtered items
+    filtered_post_date = Post.objects.all()
+    if 'date' in request.POST and request.POST['date']:
+        date = request.POST['date']
+        if date == 'today':
+            filtered_post_date = Post.objects.filter(deleted=False).filter(date=timezone.now())
+        if date == 'threedays':
+            filtered_post_date = Post.objects.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=3)))
+        if date == 'aweek':
+            filtered_post_date = Post.objects.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=7)))
+    else:
+        return redirect('stream')
+    filtered_post_price = Post.objects.all()
+    # if 'price' in request.POST and request.POST['price']:
+    #     price_start = request.POST['price']
+    # elif 'price' in request.POST and request.POST['price']:
+    # elif 'tasktype' in request.POST and request.POST['tasktype']:
+    # elif 'time' in request.POST and request.POST['time']:
     context = {}
     messages = []
     context['messages'] = messages
     user_profile = get_object_or_404(Profile, user=request.user)
-    # Filter based on request.POST data
     return render(request, 'cmumc/stream.html', context)
 
 @login_required

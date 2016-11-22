@@ -50,8 +50,13 @@ class Post(models.Model):
     def get_user_posts(created_user):
         return Post.objects.filter(created_user=created_user).filter(deleted=False)
 
+    # @staticmethod
+    # def get_date(created_time):
+    #     return created_time.date()
+
     class Meta:
         ordering = ['-created_time']
+
 
 class Task(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE, primary_key=True)
