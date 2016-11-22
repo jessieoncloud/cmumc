@@ -97,7 +97,34 @@ $(document).ready(function() {
 			});
 		}
 	}
-
+	
+	function getUpdates(data) {
+		var list = $(".posts");
+		list.empty();
+		for (var i = 0; i < data.length; i++) {
+			var post = data[i].fields;
+			
+			var $new_post = $('<div class="row row-post"> \
+                			<div class="col-mid-3 col25 post_img"> \
+                				<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
+                			</div> \
+               				<div class="col-mid-3 col75"> \
+               					<div class="col-mid-9 col75 post_content"> \
+               						<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
+               						<p>Location: ' + post.location + '</p> \
+               						<p>Time: ' + post.time + '</p> \
+               						<p>Date: ' + post.date + '</p> \
+               						<p>Posted by: ' + post.created_user.username + '</p> \
+               					</div> \
+           						<div class="col-mid-3 col25"> \
+           							<h1>$' + post.price + '</h1> \
+               					</div> \
+                			</div> \
+                        </div>');
+			list.append($new_post);
+		}
+	}
+	
 	// Filter Options
     // Price Range Input
     $("#price_range").rangeslider({
@@ -193,7 +220,7 @@ $(document).ready(function() {
 		.done(function(data) {
 			console.log("filter ajax done!");
 			console.log(data);
-
+			getUpdates(data);
 		});
     }
 
