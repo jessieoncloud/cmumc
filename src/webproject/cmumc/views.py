@@ -117,6 +117,7 @@ def mytask(request):
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(post_type=user_profile.user_type)
+    # check for bugs
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
     context['posts'] = posts.distinct()
@@ -334,9 +335,13 @@ def mode(request):
     return redirect('stream')
 
 # Ajax switch mode
-# need validation
 @login_required
 def switch(request):
+    # Validation
+    if request.method == 'GET':
+        return redirect('stream')
+    if not 'mode_username' in request.POST or not request.POST['mode_username']:
+        return redirect('stream')
     user = get_object_or_404(User, username=request.POST['mode_username'])
     user_profile = get_object_or_404(Profile, user=user.id)
     if user_profile.user_type == 'H':
@@ -499,9 +504,9 @@ def send_message(request, post_id):
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
 
-    msg_body = "Message from CMUMC.\n\nYour post " + post_item.title + " has been viewed by " + from_profile.user.username + ".\n" \
-            + from_profile.user.username + " would like to send you a message:\n\n" + body + ".\n \n" \
-            + "You can contact him/her by " + str(from_profile.phone) + "."
+    msg_body = "Message from CMUMC.\n\nYour post \"" + post_item.title + "\" has been viewed by " + from_profile.user.username + ".\n" \
+            + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+            + "You can contact him/her by " + str(from_profile.phone)
     try:
         message = client.messages.create(body=msg_body,
                                          #to="+14125396418",  # Replace with your phone number
