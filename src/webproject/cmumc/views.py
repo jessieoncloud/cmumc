@@ -74,7 +74,7 @@ def view_post(request, post_id):
     else:
         context['post'] = post_item
         # Check if the usertype and post type is correct
-        if user_profile.user_type == post_item.post_type and not post_item.created_user == request.user:
+        if (user_profile.user_type == 'H' and post_item.post_type == 'H') or (user_profile.user_type == 'R' and post_item.post_type == 'R'):
             return redirect('stream')
         if len(post_item.accept_list.filter(username=request.user.username)) != 0:
             context['accepted'] = True
@@ -547,38 +547,49 @@ def filter_available(request):
     return render(request, 'cmumc/stream.html', context)
 
 # Ajax filter post
-# need validation
 @login_required
 def filter_post(request):
     print(request.POST)
-    print(request.POST['price'][0])
+    print(request.POST.getlist('tasktype[]'))
     # Validation
     if request.method == 'GET':
         return redirect('stream')
-        
     # Filter based on filtered items
-    filtered_post_date = Post.objects.all()
+    filtered_post = Post.objects.all()
     if 'date' in request.POST and request.POST['date']:
         date = request.POST['date']
         if date == 'today':
-            filtered_post_date = Post.objects.filter(deleted=False).filter(date=timezone.now())
+            filtered_post = filtered_post.filter(deleted=False).filter(date=timezone.now())
         if date == 'threedays':
-            filtered_post_date = Post.objects.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=3)))
+            filtered_post = filtered_post.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=3)))
         if date == 'aweek':
-            filtered_post_date = Post.objects.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=7)))
+            filtered_post = filtered_post.filter(deleted=False).filter(date__gte=timezone.now()).filter(date__lte=(timezone.now()+timedelta(days=7)))
+
+    if 'price[]' in request.POST and request.POST.getlist('price[]'):
+        price_start = request.POST.getlist('price[]')[0]
+        price_end = request.POST.getlist('price[]')[1]
+        filtered_post = filtered_post.filter(deleted=False).filter(price__gte=price_start).filter(price__lte=(price_end))
+
+    if 'tasktype' in request.POST and request.POST.getlist('tasktype[]'):
+        tasktypes = request.POST.getlist('tasktype[]')
+        for tasktype in tasktypes:
+            filtered_post = filtered_post_task.filter(post_type=tasktype)
+
+    if 'time[]' in request.POST and request.POST.getlist('time[]'):
+        hour_start = int(request.POST.getlist('time[]')[0])
+        min_start = int(request.POST.getlist('time[]')[1])
+        hour_end = int(request.POST.getlist('time[]')[2])
+        min_end = int(request.POST.getlist('time[]')[3])
+        time_start = datetime.time(hour_start, min_start)
+        time_end = datetime.time(hour_end, min_end)
+        filtered_post = filtered_post.filter(deleted=False).filter(time__gte=time_start).filter(time__lte=(time_end))
+
     else:
         return redirect('stream')
+    print(filtered_post)
+    response = serializers.serialize('json', filtered_post)
+    return HttpResponse(response, content_type="application/json")
 
-    filtered_post_price = Post.objects.all()
-    # if 'price' in request.POST and request.POST['price']:
-    #     price_start = request.POST['price']
-    # elif 'tasktype' in request.POST and request.POST['tasktype']:
-    # elif 'time' in request.POST and request.POST['time']:
-    context = {}
-    messages = []
-    context['messages'] = messages
-    user_profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'cmumc/stream.html', context)
 
 @login_required
 def clear_filter(request):
