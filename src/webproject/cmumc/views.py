@@ -74,7 +74,7 @@ def view_post(request, post_id):
     else:
         context['post'] = post_item
         # Check if the usertype and post type is correct
-        if (user_profile.user_type == 'H' and post_item.post_type == 'H') or (user_profile.user_type == 'R' and post_item.post_type == 'R'):
+        if user_profile.user_type == post_item.post_type and not post_item.created_user == request.user:
             return redirect('stream')
         if len(post_item.accept_list.filter(username=request.user.username)) != 0:
             context['accepted'] = True
