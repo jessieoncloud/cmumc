@@ -50,9 +50,21 @@ class Post(models.Model):
     def get_user_posts(created_user):
         return Post.objects.filter(created_user=created_user).filter(deleted=False)
 
-    # @staticmethod
-    # def get_date(created_time):
-    #     return created_time.date()
+    @staticmethod
+    def get_post_list_data(post_list):
+        result = []
+        for post in post_list:
+            temp = {}
+            temp['post_id'] = post.post_id
+            temp['location'] = post.location
+            temp['date'] = post.date
+            temp['username'] = post.created_user.username
+            temp['time'] = post.time
+            temp['price'] = post.price
+            temp['title'] = post.title
+            result.append(temp)
+        return result
+
 
     class Meta:
         ordering = ['-created_time']
@@ -73,11 +85,11 @@ class Notification(models.Model):
 
 class Rating(models.Model):
     created_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    #task = models.ForeignKey(Task, on_delete=models.CASCADE)
     rated_user_type = models.CharField(max_length=10, choices=UserType)
     # quality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
     # punctuality_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    # review = models.TextField(max_length=400, default="", blank=True)
+    review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):
     YEAR_IN_SCHOOL_CHOICES = (

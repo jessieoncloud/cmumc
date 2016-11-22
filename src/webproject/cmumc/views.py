@@ -29,6 +29,9 @@ import datetime
 from datetime import date
 from datetime import timedelta
 from django.utils import timezone
+import json
+import time
+from django.core.serializers.json import DjangoJSONEncoder
 
 ##global variables
 account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
@@ -549,8 +552,6 @@ def filter_available(request):
 # Ajax filter post
 @login_required
 def filter_post(request):
-    print(request.POST)
-    print(request.POST.getlist('tasktype[]'))
     user_profile = get_object_or_404(Profile, user=request.user)
     # Validation
     if request.method == 'GET':
@@ -571,10 +572,14 @@ def filter_post(request):
         price_end = request.POST.getlist('price[]')[1]
         filtered_post = filtered_post.filter(deleted=False).filter(price__gte=price_start).filter(price__lte=(price_end))
 
-    if 'tasktype' in request.POST and request.POST.getlist('tasktype[]'):
+    if 'tasktype[]' in request.POST and request.POST.getlist('tasktype[]'):
         tasktypes = request.POST.getlist('tasktype[]')
-        for tasktype in tasktypes:
-            filtered_post = filtered_post_task.filter(post_type=tasktype)
+        result = Post.objects.none()
+        for i in range(0, len(tasktypes)):
+            taskType = tasktypes[i]
+            temp = filtered_post.filter(category__exact=taskType)
+            result = result | temp
+        filtered_post = result
 
     if 'time[]' in request.POST and request.POST.getlist('time[]'):
         hour_start = int(request.POST.getlist('time[]')[0])
@@ -587,10 +592,11 @@ def filter_post(request):
 
     else:
         return redirect('stream')
-    filtered_post.exclude(post_type=user_profile.user_type)
-    print(filtered_post)
-    response = serializers.serialize('json', filtered_post)
-    return HttpResponse(response, content_type="application/json")
+    filtered_post = filtered_post.exclude(post_type=user_profile.user_type)
+    response = Post.get_post_list_data(filtered_post)
+    context = {}
+    context['data'] = response
+    return HttpResponse(json.dumps(context, cls=DjangoJSONEncoder), content_type="application/json")
 
 
 @login_required
