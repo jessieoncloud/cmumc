@@ -79,6 +79,11 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError("Price should be greater than 0")
         return price
 
+    ##
+    # def clean_date(self):
+    #     date = self.cleaned_data.get('date')
+
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile

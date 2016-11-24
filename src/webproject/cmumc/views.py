@@ -363,7 +363,11 @@ def profile(request, user_name):
     context['profile'] = user_profile
     user_post = Post.get_user_posts(user_item).filter(deleted=False)
     context['posts'] = user_post
-    ##render reviews
+    ##render reviews and ratings
+    helper_task = Task.objects.filter(helper=user_item)
+    context['helper_task'] = helper_task
+    receiver_task = Task.objects.filter(receiver=user_item)
+    context['receiver_task'] = receiver_task
     return render(request, 'cmumc/profile.html', context)
 
 @login_required
