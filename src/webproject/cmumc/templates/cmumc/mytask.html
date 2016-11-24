@@ -51,7 +51,11 @@
                                {% elif post.status == 'I' %}
                                   In Progress
                                {% elif post.status == 'C' %}
-                                  Completed
+                                  {% if post.task.task_status == "R" %}
+                                    Rated
+                                  {% else %}
+                                    Completed
+                                  {% endif %}
                                {% endif %}
                             </td>
                           </tr>
@@ -150,9 +154,15 @@
                                     <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
                                   </div>
                                   <div class="col40 right-btn-container">
+                                  {% if post.task.helper_status != "R" and user.profile.user_type == "H" %}
                                    <a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><span class="btn btn-small"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></span></a>
                                    {% include "cmumc/rate.html" %}
+                                  {% endif %}
+                                  {% if post.task.receiver_status != "R" and user.profile.user_type == "R" %}
+                                   <a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><span class="btn btn-small"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></span></a>
                                   </div>
+                                  {% include "cmumc/rate.html" %}
+                                  {% endif %}
                                 {% else %}
                                   <div class="col60">
                                       <p>The task creator has accepted someone else.</p>

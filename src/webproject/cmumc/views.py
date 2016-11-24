@@ -661,6 +661,7 @@ def rate_task(request, post_id):
     else:
         rated_user_profile.receiver_score = total_score / length
 
+    rated_user_profile.save()
     return redirect('mytask')
 
 

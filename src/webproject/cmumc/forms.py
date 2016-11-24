@@ -82,13 +82,14 @@ class PostForm(forms.ModelForm):
 
     def clean_date(self):
         date = self.cleaned_data.get('date')
-        if date < datetime.datetime.today():
+        if date < datetime.datetime.today().date():
             raise forms.ValidationError("Date should be later than today")
         return date
 
     def clean_time(self):
+        date = self.cleaned_data.get('date')
         time = self.cleaned_data.get('time')
-        if date == datetime.datetime.today() and time < datetime.datetime.now():
+        if date == datetime.datetime.today().date() and time < datetime.datetime.now():
             raise forms.ValidationError("Time should be greater than current time")
         return time
 
