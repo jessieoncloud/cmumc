@@ -129,7 +129,7 @@ class RateForm(forms.ModelForm):
 
     def clean_score(self):
         score = self.cleaned_data['score']
-        if quality_score < 0.0 or quality_score > 5.0:
+        if score < 0.0 or score > 5.0:
             raise forms.ValidationError("Rating score is out of range")
         return score
 

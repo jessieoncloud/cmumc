@@ -17,6 +17,7 @@ from mimetypes import guess_type
 from cmumc import *
 from cmumc.models import *
 from cmumc.forms import *
+from decimal import *
 
 from django.core import serializers
 import json
@@ -328,7 +329,7 @@ def mode(request):
 
     form = ModeForm(request.POST)
     ##weird bug, if you remove print, it cannot work
-    print(form)
+    #print(form)
     user_profile = get_object_or_404(Profile, user=request.user)
     modename = form.cleaned_data.get('mode')
     user_profile.user_type = modename
@@ -651,7 +652,7 @@ def rate_task(request, post_id):
     total_score = Decimal(0.0)
     length = len(rating_set)
     for i in range(0, length):
-        total_score += rating_set[i].score
+        total_score = total_score + rating_set[i].score
 
     if rated_user_type == 'H':
         rated_user_profile.helper_score = total_score / length
