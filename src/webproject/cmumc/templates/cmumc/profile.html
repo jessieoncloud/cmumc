@@ -31,7 +31,7 @@
     {% block content %}
             <div class="col-mid-9 col75 profile-post-container">
                 <div class="panel panel-default">
-                	<h3 class="content_title panel-heading">{{profile.user.username}}'s Posts</h3>
+                	<h3 class="content_title panel-heading">{{ profile.user.username }}'s Posts</h3>
                 	<div class="posts">
 					        {% for post in posts %}  
                   <div class="row row-post">
@@ -56,6 +56,12 @@
                 </div>
                 <div class="panel panel-default">
                 	<h3 class="content_title panel-heading">Rating &amp; Reviews</h3>
+                  <div class="col50">
+                      <p>{{ profile.helper_score }}</p>
+                  </div>
+                  <div class="col50">
+
+                  </div>
                 </div>
             </div>
 
