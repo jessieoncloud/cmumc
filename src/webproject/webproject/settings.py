@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cmumc',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,5 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 STATIC_URL = '/static/'
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyB2nifJAvGFpvl8wgpxK9RlqI1GkrHbxp4'

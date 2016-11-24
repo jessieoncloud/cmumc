@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
+from django_google_maps import fields as map_fields
 
 UserType = (
     ('H', 'Helper'),
@@ -23,6 +24,7 @@ PostCategory = (
 TaskStatusType = (
     ('I', 'InProgress'),
     ('C', 'Complete'),
+    ('R', 'Rated'),
 )
 
 class Post(models.Model):
@@ -35,7 +37,9 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     date = models.DateField()
     time = models.TimeField()
-    location = models.CharField(max_length=100, default="", blank=True)
+    address = map_fields.AddressField(max_length=200)
+    geolocation = map_fields.GeoLocationField(max_length=100)
+    #location = models.CharField(max_length=100, default="", blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     status = models.CharField(max_length=20, default="A", choices=StatusType)
     deleted = models.BooleanField(default=False)
@@ -86,7 +90,7 @@ class Rating(models.Model):
     created_user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     rated_user_type = models.CharField(max_length=10, choices=UserType)
-    score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    score = models.FloatField(max_digits=2, decimal_places=1, default=0.0)
     review = models.TextField(max_length=400, default="", blank=True)
 
 class Profile(models.Model):

@@ -32,6 +32,7 @@ from django.utils import timezone
 import json
 import time
 from django.core.serializers.json import DjangoJSONEncoder
+from decimal import *
 
 ##global variables
 account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
@@ -621,7 +622,7 @@ def rate_task(request, post_id):
 
     if not form.is_valid():
         messages.append("Form contained invalid data")
-        return render(request, 'cmumc/mytask.html', context)
+        return redirect('mytask')
 
     form.save()
 
@@ -629,18 +630,25 @@ def rate_task(request, post_id):
     rated_user_type = form.cleaned_data['rated_user_type']
     if rated_user_type == 'H':
         rated_user = task_item.helper
+        task_item.receiver_status = 'R'
     else:
         rated_user = task_item.receiver
+        task_item.helper_status = 'R'
+    task_item.save()
+
+    if task_item.helper_status == 'R' and task_item.receiver_status == 'R':
+        task_item.status = 'R'
+        task_item.save()
 
     rated_user_profile = get_object_or_404(Profile, user=rated_user)
 
     if rated_user_type == 'H':
-        task_set = Task.objects.filter(helper=rated_user).filter(task_status='C')
+        task_set = Task.objects.filter(helper=rated_user).exclude(task_status='I')
     else:
-        task_set = Task.object.filter(receiver=rated_user).filter(task_status='C')
+        task_set = Task.objects.filter(receiver=rated_user).exclude(task_status='I')
 
     rating_set = Rating.objects.filter(task__in=task_set).filter(rated_user_type=rated_user_type)
-    total_score = 0.0
+    total_score = Decimal(0.0)
     length = len(rating_set)
     for i in range(0, length):
         total_score += rating_set[i].score
@@ -650,7 +658,7 @@ def rate_task(request, post_id):
     else:
         rated_user_profile.receiver_score = total_score / length
 
-    return render(request, 'cmumc/mytask.html', context)
+    return redirect('mytask')
 
 
 
