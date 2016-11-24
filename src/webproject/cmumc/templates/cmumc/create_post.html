@@ -4,6 +4,7 @@
     {% endblock %}
 
 	{% block content %}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 	<div class="top_container">
 		<div class="send_post_header">
 			<h3>
@@ -54,6 +55,11 @@
 					<td>{{ form.location.errors }}</td>
 				</tr>
 				<tr>
+					<td>{{ form.position.label_tag }}</td>
+					<td>{{ form.postion }}</td>
+					<td>{{ form.position.errors }}</td>
+				</tr>
+				<tr>
 					<td>{{ form.price.label_tag }}</td>
 					<td>{{ form.price }}</td>
 					<td>{{ form.price.errors }}</td>
@@ -69,6 +75,9 @@
 					<td>{{ form.post_photo.errors }}</td>
 				</tr>
 	            </table>
+				
+				{{ form.media }}
+				{{ form.as_p }}
 	            <div class="text-center">
 					<span class="btn">
 						<input type="submit" id="create_btn" class="gradient" value="Create">
