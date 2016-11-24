@@ -329,7 +329,7 @@ def mode(request):
 
     form = ModeForm(request.POST)
     ##weird bug, if you remove print, it cannot work
-    #print(form)
+    print(form)
     user_profile = get_object_or_404(Profile, user=request.user)
     modename = form.cleaned_data.get('mode')
     user_profile.user_type = modename
@@ -367,9 +367,11 @@ def profile(request, user_name):
     context['posts'] = user_post
     ##render reviews and ratings
     helper_task = Task.objects.filter(helper=user_item)
-    context['helper_task'] = helper_task
+    helper_rating_list = Rating.objects.filter(task__in=helper_task).filter(rated_user_type='H')
+    context['helper_rating_list'] = helper_rating_list
     receiver_task = Task.objects.filter(receiver=user_item)
-    context['receiver_task'] = receiver_task
+    receiver_rating_list = Rating.objects.filter(task__in=receiver_task).filter(rated_user_type='R')
+    context['receiver_rating_list'] = receiver_rating_list
     return render(request, 'cmumc/profile.html', context)
 
 @login_required
