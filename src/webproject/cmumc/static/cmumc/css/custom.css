@@ -896,7 +896,9 @@ p.title {
 }
 
 .form-msg {
-  font: red;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 1em;
 }
 
 .send_post_table, .form_table {
@@ -1105,6 +1107,23 @@ p.title {
     font-size: 1.5em;
 }
 
+// .star_rating {
+//   unicode-bidi: bidi-override;
+//   direction: rtl;
+// }
+// .star_rating > span {
+//     display: inline-block;
+//     position: relative;
+//     width: 1.1em;
+//     font-size: 2em;
+// }
+// .star_rating > span:hover:before,
+// .star_rating > span:hover ~ span:before {
+//    content: "\2605";
+//    position: absolute;
+// }
+// // https://css-tricks.com/star-ratings/
+
 footer {
     // Sticky footer
     
@@ -1113,7 +1132,13 @@ footer {
     //margin-top: 15px;
     background-color: #f8f8f8;
 }
+
+
 // Override bootstrap
 .page-header {
     margin-top: 20px;
+}
+
+.modal-header {
+    text-align: center;
 }

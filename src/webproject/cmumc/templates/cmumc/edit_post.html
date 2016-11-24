@@ -5,7 +5,7 @@
 	        <div class="panel panel-default">
 				<h3 class="content_title panel-heading">My Post</h3>
 			    <div class="profile">
-			        <form class="form-profile" method="post" action="{% url 'editPost' post.post_id %}">
+			        <form class="form-profile" method="post" action="{% url 'editPost' post.post_id %}" enctype="multipart/form-data">
 			            <p class="error">
 		                    {% for error in form.non_field_errors %}
 		                        {{ error }}
@@ -46,6 +46,11 @@
 							<td>{{ form.price.label_tag }}</td>
 							<td>{{ form.price }}</td>
 							<td>{{ form.price.errors }}</td>
+						</tr>
+						<tr>
+							<td>{{ form.post_photo.label_tag }}</td>
+							<td>{{ form.post_photo }}</td>
+							<td>{{ form.post_photo.errors }}</td>
 						</tr>
 			            </table>
 			            <div class="text-center">

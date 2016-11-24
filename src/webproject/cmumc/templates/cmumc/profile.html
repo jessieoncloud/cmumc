@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
-                    <a href="{% url 'profile' user.username %}"><img src="{% url 'photo' user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
+                    <a href="{% url 'profile' profile.user.username %}"><img src="{% url 'photo' profile.user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
                     <h3 class="profile_username">{{ profile.user }}</h3>
                 </div>
                 <div class=usermenu_options>
                     <div class="option">
-                        <h4>Name: {{ user.first_name }} {{ user.last_name }}</h4>
+                        <h4>Name: {{ profile.user.first_name }} {{ profile.user.last_name }}</h4>
                     </div>
                     <div class="option">
                         <h4>Year: {{ profile.year_in_school }}</h4>
@@ -31,7 +31,7 @@
     {% block content %}
             <div class="col-mid-9 col75 profile-post-container">
                 <div class="panel panel-default">
-                	<h3 class="content_title panel-heading">{{user.username}}'s Posts</h3>
+                	<h3 class="content_title panel-heading">{{profile.user.username}}'s Posts</h3>
                 	<div class="posts">
 					        {% for post in posts %}  
                   <div class="row row-post">

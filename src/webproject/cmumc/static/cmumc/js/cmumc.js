@@ -64,6 +64,15 @@ $(document).ready(function() {
 		$(this).find('h4').css("color", "#404040");
 	}) 
 
+	// Star rating
+	$('.star_rating').barrating({
+		theme: 'fontawesome-stars'
+	});
+	$('.star_rating').find('span').click(function() {
+		console.log(this);
+		var rating = parseFloat($(this).attr('id'));
+		console.log(rating);
+	});
 
 	// Change navtop color based on user type
 	function updateNavColor() { 

@@ -40,4 +40,5 @@ urlpatterns = [
     url(r'^rate_task/(?P<post_id>\d+)$', cmumc.views.rate_task, name='rateTask'),
     url(r'^filter_post$', cmumc.views.filter_post, name='filter_post'),
     url(r'^clear_filter$', cmumc.views.clear_filter, name='clear_filter'),
+    # url(r'^contact_test/(?P<post_id>\d+)$', cmumc.views.contact_test, name='contact_test'),
 ]

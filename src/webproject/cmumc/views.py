@@ -43,13 +43,14 @@ auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twi
 twilio_number = "+14126936893"
 client = TwilioRestClient(account_sid, auth_token)
 
+# def contact_test(request, post_id):
+#     context = {}
+#     context['msgs'] = "hello"
+#     return render(request, 'cmumc/contact.html', context)
+
 # Create your views here.
 def home(request):
     return render(request, 'cmumc/index.html', {})
-
-# test delete later
-def contact(request):
-    return render(request, 'cmumc/contact.html', {})
 
 @login_required
 def stream(request):
@@ -77,7 +78,7 @@ def view_post(request, post_id):
     else:
         context['post'] = post_item
         # Check if the usertype and post type is correct
-        if (user_profile.user_type == 'H' and post_item.post_type == 'H') or (user_profile.user_type == 'R' and post_item.post_type == 'R'):
+        if (user_profile.user_type == post_item.post_type and request.user != post_item.created_user):
             return redirect('stream')
         if len(post_item.accept_list.filter(username=request.user.username)) != 0:
             context['accepted'] = True
@@ -96,7 +97,7 @@ def send_post(request):
 
     if request.user.is_authenticated:
         new_post = Post(created_user=request.user, post_type=user_profile.user_type)
-        form = PostForm(request.POST, request.Files, instance=new_post)
+        form = PostForm(request.POST, request.FILES, instance=new_post)
         context['form'] = form
         context['profile'] = user_profile
 
@@ -116,6 +117,7 @@ def mytask(request):
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(post_type=user_profile.user_type)
+    # check for bugs
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
     context['posts'] = posts.distinct()
@@ -158,7 +160,7 @@ def edit_post(request, post_id):
     if post_item.created_user != request.user:
         return redirect('stream')
     if request.method == 'POST':
-        post_form = PostForm(request.POST, instance=post_item)
+        post_form = PostForm(request.POST, request.FILES, instance=post_item)
         context['form'] = post_form
         if post_form.is_valid():
             post_form.save()
@@ -333,9 +335,13 @@ def mode(request):
     return redirect('stream')
 
 # Ajax switch mode
-# need validation
 @login_required
 def switch(request):
+    # Validation
+    if request.method == 'GET':
+        return redirect('stream')
+    if not 'mode_username' in request.POST or not request.POST['mode_username']:
+        return redirect('stream')
     user = get_object_or_404(User, username=request.POST['mode_username'])
     user_profile = get_object_or_404(Profile, user=user.id)
     if user_profile.user_type == 'H':
@@ -498,9 +504,9 @@ def send_message(request, post_id):
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
 
-    msg_body = "Message from CMUMC.\n\nYour post " + post_item.title + " has been viewed by " + from_profile.user.username + ".\n" \
-            + from_profile.user.username + " would like to send you a message:\n\n" + body + ".\n \n" \
-            + "You can contact him/her by " + str(from_profile.phone) + "."
+    msg_body = "Message from CMUMC.\n\nYour post \"" + post_item.title + "\" has been viewed by " + from_profile.user.username + ".\n" \
+            + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+            + "You can contact him/her by " + str(from_profile.phone)
     try:
         message = client.messages.create(body=msg_body,
                                          #to="+14125396418",  # Replace with your phone number
