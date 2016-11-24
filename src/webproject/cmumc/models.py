@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
+from geoposition.fields import GeopositionField
 
 UserType = (
     ('H', 'Helper'),
@@ -37,6 +38,7 @@ class Post(models.Model):
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=100, default="", blank=True)
+    position = GeopositionField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     status = models.CharField(max_length=20, default="A", choices=StatusType)
     deleted = models.BooleanField(default=False)

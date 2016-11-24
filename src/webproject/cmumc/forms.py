@@ -96,8 +96,7 @@ class PostForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'activation_key', 'user_type', 'helper_punctuality_score', 'helper_quality_score',
-                   'receiver_punctuality_score', 'receiver_quality_score')
+        exclude = ('user', 'activation_key', 'user_type', 'helper_score', 'receiver_score')
         widgets = {'phone': forms.TextInput(
             attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121111111'}), 'photo': forms.FileInput()}
 
