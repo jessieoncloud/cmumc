@@ -65,7 +65,7 @@ class ModeForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'description', 'category', 'date', 'time', 'price', 'post_photo', 'address')
+        fields = ('title', 'description', 'category', 'date', 'time', 'price', 'post_photo', 'location')
         widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}),
                    'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'}),
                    'post_photo': forms.FileInput()}
