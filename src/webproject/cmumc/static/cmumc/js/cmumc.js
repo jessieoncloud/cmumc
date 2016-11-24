@@ -65,14 +65,23 @@ $(document).ready(function() {
 	}) 
 
 	// Star rating
-	$('.star_rating').barrating({
-		theme: 'fontawesome-stars'
+	$('.star_rating').barrating( {
+	  theme: 'fontawesome-stars',
+	  onSelect: function(value, text, event) {
+	    if (typeof(event) !== 'undefined') {
+	      // rating was selected by a user
+	      console.log(event.target);
+	      var rating = parseFloat($(event.target).attr('data-rating-value'));
+	      console.log(rating);
+	      $('#rating_score').attr('value', rating);
+	    } else {
+	      // rating was selected programmatically
+	      // by calling `set` method
+	      console.log("rated2");
+	    }
+	  }
 	});
-	$('.star_rating').find('span').click(function() {
-		console.log(this);
-		var rating = parseFloat($(this).attr('id'));
-		console.log(rating);
-	});
+
 
 	// Change navtop color based on user type
 	function updateNavColor() { 

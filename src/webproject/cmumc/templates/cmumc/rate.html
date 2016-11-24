@@ -19,7 +19,7 @@
 	        <table class="form_table">
 		        <tr>
 		        	<td>
-						<select id="star_rating">
+						<select class="star_rating">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -28,11 +28,22 @@
 						</select>
 		        	</td>
 		        </tr>
+		        <tr>
+		        	<td id="id_review">Review:</td>
+		        	<td>
+						<textarea name="review" required></textarea>
+		        	</td>
+		        </tr>
 	        </table>
-	        <input type="hidden" name="post_id" value="{{ post.post_id }}">
+	        <input type="hidden" name="post" value="{{ post.post_id }}">
+	        {% if post.task.receiver.username == user.username %}
+				<input type="hidden" name="rated_user_type" value="H">
+			{% else %}
+				<input type="hidden" name="rated_user_type" value="R">
+			{% endif %}
+			<input type="hidden" id="rating_score" name="score" value="5">
 	        {% csrf_token %}
 		</div>
-		{% comment %}
 		<div class="modal-footer">
 	        <div class="text-center">
 				<span class="btn">
@@ -40,6 +51,5 @@
 				</span>
 			</div>
 		</div>
-		{% endcomment %}
 	</form>
 </div>

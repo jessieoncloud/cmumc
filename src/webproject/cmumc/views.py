@@ -17,6 +17,7 @@ from mimetypes import guess_type
 from cmumc import *
 from cmumc.models import *
 from cmumc.forms import *
+from decimal import *
 
 from django.core import serializers
 import json
@@ -327,7 +328,7 @@ def mode(request):
 
     form = ModeForm(request.POST)
     ##weird bug, if you remove print, it cannot work
-    print(form)
+    #print(form)
     user_profile = get_object_or_404(Profile, user=request.user)
     modename = form.cleaned_data.get('mode')
     user_profile.user_type = modename
@@ -627,7 +628,8 @@ def rate_task(request, post_id):
 
     if not form.is_valid():
         messages.append("Form contained invalid data")
-        return render(request, 'cmumc/rating.html', context)
+        print(form.errors)
+        return render(request, 'cmumc/mytask.html', context)
 
     form.save()
 
@@ -643,13 +645,13 @@ def rate_task(request, post_id):
     if rated_user_type == 'H':
         task_set = Task.objects.filter(helper=rated_user).filter(task_status='C')
     else:
-        task_set = Task.object.filter(receiver=rated_user).filter(task_status='C')
+        task_set = Task.objects.filter(receiver=rated_user).filter(task_status='C')
 
     rating_set = Rating.objects.filter(task__in=task_set).filter(rated_user_type=rated_user_type)
-    total_score = 0.0
+    total_score = Decimal(0.0)
     length = len(rating_set)
     for i in range(0, length):
-        total_score += rating_set[i].score
+        total_score = total_score + rating_set[i].score
 
     if rated_user_type == 'H':
         rated_user_profile.helper_score = total_score / length
