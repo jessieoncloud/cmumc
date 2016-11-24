@@ -56,22 +56,22 @@
                 </div>
                 <div class="panel panel-default">
                 	<h3 class="content_title panel-heading">Rating &amp; Reviews</h3>
-                  <div class="col50">
+                  {#<div class="col50">#}
                       <p>Helper's Score</p>
                       <p>{{ profile.helper_score }}</p>
                       {% for hrate in helper_rating_list %}
-                        <p>hrate.score</p>
-                        <p>hrate.review</p>
+                        <p>{{ hrate.score }}</p>
+                        <p>{{ hrate.review }}</p>
                       {% endfor %}
-                  </div>
-                  <div class="col50">
+                  {#</div>#}
+                  {#<div class="col50">#}
                       <p>Receiver's Score</p>
                       <p>{{ profile.receiver_score }}</p>
                       {% for rrate in receiver_rating_list %}
-                        <p>rrate.score</p>
-                        <p>rrate.review</p>
+                        <p>{{ rrate.score }}</p>
+                        <p>{{ rrate.review }}</p>
                       {% endfor %}
-                  </div>
+                  {#</div>#}
                 </div>
             </div>
 

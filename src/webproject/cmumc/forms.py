@@ -87,8 +87,8 @@ class PostForm(forms.ModelForm):
         return date
 
     def clean_time(self):
-        time = self.cleaned_data.get('time')
         date = self.cleaned_data.get('date')
+        time = self.cleaned_data.get('time')
         if date == datetime.datetime.today().date() and time < datetime.datetime.now():
             raise forms.ValidationError("Time should be greater than current time")
         return time
