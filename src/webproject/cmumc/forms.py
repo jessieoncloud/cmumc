@@ -113,15 +113,10 @@ class RateForm(forms.ModelForm):
         cleaned_data = super(RateForm, self).clean()
         return cleaned_data
 
-    def clean_quality_score(self):
-        quality_score = self.cleaned_data['quality_score']
+    def clean_score(self):
+        score = self.cleaned_data['score']
         if quality_score < 0.0 or quality_score > 5.0:
             raise forms.ValidationError("Rating score is out of range")
-        return quality_score
+        return score
 
-    def clean_punctuality_score(self):
-        punctuality_score = self.cleaned_data['punctuality_score']
-        if punctuality_score < 0.0 or punctuality_score > 5.0:
-            raise forms.ValidationError("Rating score is out of range")
-        return punctuality_score
 

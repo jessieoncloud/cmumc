@@ -636,21 +636,17 @@ def rate_task(request, post_id):
         task_set = Task.object.filter(receiver=rated_user).filter(task_status='C')
 
     rating_set = Rating.objects.filter(task__in=task_set).filter(rated_user_type=rated_user_type)
-    total_quality_score = 0.0
-    total_punctuality_score = 0.0
+    total_score = 0.0
     length = len(rating_set)
     for i in range(0, length):
-        total_quality_score += rating_set[i].quality_score
-        total_punctuality_score += rating_set[i].punctuality_score
+        total_score += rating_set[i].score
 
     if rated_user_type == 'H':
-        rated_user_profile.helper_punctuality_score = total_punctuality_score / length
-        rated_user_profile.helper_quality_score = total_quality_score / length
+        rated_user_profile.helper_score = total_score / length
     else:
-        rated_user_profile.receiver_punctuality_score = total_punctuality_score / length
-        rated_user_profile.receiver_quality_score = total_quality_score / length
+        rated_user_profile.receiver_score = total_score / length
 
-    return render(request, 'cmumc/rating.html', context)
+    return render(request, 'cmumc/mytask.html', context)
 
 
 
