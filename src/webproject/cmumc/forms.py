@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from cmumc.models import *
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+import datetime
 
 UserType = (
     ('H', 'Helper'),
@@ -79,10 +80,17 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError("Price should be greater than 0")
         return price
 
-    ##
-    # def clean_date(self):
-    #     date = self.cleaned_data.get('date')
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if date < datetime.datetime.today():
+            raise forms.ValidationError("Date should be later than today")
+        return date
 
+    def clean_time(self):
+        time = self.cleaned_data.get('time')
+        if date == datetime.datetime.today() and time < datetime.datetime.now():
+            raise forms.ValidationError("Time should be greater than current time")
+        return time
 
 class ProfileForm(forms.ModelForm):
     class Meta:

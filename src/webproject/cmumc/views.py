@@ -409,18 +409,12 @@ def update_profile(request):
         context['profile_form'] = profile_form
         context['user_form'] = user_form
         if all([user_form.is_valid(), profile_form.is_valid()]):
-            print("update_profile successfully")
             user_form.save()
             profile_form.save()
-            print(profile_form)
             return redirect('profile', user_name=request.user.username)
         else:
-            print("update_profile fails")
-            print(profile_form.errors)
-            print(user_form.errors)
             return render(request, 'cmumc/edit_profile.html', context)
     else:
-        print("update profile get")
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=user_profile)
     return render(request, 'cmumc/edit_profile.html', {
@@ -627,7 +621,7 @@ def rate_task(request, post_id):
 
     if not form.is_valid():
         messages.append("Form contained invalid data")
-        return render(request, 'cmumc/rating.html', context)
+        return render(request, 'cmumc/mytask.html', context)
 
     form.save()
 
