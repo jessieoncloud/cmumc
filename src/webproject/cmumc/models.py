@@ -69,7 +69,6 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_time']
 
-
 class Task(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE, primary_key=True)
     helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name="helper")
@@ -113,6 +112,5 @@ class Profile(models.Model):
     venmo = models.CharField(max_length=20, default="", blank=True)
     helper_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
     receiver_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-
 
 

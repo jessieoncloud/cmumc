@@ -362,8 +362,8 @@ def profile(request, user_name):
         user_profile = Profile(user=user_item)
     context['profile'] = user_profile
     user_post = Post.get_user_posts(user_item).filter(deleted=False)
-    print(user_post)
     context['posts'] = user_post
+    ##render reviews
     return render(request, 'cmumc/profile.html', context)
 
 @login_required
