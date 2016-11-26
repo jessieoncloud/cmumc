@@ -3,7 +3,7 @@
     {% block usermenu %}
     <div class="container user_container">
         <div class="row">
-            <div class="col-mid-3 col25 usermenu_col">
+            <div class="col-mid-3 col25 userprofile_col">
                 <div class="profile_info">
                     <a href="{% url 'profile' profile.user.username %}"><img src="{% url 'photo' profile.user.username %}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
                     <h3 class="profile_username">{{ profile.user }}</h3>
@@ -56,22 +56,69 @@
                 </div>
                 <div class="panel panel-default">
                 	<h3 class="content_title panel-heading">Rating &amp; Reviews</h3>
-                  {#<div class="col50">#}
-                      <p>Helper's Score</p>
-                      <p>{{ profile.helper_score }}</p>
-                      {% for hrate in helper_rating_list %}
-                        <p>{{ hrate.score }}</p>
-                        <p>{{ hrate.review }}</p>
-                      {% endfor %}
-                  {#</div>#}
-                  {#<div class="col50">#}
-                      <p>Receiver's Score</p>
-                      <p>{{ profile.receiver_score }}</p>
-                      {% for rrate in receiver_rating_list %}
-                        <p>{{ rrate.score }}</p>
-                        <p>{{ rrate.review }}</p>
-                      {% endfor %}
-                  {#</div>#}
+                  <div class="rating_container">
+
+                    <div class="rating_col">
+                        <h4 class="rating_score_total">Helper Score ({{ profile.helper_score }})</h4>
+                        <div class="profile_star" value="{{ profile.helper_score }}"></div>
+                        <div class="comment-list styled clearfix">
+                            <ol>
+                               {% for rrate in helper_rating_list %}
+                                <li class="comment">
+                                    <div class="comment-body boxed">
+                                        <div class="comment-arrow"></div>
+                                        <div class="comment-username">{{ hrate.created_user}}</div>
+                                        <div class="comment-avatar">
+                                            <div class="avatar"><a href="{% url 'profile' hrate.created_user.username %}"><img src="{% url 'photo' hrate.created_user.username %}" alt="{{ hrate.created_user.username }}" class="img-circle avatar_review"></a></div>
+                                        </div>
+                                        <div class="comment-text">
+                                            <div class="comment-author clearfix">
+                                                <a href="{% url 'viewPost' hrate.task.post.post_id %}" class="review_title">{{ hrate.task.post.title }}</a>
+                                                <div class="profile_star task_star" value="{{ hrate.score }}"></div>
+                                            </div>
+                                            <div class="comment-entry">
+                                                {{ hrate.review }}
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="rating_col">
+                        <h4 class="rating_score_total">Receiver Score ({{ profile.receiver_score }})</h4>
+                        <div class="profile_star" value="{{ profile.receiver_score }}"></div>
+                        <div class="comment-list styled clearfix">
+                            <ol>
+                               {% for rrate in receiver_rating_list %}
+                                <li class="comment">
+                                    <div class="comment-body boxed">
+                                        <div class="comment-arrow"></div>
+                                        <div class="comment-username">{{ rrate.created_user}}</div>
+                                        <div class="comment-avatar">
+                                            <div class="avatar"><a href="{% url 'profile' rrate.created_user.username %}"><img src="{% url 'photo' rrate.created_user.username %}" alt="{{ rrate.created_user.username }}" class="img-circle avatar_review"></a></div>
+                                        </div>
+                                        <div class="comment-text">
+                                            <div class="comment-author clearfix">
+                                                <a href="{% url 'viewPost' rrate.task.post.post_id %}" class="review_title">{{ rrate.task.post.title }}</a>
+                                                <div class="profile_star task_star" value="{{ rrate.score }}"></div>
+                                            </div>
+                                            <div class="comment-entry">
+                                                {{ rrate.review }}
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+
+                  </div>
                 </div>
             </div>
 

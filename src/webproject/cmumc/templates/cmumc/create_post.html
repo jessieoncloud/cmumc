@@ -22,6 +22,7 @@
                         {{ error }}
                     {% endfor %}
                 </p>
+                {% comment %}
 	            <table class="form_table">
 				<tr>
 					<td>{{ form.title.label_tag }}</td>
@@ -75,9 +76,11 @@
 					<td>{{ form.post_photo.errors }}</td>
 				</tr>
 	            </table>
-				
+				{% endcomment %}
+
 				{{ form.media }}
 				{{ form.as_p }}
+
 	            <div class="text-center">
 					<span class="btn">
 						<input type="submit" id="create_btn" class="gradient" value="Create">

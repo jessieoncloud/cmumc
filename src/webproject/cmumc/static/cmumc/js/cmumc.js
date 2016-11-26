@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	console.log("here");
 	updateNavColor();
+	displayRating();
 	// updateUserTypeDisplay();
 
 	// Create_post: Datepicker
@@ -81,6 +82,28 @@ $(document).ready(function() {
 	    }
 	  }
 	});
+
+	// Display star rating
+	function displayRating() {
+		// Clear the rating
+		$('.profile_star').empty();
+		// Append the star display according to the value
+		$('.profile_star').map(function() {
+			var value = $(this).attr('value');
+			console.log(value);
+			$(this).append('<select class="profile_star_rating">');
+			for (i=1; i<6; i++) {
+				$(this).find('.profile_star_rating').append('<option value="'+i+'">'+i+'</option>');
+			}
+			$(this).append('</select>');
+
+			$(this).find('.profile_star_rating').barrating( {
+			  theme: 'fontawesome-stars-o',
+			  readonly: true,
+			  initialRating: value,
+			});
+		})
+	}
 
 
 	// Change navtop color based on user type
