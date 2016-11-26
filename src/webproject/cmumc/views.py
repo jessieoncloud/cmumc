@@ -154,6 +154,8 @@ def notification(post_id):
 @login_required
 @transaction.atomic
 def edit_post(request, post_id):
+    if post.status == 'I' or post.status == 'C':
+        return redirect('viewPost', post_id = post_id)
     context = {}
     errors = []
     context['errors'] = errors
@@ -161,7 +163,7 @@ def edit_post(request, post_id):
     context['post'] = post_item
     if post_item.created_user != request.user:
         return redirect('stream')
-    if request.method == 'POST' and (post.status == 'A' or post.status == 'NC'):
+    if request.method == 'POST':
         post_form = PostForm(request.POST, request.FILES, instance=post_item)
         context['form'] = post_form
         if post_form.is_valid():
