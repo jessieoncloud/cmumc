@@ -869,11 +869,15 @@ table.dataTable thead .sorting:after {
 
 .post_attrs {
     margin: auto;
-    display: block;
+    display: flex;
     padding: 30px;
     padding-left: 6%;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.post_data {
+    flex-grow: 2;
 }
 
 .post_attr, .post_attr:last-child {
