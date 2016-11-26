@@ -161,7 +161,7 @@ def edit_post(request, post_id):
     context['post'] = post_item
     if post_item.created_user != request.user:
         return redirect('stream')
-    if request.method == 'POST':
+    if request.method == 'POST' and (post.status == 'A' or post.status == 'NC'):
         post_form = PostForm(request.POST, request.FILES, instance=post_item)
         context['form'] = post_form
         if post_form.is_valid():
