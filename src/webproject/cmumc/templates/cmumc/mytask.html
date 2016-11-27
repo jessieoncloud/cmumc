@@ -95,11 +95,8 @@
                                   </div>
                                   {% endfor %}
                                   <div class="col40">
-                                   {% comment %}
-                                   <input type="submit" id="edit_post_btn" class="btn btn-md btn-primary btn-block" value="Confirm">
-                                   {% endcomment %}
                                     <div class="right-btn-container">
-                                      <span class="btn">
+                                      <span class="btn btn-small">
                                         <input type="submit" id="edit_post_btn" class="gradient" value="Confirm">
                                       </span>
                                     </div>
@@ -155,14 +152,18 @@
                                   </div>
                                   <div class="col40 right-btn-container">
                                   {% if post.task.helper_status != "R" and user.profile.user_type == "H" %}
-                                   <a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><span class="btn btn-small"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></span></a>
-                                   {% include "cmumc/rate.html" %}
+                                    <span class="btn btn-small"><a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></a></span>
+                                    {% include "cmumc/rate.html" %}
                                   {% endif %}
                                   {% if post.task.receiver_status != "R" and user.profile.user_type == "R" %}
-                                   <a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><span class="btn btn-small"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></span></a>
-                                  </div>
-                                  {% include "cmumc/rate.html" %}
+                                   <span class="btn btn-small"><a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></a></span>
+                                    {% include "cmumc/rate.html" %}
                                   {% endif %}
+                                  {% if user.profile.user_type == "R"%}
+                                    <span class="btn btn-small"><a data-toggle="modal" data-target="#payModal""><input id="delete_post_btn" type="submit" value="Pay" class="gradient"></a></span>
+                                    {% include "cmumc/pay.html" %} 
+                                  {% endif %}
+                                  </div>
                                 {% else %}
                                   <div class="col60">
                                       <p>The task creator has accepted someone else.</p>

@@ -37,7 +37,8 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     date = models.DateField()
     time = models.TimeField()
-    location = GeopositionField()
+    #location = models.CharField(max_length=100, default="", blank=True)
+    location = GeopositionField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     status = models.CharField(max_length=20, default="A", choices=StatusType)
     deleted = models.BooleanField(default=False)
@@ -58,7 +59,7 @@ class Post(models.Model):
         for post in post_list:
             temp = {}
             temp['post_id'] = post.post_id
-            temp['location'] = post.location
+            # temp['location'] = post.location
             temp['date'] = post.date
             temp['username'] = post.created_user.username
             temp['time'] = post.time

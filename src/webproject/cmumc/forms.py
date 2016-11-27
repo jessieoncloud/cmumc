@@ -99,7 +99,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exclude = ('user', 'activation_key', 'user_type', 'helper_score', 'receiver_score')
         widgets = {'phone': forms.TextInput(
-            attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121111111'}), 'photo': forms.FileInput()}
+            attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121234567'}), 'photo': forms.FileInput()}
 
     def clean(self):
         cleaned_data = super(ProfileForm, self).clean()

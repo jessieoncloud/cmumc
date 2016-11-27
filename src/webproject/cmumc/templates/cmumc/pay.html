@@ -1,0 +1,12 @@
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form class="well contact-form">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>Pay <a href="{% url 'profile' post.task.helper %}">{{ post.task.helper }}</a> via Venmo</h3>
+		</div>
+		<div class="modal-body">
+			<h4>Amount: ${{ post.price }}</h4>
+			<h4>Venmo Account: {{ post.task.helper.profile.venmo|default:"The helper has not set a venmo account. Please contact him/her directly." }}</h4>
+		</div>
+	</form>
+</div>
