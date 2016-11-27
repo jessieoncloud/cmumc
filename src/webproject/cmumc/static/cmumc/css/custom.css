@@ -869,18 +869,15 @@ table.dataTable thead .sorting:after {
 
 .post_attrs {
     margin: auto;
-    display: flex;
     padding: 30px;
     padding-left: 6%;
     margin-top: 20px;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .post_data {
-    flex-grow: 2;
-}
-
-.post_map {
     flex-grow: 1;
 }
 
@@ -1196,6 +1193,11 @@ p.title {
     position: absolute;
     top: 108px;
     left: 55px;
+}
+
+#map-canvas {
+    height: 100%;
+    width: 100%;
 }
 
 // hide latitude and longitude

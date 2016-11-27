@@ -69,3 +69,7 @@
 .gmnoprint img {
     max-width: none; 
 }
+
+.geoposition-widget>table {
+    display: none;
+}
