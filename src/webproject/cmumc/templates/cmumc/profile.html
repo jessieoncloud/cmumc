@@ -19,11 +19,15 @@
                         <h4>Major: {{ profile.major }}</h4>
                     </div>
                     <div class="option">
-						            <h4>Bio: <p>{{ profile.bio }}</p></h4>
+						<h4>Bio: <p>{{ profile.bio }}</p></h4>
                     </div>
                     <div class="option">
                         <h4>User type: <p class="user_mode">{{ profile.user_type }}</p></h4>
                     </div>
+                    {% if user.username != profile.user.username %}
+                        <a data-toggle="modal" data-target="#contactModal" href="{% url 'contact' profile.user.username %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
+                        {% include "cmumc/contact3.html" %}
+                    {% endif %}
                 </div>  
             </div>
     {% endblock %}

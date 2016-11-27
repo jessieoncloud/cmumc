@@ -671,13 +671,15 @@ def rate_task(request, post_id):
 def contact(request, username):
     user_item = get_object_or_404(User, username=username)
     to_profile = get_object_or_404(Profile, user=user_item)
+    from_profile = get_object_or_404(Profile, user=request.user)
 
     context = {}
-    context['messages'] = messages
+    msgs = []
+    context['msgs'] = msgs
     context['form'] = MessageForm()
 
     if request.method == "GET":
-        return render(request, 'cmumc/contact2.html', context)
+        return render(request, 'cmumc/contact.html', context)
 
     form = MessageForm(request.POST)
     context['form'] = form
@@ -685,7 +687,12 @@ def contact(request, username):
     if not form.is_valid():
         msgs.append("Your message is not valid.")
         return render(request, 'cmumc/contact.html', context)
-    msg_body = form.cleaned_data['body']
+    body = form.cleaned_data['body']
+
+    msg_body = "Message from CMUMC.\n\n"\
+            + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+            + "You can contact him/her by " + str(from_profile.phone)
+
     try:
         message = client.messages.create(body=msg_body,
                                          # to="+14125396418",  # Replace with your phone number
@@ -694,6 +701,7 @@ def contact(request, username):
                                         # from_="+15005550006")  # Replace with your Twilio number
     except TwilioRestException as e:
         print(e)
+        msgs.append("The person you want to sent SMS to has not set up his/her phone number.")
 
     return render(request, 'cmumc/contact.html', context)
 

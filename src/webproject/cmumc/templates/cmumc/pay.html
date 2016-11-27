@@ -6,7 +6,11 @@
 		</div>
 		<div class="modal-body">
 			<h4>Amount: ${{ post.price }}</h4>
-			<h4>Venmo Account: {{ post.task.helper.profile.venmo|default:"The helper has not set a venmo account. Please contact him/her directly." }}</h4>
+			{% if not post.task.helper.profile.venmo %}
+				<h4>Notice: {{ post.task.helper }} has not set a venmo account. Please contact {{ post.task.helper }} directly for payment instruction.</h4>
+			{% else %}
+				<h4>Venmo Account: {{ post.task.helper.profile.venmo }}</h4>
+			{% endif %}
 		</div>
 	</form>
 </div>

@@ -5,14 +5,19 @@
 
 	{% block content %}
 	<div class="top_container">
-		<div class="send_post_header">
-			<h3>Send SMS to <a href="{% url 'profile' user.username %}">{{ post.created_user }}</a></h3>
-		</div>
 		{% if msgs %}
+		<div class="send_post_header">
+			<h3>SMS Failed</h3>
+		</div>
 			{% for msg in msgs %}
 			<p class="form-msg">{{ msg }}</p>
 			{% endfor %}
+		{% else %}
+		<div class="send_post_header">
+			<h3>SMS Succssfully Sent</h3>
+		</div>	
 		{% endif %}
+
 		{% comment %}
 		<div >
 			<form class="form-send-post controls boxed line-top" method="post" action="{% url 'sendMessage' post.post_id %}">
@@ -38,5 +43,6 @@
 	        </form>
 		</div>
 		{% endcomment %}
+		
 	</div>
     {% endblock %}
