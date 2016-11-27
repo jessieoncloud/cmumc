@@ -59,7 +59,7 @@ class Post(models.Model):
         for post in post_list:
             temp = {}
             temp['post_id'] = post.post_id
-            temp['location'] = post.location
+            # temp['location'] = post.location
             temp['date'] = post.date
             temp['username'] = post.created_user.username
             temp['time'] = post.time
