@@ -16,7 +16,8 @@
 			</h3>
 		</div>
 	    <div>
-	        <form class="form-send-post controls boxed line-top" method="post" action="{% url 'create' %}" enctype="multipart/form-data">
+	        <form class="form-send-post controls boxed line-top" method="post" action="{% url 'create' %}" enctype="multipart/form-data"> 
+				{% comment %}
 	            <p class="error">
                     {% for error in form.non_field_errors %}
                         {{ error }}
@@ -75,7 +76,7 @@
 					<td>{{ form.post_photo.errors }}</td>
 				</tr>
 	            </table>
-				
+				{% endcomment %}
 				{{ form.media }}
 				{{ form.as_p }}
 	            <div class="text-center">
