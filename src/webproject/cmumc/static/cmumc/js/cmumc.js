@@ -9,6 +9,13 @@ $(document).ready(function() {
 	$('.datepicker').datepicker();
 
 	$('[data-toggle="tooltip"]').tooltip(); 
+	
+	//google maps autocomplete
+	//https://ubilabs.github.io/geocomplete/
+	$('#searchString').geocomplete({
+		country: 'us',
+		postalCode: '15213'
+	});
 
 	// Mode 
 	$('.mode_option').click(function() {

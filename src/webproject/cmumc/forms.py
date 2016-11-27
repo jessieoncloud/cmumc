@@ -68,7 +68,8 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'description', 'category', 'date', 'time', 'price', 'post_photo', 'location')
         widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}),
                    'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'}),
-                   'post_photo': forms.FileInput()}
+                   'post_photo': forms.FileInput(),
+                   'location': forms.TextInput(attrs={'id': 'searchString'})}
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()
@@ -89,7 +90,7 @@ class PostForm(forms.ModelForm):
     def clean_time(self):
         date = self.cleaned_data.get('date')
         time = self.cleaned_data.get('time')
-        if date == datetime.datetime.today().date() and time < datetime.datetime.now():
+        if date == datetime.datetime.today().date() and time < datetime.datetime.now().time():
             raise forms.ValidationError("Time should be greater than current time")
         return time
 

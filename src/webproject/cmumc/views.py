@@ -667,6 +667,38 @@ def rate_task(request, post_id):
     rated_user_profile.save()
     return redirect('mytask')
 
+@login_required
+def contact(request, username):
+    user_item = get_object_or_404(User, username=username)
+    to_profile = get_object_or_404(Profile, user=user_item)
+
+    context = {}
+    context['messages'] = messages
+    context['form'] = MessageForm()
+
+    if request.method == "GET":
+        return render(request, 'cmumc/contact2.html', context)
+
+    form = MessageForm(request.POST)
+    context['form'] = form
+
+    if not form.is_valid():
+        msgs.append("Your message is not valid.")
+        return render(request, 'cmumc/contact.html', context)
+    msg_body = form.cleaned_data['body']
+    try:
+        message = client.messages.create(body=msg_body,
+                                         # to="+14125396418",  # Replace with your phone number
+                                         to=str(to_profile.phone),
+                                         from_=twilio_number)
+                                        # from_="+15005550006")  # Replace with your Twilio number
+    except TwilioRestException as e:
+        print(e)
+
+    return render(request, 'cmumc/contact.html', context)
+
+
+
 
 
 
