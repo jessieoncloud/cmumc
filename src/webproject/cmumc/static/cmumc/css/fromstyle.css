@@ -34,6 +34,7 @@ ol, ul {
 input[type="text"],
 input[type="tel"],
 input[type="number"],
+input[type="search"],
 input[type="password"],
 textarea,
 .select_styled{
@@ -55,6 +56,7 @@ textarea {
 input[type="text"],
 input[type="tel"],
 input[type="number"],
+input[type="search"],
 input[type="password"],
 textarea{
     -webkit-appearance: none;
@@ -63,6 +65,7 @@ textarea{
 input[type="text"],
 input[type="tel"],
 input[type="number"],
+input[type="search"],
 input[type="password"]{
 	height:43px;
 	margin: 0;
@@ -71,6 +74,7 @@ input[type="password"]{
 .ie8 input[type="text"],
 .ie8 input[type="tel"],
 .ie8 input[type="number"],
+.ie8 input[type="search"],
 .ie8 input[type="password"]{
     line-height:41px;
 }
@@ -79,6 +83,7 @@ textarea:focus,
 input[type="text"]:focus,
 input[type="tel"]:focus,
 input[type="number"]:focus,
+input[type="search"]:focus,
 input[type="password"]:focus{
     border:1px solid #ebc85e;
 	box-shadow: none;

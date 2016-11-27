@@ -880,6 +880,10 @@ table.dataTable thead .sorting:after {
     flex-grow: 2;
 }
 
+.post_map {
+    flex-grow: 1;
+}
+
 .post_attr, .post_attr:last-child {
     margin-bottom: 20px;
 }
@@ -1192,6 +1196,11 @@ p.title {
     position: absolute;
     top: 108px;
     left: 55px;
+}
+
+// hide latitude and longitude
+.geoposition-widget>table {
+    display: none;
 }
 
 // Override bootstrap

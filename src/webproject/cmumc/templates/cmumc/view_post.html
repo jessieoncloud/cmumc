@@ -39,52 +39,49 @@
 		</div>
 
 	    <div class="container post_attrs controls boxed line-top">
-<<<<<<< HEAD
-	        <div class="post_attr">
-	        	<h3>Description</h3>
-	        	<p><span> {{ post.description }}</span></p>
-	        </div>
-	        <div class="post_attr">
-	        	<h4 class="inline">Category: </h4><span>{{ post.category }}</span>	
-	        </div>
-	        <div class="post_attr">
-	        	<h4 class="inline">Location: </h4><span>{{ post.location }}</spanp>	
-	        </div>
-			<div>
-			<div class="post_attr">
-	        	<h4 class="inline">Position: </h4><span>{{ post.position }}</spanp>	
-	        </div>
-			</div>
-	        <div class="post_attr">
-	        	<h4 class="inline">Date: </h4><span>{{ post.date }}</span>	
-	        </div>
-	        <div class="post_attr">
-	        	<h4 class="inline">Time: </h4><span>{{ post.time }}</span>	
-	        </div>
-	        <div class="post_attr">
-	        	<h4 class="inline">Price: </h4><span>${{ post.price }}</span>	
-	        </div>
+		    <div class="post_data">
+		        <div class="post_attr">
+		        	<h3>Description</h3>
+		        	<p><span> {{ post.description }}</span></p>
+		        </div>
+		        <div class="post_attr">
+		        	<h4 class="inline">Category: </h4><span>{{ post.category }}</span>	
+		        </div>
+		        <div class="post_attr">
+		        	<h4 class="inline">Date: </h4><span>{{ post.date }}</span>	
+		        </div>
+		        <div class="post_attr">
+		        	<h4 class="inline">Time: </h4><span>{{ post.time }}</span>	
+		        </div>
+		        <div class="post_attr">
+		        	<h4 class="inline">Price: </h4><span>${{ post.price }}</span>	
+		        </div>
+		        <div class="post_attr">
+		        	<div id="view_post_location" value="{{ post.location }}">
+		        </div>
 
-				{% if post.status == "A" or post.status == "NC" %}
-					{% if accepted %}
-						<div id="unclickable_btn" class="btn-unclickable" >Already Accepted</div>
-					{% elif user.profile.user_type == 'H' and user.username != post.created_user.username %}
-						<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Request" class="gradient"></span></a>
-					{% elif user.profile.user_type == 'R' and user.username != post.created_user.username %}
-						<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Offer" class="gradient"></span></a>
-					{% elif user.username == post.created_user.username %}
-						<a href="{% url 'editPost' post.post_id %}"><span class="btn"><input type="submit" value="Edit Post" class="gradient"></span></a>
+					{% if post.status == "A" or post.status == "NC" %}
+						{% if accepted %}
+							<div id="unclickable_btn" class="btn-unclickable" >Already Accepted</div>
+						{% elif user.profile.user_type == 'H' and user.username != post.created_user.username %}
+							<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Request" class="gradient"></span></a>
+						{% elif user.profile.user_type == 'R' and user.username != post.created_user.username %}
+							<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Offer" class="gradient"></span></a>
+						{% elif user.username == post.created_user.username %}
+							<a href="{% url 'editPost' post.post_id %}"><span class="btn"><input type="submit" value="Edit Post" class="gradient"></span></a>
+						{% endif %}
+					{% elif post.status == "I" %}
+						<div id="unclickable_btn" class="btn-unclickable" >In Progress</div>
+					{% elif post.status == "C" %}
+						<div id="unclickable_btn" class="btn-unclickable" >Completed</div>
 					{% endif %}
-				{% elif post.status == "I" %}
-					<div id="unclickable_btn" class="btn-unclickable" >In Progress</div>
-				{% elif post.status == "C" %}
-					<div id="unclickable_btn" class="btn-unclickable" >Completed</div>
-				{% endif %}
-		    </div>
+			    </div>
 
-		    <div class="post_map">
-
-		    </div>
+			    <div class="post_map">
+			    	<div id="map_canvas">
+			    	</div>
+			    </div>
+			</div> <!-- end of post_data -->
 		</div>
 
 	</div>
