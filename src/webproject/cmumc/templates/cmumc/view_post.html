@@ -30,11 +30,6 @@
 						<span>Rating: </span>
 						{# <input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact"> #}
 						{% if user.username != post.created_user.username %}
-							{% comment %}
-							<a href="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
-							<a class="contact" href="#" data-form="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
-							<a href="{% url 'contact_test' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact test" class="gradient"></span></a>
-							{% endcomment %}
 							<a data-toggle="modal" data-target="#contactModal" href="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
 							{% include "cmumc/contact2.html" %}
 						{% endif %}
@@ -44,6 +39,7 @@
 		</div>
 
 	    <div class="container post_attrs controls boxed line-top">
+<<<<<<< HEAD
 	        <div class="post_attr">
 	        	<h3>Description</h3>
 	        	<p><span> {{ post.description }}</span></p>
@@ -69,22 +65,26 @@
 	        	<h4 class="inline">Price: </h4><span>${{ post.price }}</span>	
 	        </div>
 
-		{% if post.status == "A" or post.status == "NC" %}
-			{% if accepted %}
-				<div id="unclickable_btn" class="btn-unclickable" >Already Accepted</div>
-			{% elif user.profile.user_type == 'H' and user.username != post.created_user.username %}
-				<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Request" class="gradient"></span></a>
-			{% elif user.profile.user_type == 'R' and user.username != post.created_user.username %}
-				<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Offer" class="gradient"></span></a>
-			{% elif user.username == post.created_user.username %}
-				<a href="{% url 'editPost' post.post_id %}"><span class="btn"><input type="submit" value="Edit Post" class="gradient"></span></a>
-			{% endif %}
-		{% elif post.status == "I" %}
-			<div id="unclickable_btn" class="btn-unclickable" >In Progress</div>
-		{% elif post.status == "C" %}
-			<div id="unclickable_btn" class="btn-unclickable" >Completed</div>
-		{% endif %}
+				{% if post.status == "A" or post.status == "NC" %}
+					{% if accepted %}
+						<div id="unclickable_btn" class="btn-unclickable" >Already Accepted</div>
+					{% elif user.profile.user_type == 'H' and user.username != post.created_user.username %}
+						<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Request" class="gradient"></span></a>
+					{% elif user.profile.user_type == 'R' and user.username != post.created_user.username %}
+						<a href="{% url 'acceptPost' post.post_id %}"><span class="btn"><input type="submit" value="Accept Offer" class="gradient"></span></a>
+					{% elif user.username == post.created_user.username %}
+						<a href="{% url 'editPost' post.post_id %}"><span class="btn"><input type="submit" value="Edit Post" class="gradient"></span></a>
+					{% endif %}
+				{% elif post.status == "I" %}
+					<div id="unclickable_btn" class="btn-unclickable" >In Progress</div>
+				{% elif post.status == "C" %}
+					<div id="unclickable_btn" class="btn-unclickable" >Completed</div>
+				{% endif %}
+		    </div>
 
+		    <div class="post_map">
+
+		    </div>
 		</div>
 
 	</div>

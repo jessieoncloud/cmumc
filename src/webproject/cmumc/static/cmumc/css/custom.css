@@ -21,6 +21,12 @@ h6 {
     font-weight: 700;
 }
 
+footer {
+    width: 100%;
+    padding: 30px 0;
+    background-color: #f8f8f8;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -815,7 +821,7 @@ table.dataTable thead .sorting:after {
     text-align: center;
 }
 
-.usermenu_col {
+.usermenu_col, .userprofile_col {
     // background-color: #f2f2f2;
     background-color: #ffffff;  
     padding: 40px;
@@ -863,11 +869,15 @@ table.dataTable thead .sorting:after {
 
 .post_attrs {
     margin: auto;
-    display: block;
+    display: flex;
     padding: 30px;
     padding-left: 6%;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.post_data {
+    flex-grow: 2;
 }
 
 .post_attr, .post_attr:last-child {
@@ -932,6 +942,10 @@ p.title {
     width: 50px;   
 }
 
+.avatar_review {
+    height: 80px;
+    width: 80px;
+}
 .post_photo {
     display: block;
     margin: auto;
@@ -1110,32 +1124,75 @@ p.title {
     font-size: 1.5em;
 }
 
-// .star_rating {
-//   unicode-bidi: bidi-override;
-//   direction: rtl;
-// }
-// .star_rating > span {
-//     display: inline-block;
-//     position: relative;
-//     width: 1.1em;
-//     font-size: 2em;
-// }
-// .star_rating > span:hover:before,
-// .star_rating > span:hover ~ span:before {
-//    content: "\2605";
-//    position: absolute;
-// }
-// // https://css-tricks.com/star-ratings/
-
-footer {
-    // Sticky footer
-    
-    width: 100%;
-    padding: 30px 0;
-    //margin-top: 15px;
-    background-color: #f8f8f8;
+.rating_container {
+    display: flex;
+    flex-direction: row;
 }
 
+.rating_col {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 0px;
+    min-width: 300px;
+}
+
+.rating_col > h4 {
+    text-align: center;
+}
+
+.rating_col:first-child {
+    border-right: 2px solid #960000;
+}
+
+.rating {
+    margin-top: 2em;
+}
+
+.rating_score_total {
+    font-size: 2em;
+}
+
+.br-wrapper:first-child {
+    text-align: center;
+}
+
+.review {
+    margin-top: 10px;
+    padding: 10px 10px 1px 10px;
+    background-color: #f2f2f2;
+}
+
+.profile_star>.br-wrapper a {
+    font-size: 2em;
+}
+
+.comment-author>.task_star>.br-wrapper {
+    text-align: left;
+    margin-top: 5px;
+}
+
+.comment-author>.task_star>.br-wrapper a {
+    font-size: 1.5em;
+}
+
+// .review p:nth-child(3) {
+//     font-size: 1.2em;
+// }
+
+// .review p:nth-child(4) {
+//     font-style: italic;
+// }
+
+.review_title {
+    font-size: 1.4em;
+}
+
+.comment-list.styled .comment-username {
+    position: absolute;
+    top: 108px;
+    left: 55px;
+}
 
 // Override bootstrap
 .page-header {
