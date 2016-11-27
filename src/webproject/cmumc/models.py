@@ -38,7 +38,7 @@ class Post(models.Model):
     date = models.DateField()
     time = models.TimeField()
     #location = models.CharField(max_length=100, default="", blank=True)
-    location = GeopositionField()
+    location = GeopositionField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     status = models.CharField(max_length=20, default="A", choices=StatusType)
     deleted = models.BooleanField(default=False)
