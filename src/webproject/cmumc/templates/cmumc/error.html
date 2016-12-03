@@ -5,17 +5,13 @@
 
 	{% block content %}
 	<div class="top_container">
-		{% if msgs %}
+		{% if errors %}
 		<div class="send_post_header">
-			<h3>SMS Failed</h3>
+			<h3>Error</h3>
 		</div>
-			{% for msg in msgs %}
-			<p class="form-msg">{{ msg }}</p>
+			{% for error in errors %}
+			<p class="form-msg">{{ error }}</p>
 			{% endfor %}
-		{% else %}
-		<div class="send_post_header">
-			<h3>SMS Succssfully Sent</h3>
-		</div>	
 		{% endif %}
 		
 	</div>
