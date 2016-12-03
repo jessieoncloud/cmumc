@@ -201,7 +201,7 @@ $(document).ready(function() {
 
     // Filter check and ajax to backend
     function filterAjax() {
-    	var filtered = {tasktype:[], date:null, time:[], price:[]};
+    	var filtered = {post:[], tasktype:[], date:null, time:[], price:[]};
     	// Get the filtered tasktype
     	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
     	for (i=0; i<tasktype.length; i++) {
