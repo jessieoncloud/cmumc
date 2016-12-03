@@ -38,8 +38,7 @@ urlpatterns = [
     url(r'^search_post$', cmumc.views.search_post, name='searchPost'),
     url(r'^filter_available$', cmumc.views.filter_available, name='filterAvailable'),
     url(r'^rate_task/(?P<post_id>\d+)$', cmumc.views.rate_task, name='rateTask'),
-    url(r'^filter_post$', cmumc.views.filter_post, name='filter_post'),
-    url(r'^clear_filter$', cmumc.views.clear_filter, name='clear_filter'),
+    url(r'^filter_post$', cmumc.views.filter_post, name='filterPost'),
+    url(r'^clear_filter$', cmumc.views.clear_filter, name='clearFilter'),
     url(r'^contact/(?P<username>\w+)$', cmumc.views.contact, name='contact'),
-    # url(r'^contact_test/(?P<post_id>\d+)$', cmumc.views.contact_test, name='contact_test'),
 ]
