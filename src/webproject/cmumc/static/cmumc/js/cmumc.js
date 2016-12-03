@@ -33,7 +33,6 @@ $(document).ready(function() {
 
 	// Switch mode ajax
 	$('#switch_btn').click(function() {
-		console.log("here");
 		var username = $('#nav-username').attr("value");
 		var usertype = $('#switch_btn').attr("value");
 		console.log("username: "+username);
@@ -60,6 +59,16 @@ $(document).ready(function() {
 				location.reload();
 			}
 		});
+	})
+
+	// Filter available posts only
+	$('#available_btn').click(function(event) {
+		event.preventDefault();
+		var posts = getPosts();
+		$.post("/cmumc/filter_available", {posts: posts})
+		.done(function(data) {
+			getUpdates(data);
+		})
 	})
 
 	// Profile menu bar highlight
@@ -201,11 +210,7 @@ $(document).ready(function() {
 
     // Filter check and ajax to backend
     function filterAjax() {
-    	var filtered = {posts:[], tasktype:[], date:null, time:[], price:[]};
-
-    	// Get an array of post ids on the stream
-    	var posts = getPosts(); 
-    	filtered.posts = posts;
+    	var filtered = {tasktype:[], date:null, time:[], price:[]};
 
     	// Get the filtered tasktype
     	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
@@ -243,31 +248,32 @@ $(document).ready(function() {
     	// Ajax to backend
     	$.post("/cmumc/filter_post", {tasktype: filtered.tasktype, date: filtered.date, time: filtered.time, price: filtered.price})
 		.done(function(data) {
-			console.log("filter ajax done!");
-			console.log(data);
-			var list = $(".posts");
-			list.empty();
-			for (var i = 0; i < data.data.length; i++) {
-				var post = data.data[i];
-				var $new_post = $('<div class="row row-post"> \
-								<div class="col-mid-3 col25 post_img"> \
-									<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
-								</div> \
-								<div class="col-mid-3 col75"> \
-									<div class="col-mid-9 col75 post_content"> \
-										<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
-										<p>Location: ' + post.location + '</p> \
-										<p>Time: ' + post.time + '</p> \
-										<p>Date: ' + post.date + '</p> \
-										<p>Posted by: ' + post.username + '</p> \
-									</div> \
-									<div class="col-mid-3 col25"> \
-										<h1>$' + post.price + '</h1> \
-									</div> \
-								</div> \
-							</div>');
-				list.append($new_post);
-			}
+			getUpdates(data);
+			// console.log("filter ajax done!");
+			// console.log(data);
+			// var list = $(".posts");
+			// list.empty();
+			// for (var i = 0; i < data.data.length; i++) {
+			// 	var post = data.data[i];
+			// 	var $new_post = $('<div class="row row-post"> \
+			// 					<div class="col-mid-3 col25 post_img"> \
+			// 						<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
+			// 					</div> \
+			// 					<div class="col-mid-3 col75"> \
+			// 						<div class="col-mid-9 col75 post_content"> \
+			// 							<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
+			// 							<p>Location: ' + post.location + '</p> \
+			// 							<p>Time: ' + post.time + '</p> \
+			// 							<p>Date: ' + post.date + '</p> \
+			// 							<p>Posted by: ' + post.username + '</p> \
+			// 						</div> \
+			// 						<div class="col-mid-3 col25"> \
+			// 							<h1>$' + post.price + '</h1> \
+			// 						</div> \
+			// 					</div> \
+			// 				</div>');
+			// 	list.append($new_post);
+			// }
 		});
     }
 
@@ -280,18 +286,13 @@ $(document).ready(function() {
     	return posts_id;
     }
 
+
 	function getUpdates(data) {
 		var list = $(".posts");
 		list.empty();
-		console.log("here");
-		console.log(data)
-		console.log(data.length);
 		for (var i = 0; i < data.length; i++) {
 			console.log("there");
 			var post = data[i];
-			console.log(post.post_id);
-			console.log("!");
-			console.log(post['post_id']);
 			var $new_post = $('<div class="row row-post"> \
                 			<div class="col-mid-3 col25 post_img"> \
                 				<a href="/cmumc/view_post/"' + post['post_id'] + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
