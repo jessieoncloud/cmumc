@@ -201,7 +201,12 @@ $(document).ready(function() {
 
     // Filter check and ajax to backend
     function filterAjax() {
-    	var filtered = {post:[], tasktype:[], date:null, time:[], price:[]};
+    	var filtered = {posts:[], tasktype:[], date:null, time:[], price:[]};
+
+    	// Get an array of post ids on the stream
+    	var posts = getPosts(); 
+    	filtered.posts = posts;
+
     	// Get the filtered tasktype
     	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
     	for (i=0; i<tasktype.length; i++) {
@@ -264,6 +269,15 @@ $(document).ready(function() {
 				list.append($new_post);
 			}
 		});
+    }
+
+    function getPosts() {
+    	var posts_id = [];
+    	var posts = $('.post_content');
+    	for (i = 0; i < posts.length; i++) {
+    		posts_id[i] = parseInt(posts[i].id);
+    	}
+    	return posts_id;
     }
 
 	function getUpdates(data) {

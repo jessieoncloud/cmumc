@@ -138,7 +138,7 @@
                 				<a href="{% url 'viewPost' post.post_id %}"><img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo"></a>
                 			</div>
                				<div class="col-mid-3 col75">
-               					<div class="col-mid-9 col75 post_content">
+               					<div class="col-mid-9 col75 post_content" id="{{post.post_id}}post">
                						<a href="{% url 'viewPost' post.post_id %}"><h3>{{ post.title }}</h3></a>
                						{# <p>Location: {{ post.location }}</p> #}
                						<p>Time: {{ post.time }}</p>
