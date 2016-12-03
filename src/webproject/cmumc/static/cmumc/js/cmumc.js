@@ -61,23 +61,11 @@ $(document).ready(function() {
 		});
 	})
 
-	// Search posts
-	$('#search_form').on('submit', function(event) {
-		event.preventDefault();
-		var searchform_data = $('#search_form').serializeArray();
-		console.log(searchform_data);
-		var posts = [];
-		posts = getPosts();
-		$.post("/cmumc/search_post", {form: searchform_data, posts: posts})
-		.done(function(data) {
-			getUpdates(data);
-		})
-	})
-
 	// Filter available posts only
 	$('#available_btn').click(function(event) {
 		event.preventDefault();
 		var posts = getPosts();
+		console.log(posts);
 		$.post("/cmumc/filter_available", {posts: posts})
 		.done(function(data) {
 			getUpdates(data);
@@ -262,31 +250,6 @@ $(document).ready(function() {
     	$.post("/cmumc/filter_post", {tasktype: filtered.tasktype, date: filtered.date, time: filtered.time, price: filtered.price})
 		.done(function(data) {
 			getUpdates(data);
-			// console.log("filter ajax done!");
-			// console.log(data);
-			// var list = $(".posts");
-			// list.empty();
-			// for (var i = 0; i < data.data.length; i++) {
-			// 	var post = data.data[i];
-			// 	var $new_post = $('<div class="row row-post"> \
-			// 					<div class="col-mid-3 col25 post_img"> \
-			// 						<a href="/cmumc/view_post/"' + post.post_id + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
-			// 					</div> \
-			// 					<div class="col-mid-3 col75"> \
-			// 						<div class="col-mid-9 col75 post_content"> \
-			// 							<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
-			// 							<p>Location: ' + post.location + '</p> \
-			// 							<p>Time: ' + post.time + '</p> \
-			// 							<p>Date: ' + post.date + '</p> \
-			// 							<p>Posted by: ' + post.username + '</p> \
-			// 						</div> \
-			// 						<div class="col-mid-3 col25"> \
-			// 							<h1>$' + post.price + '</h1> \
-			// 						</div> \
-			// 					</div> \
-			// 				</div>');
-			// 	list.append($new_post);
-			// }
 		});
     }
 
@@ -311,12 +274,12 @@ $(document).ready(function() {
                 				<a href="/cmumc/view_post/"' + post['post_id'] + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
                 			</div> \
                				<div class="col-mid-3 col75"> \
-               					<div class="col-mid-9 col75 post_content"> \
+               					<div class="col-mid-9 col75 post_content" id="' + post['post_id'] + 'post"> \
                						<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
                						<p>Location: ' + post.location + '</p> \
                						<p>Time: ' + post.time + '</p> \
                						<p>Date: ' + post.date + '</p> \
-               						<p>Posted by: ' + post.username + '></span></p> \
+               						<p>Posted by: ' + post.username + '</span></p> \
                					</div> \
            						<div class="col-mid-3 col25"> \
            							<h1>$' + post.price + '</h1> \
