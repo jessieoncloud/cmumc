@@ -525,7 +525,6 @@ def send_message(request, post_id):
 
 @login_required
 def search_post(request):
-    print(request.POST)
     context = {}
     messages = []
     context['messages'] = messages
@@ -553,11 +552,27 @@ def filter_available(request):
     messages = []
     context['messages'] = messages
     user_profile = get_object_or_404(Profile, user=request.user)
-    posts = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).exclude(status='C').exclude(status='I')
-    context['posts'] = posts
+    ##filter items on current page
+    filtered_post = Post.objects.none()
+    if 'posts[]' in request.POST and request.POST.getlist('posts[]'):
+        print("here")
+        post_list = request.POST.getlist('posts[]')
+        for i in range(0, len(post_list)):
+            post_id = post_list[i]
+            print(post_id)
+            try:
+                cur_post = Post.objects.filter(post_id=post_id)
+            except:
+                cur_post = Post.objects.none()
+            filtered_post = filtered_post | cur_post
+
+    posts = filtered_post.filter(deleted=False).exclude(post_type=user_profile.user_type).exclude(status='C').exclude(status='I')
     if len(posts) == 0:
         messages.append("No Results Found.")
-    return render(request, 'cmumc/stream.html', context)
+
+    response = Post.get_post_list_data(posts)
+    context['data'] = response
+    return HttpResponse(json.dumps(context, cls=DjangoJSONEncoder), content_type="application/json")
 
 # Ajax filter post
 @login_required
@@ -566,7 +581,7 @@ def filter_post(request):
     # Validation
     if request.method == 'GET':
         return redirect('stream')
-    # Filter based on filtered items
+
     filtered_post = Post.objects.all()
     if 'date' in request.POST and request.POST['date']:
         date = request.POST['date']
