@@ -2,7 +2,6 @@ $(document).ready(function() {
 
 	updateNavColor();
 	displayRating();
-	// updateUserTypeDisplay();
 
 	// Create_post: Datepicker
 	//   http://stackoverflow.com/questions/20700185/how-to-use-datepicker-in-django
