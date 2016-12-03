@@ -68,8 +68,7 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'description', 'category', 'date', 'time', 'price', 'post_photo', 'location')
         widgets = {'date': forms.DateInput(format="%m/%d/%Y", attrs={'class': 'datepicker'}),
                    'time': forms.TimeInput(format='%I:%M %p', attrs={'data-toggle': 'tooltip', 'title': 'Format: "18:00"'}),
-                   'post_photo': forms.FileInput(),
-                   'location': forms.TextInput(attrs={'id': 'searchString'})}
+                   'post_photo': forms.FileInput()}
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()
