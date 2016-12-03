@@ -84,13 +84,13 @@
                             <td colspan="8" class="colspan-nopadding">
                             <div id="post{{ post.post_id }}" class="collapse">
                               <div class="task-expand">
-                                <form method="post" action="{% url 'accept' post.post_id %}">
+                                <form method="post" action="{% url 'accept' post.post_id %}" id="nc_form">
                                   {% for requester in post.accept_list.all %}
                                   <div class="col60">
                                       <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
                                       <div class="accept_list_options form-check">
                                         <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" required/>
-                                        <label>Requester: <a href="{% url 'profile' requester.username %}">{{ requester.username }}</a></label>
+                                        <label class="nc_requester">Requester: <a href="{% url 'profile' requester.username %}">{{ requester.username }}</a></label>
                                       </div>
                                   </div>
                                   {% endfor %}
