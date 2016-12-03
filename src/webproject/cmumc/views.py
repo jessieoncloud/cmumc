@@ -45,17 +45,14 @@ auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twi
 twilio_number = "+14126936893"
 client = TwilioRestClient(account_sid, auth_token)
 
-# def contact_test(request, post_id):
-#     context = {}
-#     context['msgs'] = "hello"
-#     return render(request, 'cmumc/contact.html', context)
-
-# Create your views here.
 def home(request):
     return render(request, 'cmumc/index.html', {})
 
 @login_required
 def stream(request):
+    """
+    View all helper posts if in receiver mode, or all receiver posts if in helper mode.
+    """
     context = {}
     user_profile = get_object_or_404(Profile, user=request.user)
     if user_profile.user_type == 'H':
@@ -68,6 +65,9 @@ def stream(request):
 
 @login_required
 def view_post(request, post_id):
+    """
+    View specific post information given the post's post_id.
+    """
     context = {}
     errors = []
     context['errors'] = errors
@@ -80,7 +80,7 @@ def view_post(request, post_id):
     else:
         context['post'] = post_item
         # Check if the usertype and post type is correct
-        if (user_profile.user_type == post_item.post_type and request.user != post_item.created_user):
+        if user_profile.user_type == post_item.post_type and request.user != post_item.created_user:
             return redirect('stream')
         if len(post_item.accept_list.filter(username=request.user.username)) != 0:
             context['accepted'] = True
@@ -89,6 +89,9 @@ def view_post(request, post_id):
 @login_required
 @transaction.atomic
 def send_post(request):
+    """
+    Create a new post.
+    """
     context = {}
     user_profile = get_object_or_404(Profile, user=request.user)
 
@@ -112,14 +115,15 @@ def send_post(request):
     else:
         return render(request, 'cmumc/login.html', context)
 
-# return all tasks related to the current user
 @login_required
 def mytask(request):
+    """
+    View all tasks related to the current user
+    """
     context = {}
     user_item = get_object_or_404(User, username=request.user.username)
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(post_type=user_profile.user_type)
-    # check for bugs
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
     posts = user_post | accept_post
     context['posts'] = posts.distinct()
@@ -127,6 +131,9 @@ def mytask(request):
     return render(request,'cmumc/mytask.html', context)
 
 def notification(post_id):
+    """
+    Notify helper and receiver when task is in progress or complete, return whether the message is sent successfully or not.
+    """
     post_item = get_object_or_404(Post, post_id=post_id)
     if post_item.status == 'I':
         msg_body = "Your post \"" + post_item.title + "\" is now in progress."
@@ -154,12 +161,15 @@ def notification(post_id):
 @login_required
 @transaction.atomic
 def edit_post(request, post_id):
-    if post.status == 'I' or post.status == 'C':
-        return redirect('viewPost', post_id = post_id)
+    """
+    Edit a post given post's post_id.
+    """
     context = {}
     errors = []
     context['errors'] = errors
     post_item = get_object_or_404(Post, post_id=post_id)
+    if post_item.status == 'I' or post_item.status == 'C':
+        return redirect('viewPost', post_id = post_id)
     context['post'] = post_item
     if post_item.created_user != request.user:
         return redirect('stream')
@@ -170,7 +180,6 @@ def edit_post(request, post_id):
             post_form.save()
             return redirect('viewPost', post_id = post_id)
         else:
-            print(post_form.errors)
             return render(request, 'cmumc/edit_post.html', context)
     else:
         post_form = PostForm(instance=post_item)
@@ -179,6 +188,9 @@ def edit_post(request, post_id):
 @login_required
 @transaction.atomic
 def delete_post(request, post_id):
+    """
+    Delete a post given post's post_id.
+    """
     context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
     if post_item.created_user != request.user:
@@ -190,6 +202,9 @@ def delete_post(request, post_id):
 @login_required
 @transaction.atomic
 def accept_post(request, post_id):
+    """
+    Accept the post.
+    """
     context = {}
     errors = []
     context['errors'] = errors
@@ -214,6 +229,9 @@ def accept_post(request, post_id):
 
 @login_required
 def view_accept_list(request, post_id):
+    """
+    View the accepted user list for a post given the post's post_id.
+    """
     context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
     accept_list = post_item.accept_list.all()
@@ -228,10 +246,12 @@ def view_accept_list(request, post_id):
 
     return render(request, 'cmumc/mytask.html', context)
 
-##choose one user from accept_list to accept
 @login_required
 @transaction.atomic
 def accept(request, post_id):
+    """
+    Choose one user from accept_list to accept.
+    """
     context = {}
     errors = []
     context['errors'] = errors
@@ -280,6 +300,9 @@ def accept(request, post_id):
 @login_required
 @transaction.atomic
 def complete(request, post_id):
+    """
+    Choose one user from accept_list to accept.
+    """
     context = {}
     errors = []
     context['errors'] = errors
@@ -323,6 +346,9 @@ def complete(request, post_id):
 
 @login_required
 def mode(request):
+    """
+    Choose to log in helper or receiver mode.
+    """
     context = {}
     if request.method == 'GET':
         context['helper_form'] = ModeForm()
@@ -338,10 +364,11 @@ def mode(request):
     user_profile.save()
     return redirect('stream')
 
-# Ajax switch mode
 @login_required
 def switch(request):
-    # Validation
+    """
+    Switch current mode.
+    """
     if request.method == 'GET':
         return redirect('stream')
     if not 'mode_username' in request.POST or not request.POST['mode_username']:
@@ -358,6 +385,9 @@ def switch(request):
 
 @login_required
 def profile(request, user_name):
+    """
+    View a user's profile.
+    """
     context = {}
     user_item = get_object_or_404(User, username=user_name)
     try:
@@ -378,6 +408,9 @@ def profile(request, user_name):
 
 @login_required
 def get_photo(request, user_name):
+    """
+    Get a user's photo.
+    """
     user_item = get_object_or_404(User, username=user_name)
     profile = get_object_or_404(Profile, user=user_item)
     if not profile.photo:
@@ -388,6 +421,9 @@ def get_photo(request, user_name):
 
 @login_required
 def get_post_photo(request, post_id):
+    """
+    Get a post's photo. If not uploaded, use the default photo for this category.
+    """
     post_item = get_object_or_404(Post, post_id=post_id)
     if not post_item.post_photo:
         if (post_item.category == "Driving"):
@@ -404,6 +440,9 @@ def get_post_photo(request, post_id):
 @login_required
 @transaction.atomic
 def update_profile(request):
+    """
+    Update a user's profile.
+    """
     context = {}
     try:
         user_profile = Profile.objects.get(user=request.user)
@@ -430,6 +469,9 @@ def update_profile(request):
 
 @transaction.atomic
 def register(request):
+    """
+    User registration.
+    """
     context = {}
 
     if request.method == 'GET':
@@ -472,6 +514,9 @@ http://%s%s
 
 @transaction.atomic
 def confirm_register(request, user_name, token):
+    """
+    Confirm registration.
+    """
     try:
         user_item = User.objects.get(username=user_name)
         user_profile = Profile.objects.get(user=user_item)
@@ -485,8 +530,11 @@ def confirm_register(request, user_name, token):
     except:
         return redirect('index')
 
-##messaging module
+@login_required
 def send_message(request, post_id):
+    """
+    Send message to the post's created_user.
+    """
     context = {}
     msgs = []
     context['msgs'] = msgs
@@ -507,24 +555,14 @@ def send_message(request, post_id):
         msgs.append("Your message is not valid.")
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
-
-    msg_body = "Message from CMUMC.\n\nYour post \"" + post_item.title + "\" has been viewed by " + from_profile.user.username + ".\n" \
-            + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
-            + "You can contact him/her by " + str(from_profile.phone)
-    try:
-        message = client.messages.create(body=msg_body,
-                                         #to="+14125396418",  # Replace with your phone number
-                                         to=str(to_profile.phone),
-                                        from_=twilio_number)
-                                         #from_="+15005550006")  # Replace with your Twilio number
-        msgs.append("Your message has been sent sucessfully")
-    except TwilioRestException as e:
-        print(e)
-        msgs.append("Sent message failed, please try again")
+    context['msgs'] = messaging(from_profile, to_profile, body)
     return render(request, 'cmumc/contact.html', context)
 
 @login_required
 def search_post(request):
+    """
+    Search posts if the title or description contain the keyword, case insensitive.
+    """
     context = {}
     messages = []
     context['messages'] = messages
@@ -548,18 +586,18 @@ def search_post(request):
 
 @login_required
 def filter_available(request):
+    """
+    Show available posts based on current page results using Ajax.
+    """
     context = {}
     messages = []
     context['messages'] = messages
     user_profile = get_object_or_404(Profile, user=request.user)
-    ##filter items on current page
     filtered_post = Post.objects.none()
     if 'posts[]' in request.POST and request.POST.getlist('posts[]'):
-        print("here")
         post_list = request.POST.getlist('posts[]')
         for i in range(0, len(post_list)):
             post_id = post_list[i]
-            print(post_id)
             try:
                 cur_post = Post.objects.filter(post_id=post_id)
             except:
@@ -574,11 +612,12 @@ def filter_available(request):
     context['data'] = response
     return HttpResponse(json.dumps(context, cls=DjangoJSONEncoder), content_type="application/json")
 
-# Ajax filter post
 @login_required
 def filter_post(request):
+    """
+    Filter posts using Ajax.
+    """
     user_profile = get_object_or_404(Profile, user=request.user)
-    # Validation
     if request.method == 'GET':
         return redirect('stream')
 
@@ -626,10 +665,16 @@ def filter_post(request):
 
 @login_required
 def clear_filter(request):
+    """
+    Clear filter criteria and redirect to stream.
+    """
     return redirect('stream')
 
 @login_required
 def rate_task(request, post_id):
+    """
+    Rate the task and update related user's score.
+    """
     context = {}
     messages = []
     context['messages'] = messages
@@ -684,6 +729,9 @@ def rate_task(request, post_id):
 
 @login_required
 def contact(request, username):
+    """
+    Contact a specific user.
+    """
     user_item = get_object_or_404(User, username=username)
     to_profile = get_object_or_404(Profile, user=user_item)
     from_profile = get_object_or_404(Profile, user=request.user)
@@ -704,30 +752,39 @@ def contact(request, username):
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
 
-    msg_body = "Message from CMUMC.\n\n"\
-            + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
-            + "You can contact him/her by " + str(from_profile.phone)
+    # msg_body = "Message from CMUMC.\n\n"\
+    #         + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+    #         + "You can contact him/her by " + str(from_profile.phone)
+    #
+    # try:
+    #     message = client.messages.create(body=msg_body,
+    #                                      # to="+14125396418",  # Replace with your phone number
+    #                                      to=str(to_profile.phone),
+    #                                      from_=twilio_number)
+    #                                     # from_="+15005550006")  # Replace with your Twilio number
+    # except TwilioRestException as e:
+    #     print(e)
+    #     msgs.append("The person you want to sent SMS to has not set up his/her phone number.")
 
+    context['msgs'] = messaging(from_profile, to_profile, body)
+
+    return render(request, 'cmumc/contact.html', context)
+
+@login_required
+def messaging(from_profile, to_profile, body):
+    context = {}
+    msgs = []
+    context['msgs'] = msgs
+    msg_body = "Message from CMUMC.\n\nYour post \"" + post_item.title + "\" has been viewed by " + from_profile.user.username + ".\n" \
+               + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+               + "You can contact him/her by " + str(from_profile.phone)
     try:
         message = client.messages.create(body=msg_body,
                                          # to="+14125396418",  # Replace with your phone number
                                          to=str(to_profile.phone),
                                          from_=twilio_number)
-                                        # from_="+15005550006")  # Replace with your Twilio number
+        # from_="+15005550006")  # Replace with your Twilio number
+        msgs.append("Your message has been sent sucessfully")
     except TwilioRestException as e:
-        print(e)
-        msgs.append("The person you want to sent SMS to has not set up his/her phone number.")
-
-    return render(request, 'cmumc/contact.html', context)
-
-
-
-
-
-
-
-
-
-
-
-
+        msgs.append("Sent message failed, please try again")
+    return context
