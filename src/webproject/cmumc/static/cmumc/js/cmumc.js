@@ -9,50 +9,9 @@ $(document).ready(function() {
 
 	$('[data-toggle="tooltip"]').tooltip(); 
 	
+	$('.mode_option').click(modeEnter);
 
-	// Mode 
-	$('.mode_option').click(function() {
-		var user_type = $(this).attr('value');
-		console.log("user type: "+user_type);
-
-		// Submit the corrsponding form
-		if (user_type == 'H') {
-			$('.form-mode-H').submit();
-		} else if (user_type == 'R') {
-			$('.form-mode-R').submit();
-		}
-	})
-
-
-	// Switch mode ajax
-	$('#switch_btn').click(function() {
-		var username = $('#nav-username').attr("value");
-		var usertype = $('#switch_btn').attr("value");
-		console.log("username: "+username);
-		console.log("usertype: "+usertype);
-
-		$.post("/cmumc/switch", {mode_username: username, mode_usertype: usertype})
-		.done(function(data) {
-			console.log("switch ajax done!");
-			console.log(data);
-			$('#switch_btn').attr('value', data.usertype);
-			updateNavColor();
-			// updateUserTypeDisplay();
-			// If the current page is the following, refresh
-			var url = document.URL;
-			var regStream = new RegExp("stream$");
-			var regMyTask = new RegExp("mytask$");
-			var regProfile = new RegExp("profile");
-			var regCreatePost = new RegExp("send_post$");
-			var regViewPost = new RegExp("view_post");
-			var regSearchPost = new RegExp("search_post");
-			var regFilterAvailable = new RegExp("filter_available$");
-			console.log(regMyTask.test(url));
-			if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearchPost.test(url) || regFilterAvailable.test(url)) {
-				location.reload();
-			}
-		});
-	})
+	$('#switch_btn').click(modeSwitch);
 
 	// Filter available posts only
 	$('#available_btn').click(function(event) {
@@ -91,62 +50,6 @@ $(document).ready(function() {
 	    }
 	  }
 	});
-
-	// Display star rating
-	function displayRating() {
-		// Clear the rating
-		$('.profile_star').empty();
-		// Append the star display according to the value
-		$('.profile_star').map(function() {
-			var value = $(this).attr('value');
-			console.log(value);
-			$(this).append('<select class="profile_star_rating">');
-			for (i=1; i<6; i++) {
-				$(this).find('.profile_star_rating').append('<option value="'+i+'">'+i+'</option>');
-			}
-			$(this).append('</select>');
-
-			$(this).find('.profile_star_rating').barrating( {
-			  theme: 'fontawesome-stars-o',
-			  readonly: true,
-			  initialRating: value,
-			});
-		})
-	}
-
-
-	// Change navtop color based on user type
-	function updateNavColor() { 
-		if ($('#switch_btn').attr('value')) {
-			var user_type = $('#switch_btn').attr('value');
-		}
-		// console.log("user type: "+user_type);
-		if (user_type == 'R') {
-			$('.topnav').css("background-color", "#e1932d");
-			$('#logo').css("color", "#ffffff");
-			$('.topnavOptions').css("color", "#ffffff");
-			$('.topnavOptions').css("background-color", "#e1932d");
-			$('.navbar-fixed-top').css("border-color", "#e1932d");
-			$('.topnavOptions').hover(function() {
-				// hover color
-				$(this).css("background-color", "#ebb670");
-				}, function() {
-				$(this).css("background-color", "#e1932d");
-			});
-		} else if (user_type == 'H') {
-			$('.topnav').css("background-color", "#960000");
-			$('#logo').css("color", "#fff");
-			$('.topnavOptions').css("color", "#fff");
-			$('.topnavOptions').css("background-color", "#960000");
-			$('.navbar-fixed-top').css("border-color", "#960000");
-			$('.topnavOptions').hover(function() {
-				// hover color
-				$(this).css("background-color", "#ff4747");
-				}, function() {
-				$(this).css("background-color", "#960000");
-			});
-		}
-	}
 	
 	// Filter Options
     // Price Range Input
@@ -187,9 +90,7 @@ $(document).ready(function() {
     });
 
     // Tasktype is clicked
-    $('.sidebar-option-tasktype').click(function(){
-    	filterAjax();
-    });
+    $('.sidebar-option-tasktype').click(filterAjax);
 
     // Date is clicked
     $('.sidebar-option-date').click(function() {
@@ -202,109 +103,203 @@ $(document).ready(function() {
     	filterAjax();
     })
 
-    // Filter check and ajax to backend
-    function filterAjax() {
-    	var filtered = {tasktype:[], date:null, time:[], price:[]};
-
-    	// Get the filtered tasktype
-    	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
-    	for (i=0; i<tasktype.length; i++) {
-    		filtered.tasktype[i] = tasktype[i].value;
-    	} 
-    	// Get the filtered date
-    	//   http://stackoverflow.com/questions/33023806/typeerror-1-attr-is-not-a-function
-    	//   use eq(i) instead of [i]
-    	var date = $('.sidebar-option-date');
-    	for (i=0; i<date.length; i++) {
-    		if (date.eq(i).attr("checked") == "checked") {
-     			filtered.date = date.eq(i).attr("value");  			
-    		}
-    	} 
-    	// Get the filtered time
-    	var time = $('#time_range');
-    	var checked_time = time[0].value.split(";");
-    	filtered.time[0] = Math.floor(checked_time[0]/60);   // start time hour
-    	filtered.time[1] = checked_time[0]%60;   // start time min
-    	filtered.time[2] = Math.floor(checked_time[1]/60);   // end time hour
-    	filtered.time[3] = checked_time[1]%60;   // end time min
-    	// console.log(filtered.time);
-
-    	// Get the filtered price
-		var price = $('#price_range');
-		var checked_price = price[0].value.split(";");
-    	filtered.price[0] = checked_price[0];  // start price
-    	filtered.price[1] = checked_price[1];  // end price
-    	// console.log(filtered.price);
-    	
-    	// filter options result  
-    	console.log(filtered);  
-
-    	// Ajax to backend
-    	$.post("/cmumc/filter_post", {tasktype: filtered.tasktype, date: filtered.date, time: filtered.time, price: filtered.price})
-		.done(function(data) {
-			getUpdates(data);
-		});
-    }
-
-    function getPosts() {
-    	var posts_id = [];
-    	var posts = $('.post_content');
-    	for (i = 0; i < posts.length; i++) {
-    		posts_id[i] = parseInt(posts[i].id);
-    	}
-    	return posts_id;
-    }
-
-
-	function getUpdates(data) {
-		var list = $(".posts");
-		list.empty();
-		for (var i = 0; i < data.data.length; i++) {
-			console.log("there");
-			var post = data.data[i];
-			var $new_post = $('<div class="row row-post"> \
-                			<div class="col-mid-3 col25 post_img"> \
-                				<a href="/cmumc/view_post/"' + post['post_id'] + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
-                			</div> \
-               				<div class="col-mid-3 col75"> \
-               					<div class="col-mid-9 col75 post_content" id="' + post['post_id'] + 'post"> \
-               						<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
-               						<p>Location: ' + post.location + '</p> \
-               						<p>Time: ' + post.time + '</p> \
-               						<p>Date: ' + post.date + '</p> \
-               						<p>Posted by: ' + post.username + '</span></p> \
-               					</div> \
-           						<div class="col-mid-3 col25"> \
-           							<h1>$' + post.price + '</h1> \
-               					</div> \
-                			</div> \
-                        </div>');
-			list.append($new_post);
-		}
-	}
-    
-	// CSRF set-up copied from Django docs
-	function getCookie(name) {  
-		var cookieValue = null;
-		if (document.cookie && document.cookie != '') {
-		    var cookies = document.cookie.split(';');
-		    for (var i = 0; i < cookies.length; i++) {
-		        var cookie = jQuery.trim(cookies[i]);
-		        // Does this cookie string begin with the name we want?
-		        if (cookie.substring(0, name.length + 1) == (name + '=')) {
-		            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-		            break;
-		        }
-		    }
-		}
-		return cookieValue;
-		}
-		var csrftoken = getCookie('csrftoken');
-		$.ajaxSetup({
-		beforeSend: function(xhr, settings) {
-		    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-		}
-	});
-
 });
 
+// Enter a mode
+function modeEnter() {
+	var user_type = $(this).attr('value');
+	console.log("user type: "+user_type);
+	// Submit the corrsponding form
+	if (user_type == 'H') {
+		$('.form-mode-H').submit();
+	} else if (user_type == 'R') {
+		$('.form-mode-R').submit();
+	}		
+}
+
+// Switch mode
+function modeSwitch() {
+	var username = $('#nav-username').attr("value");
+	var usertype = $('#switch_btn').attr("value");
+	console.log("username: "+username);
+	console.log("usertype: "+usertype);
+
+	$.post("/cmumc/switch", {mode_username: username, mode_usertype: usertype})
+	.done(function(data) {
+		console.log("switch ajax done!");
+		console.log(data);
+		$('#switch_btn').attr('value', data.usertype);
+		updateNavColor();
+		// updateUserTypeDisplay();
+		// If the current page is the following, refresh
+		var url = document.URL;
+		var regStream = new RegExp("stream$");
+		var regMyTask = new RegExp("mytask$");
+		var regProfile = new RegExp("profile");
+		var regCreatePost = new RegExp("send_post$");
+		var regViewPost = new RegExp("view_post");
+		var regSearchPost = new RegExp("search_post");
+		var regFilterAvailable = new RegExp("filter_available$");
+		console.log(regMyTask.test(url));
+		if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearchPost.test(url) || regFilterAvailable.test(url)) {
+			location.reload();
+		}
+	});		
+}
+
+// Display star rating
+function displayRating() {
+	// Clear the rating
+	$('.profile_star').empty();
+	// Append the star display according to the value
+	$('.profile_star').map(function() {
+		var value = $(this).attr('value');
+		console.log(value);
+		$(this).append('<select class="profile_star_rating">');
+		for (i=1; i<6; i++) {
+			$(this).find('.profile_star_rating').append('<option value="'+i+'">'+i+'</option>');
+		}
+		$(this).append('</select>');
+
+		$(this).find('.profile_star_rating').barrating( {
+		  theme: 'fontawesome-stars-o',
+		  readonly: true,
+		  initialRating: value,
+		});
+	})
+}
+
+// Change navtop color based on user type
+function updateNavColor() { 
+	if ($('#switch_btn').attr('value')) {
+		var user_type = $('#switch_btn').attr('value');
+	}
+	// console.log("user type: "+user_type);
+	if (user_type == 'R') {
+		$('.topnav').css("background-color", "#e1932d");
+		$('#logo').css("color", "#ffffff");
+		$('.topnavOptions').css("color", "#ffffff");
+		$('.topnavOptions').css("background-color", "#e1932d");
+		$('.navbar-fixed-top').css("border-color", "#e1932d");
+		$('.topnavOptions').hover(function() {
+			// hover color
+			$(this).css("background-color", "#ebb670");
+			}, function() {
+			$(this).css("background-color", "#e1932d");
+		});
+	} else if (user_type == 'H') {
+		$('.topnav').css("background-color", "#960000");
+		$('#logo').css("color", "#fff");
+		$('.topnavOptions').css("color", "#fff");
+		$('.topnavOptions').css("background-color", "#960000");
+		$('.navbar-fixed-top').css("border-color", "#960000");
+		$('.topnavOptions').hover(function() {
+			// hover color
+			$(this).css("background-color", "#ff4747");
+			}, function() {
+			$(this).css("background-color", "#960000");
+		});
+	}
+}
+
+// Filter check and ajax to backend
+function filterAjax() {
+	var filtered = {tasktype:[], date:null, time:[], price:[]};
+
+	// Get the filtered tasktype
+	var tasktype = $('.sidebar-option-tasktype').filter(':checked');
+	for (i=0; i<tasktype.length; i++) {
+		filtered.tasktype[i] = tasktype[i].value;
+	} 
+	// Get the filtered date
+	//   http://stackoverflow.com/questions/33023806/typeerror-1-attr-is-not-a-function
+	//   use eq(i) instead of [i]
+	var date = $('.sidebar-option-date');
+	for (i=0; i<date.length; i++) {
+		if (date.eq(i).attr("checked") == "checked") {
+ 			filtered.date = date.eq(i).attr("value");  			
+		}
+	} 
+	// Get the filtered time
+	var time = $('#time_range');
+	var checked_time = time[0].value.split(";");
+	filtered.time[0] = Math.floor(checked_time[0]/60);   // start time hour
+	filtered.time[1] = checked_time[0]%60;   // start time min
+	filtered.time[2] = Math.floor(checked_time[1]/60);   // end time hour
+	filtered.time[3] = checked_time[1]%60;   // end time min
+	// console.log(filtered.time);
+
+	// Get the filtered price
+	var price = $('#price_range');
+	var checked_price = price[0].value.split(";");
+	filtered.price[0] = checked_price[0];  // start price
+	filtered.price[1] = checked_price[1];  // end price
+	// console.log(filtered.price);
+	
+	// filter options result  
+	console.log(filtered);  
+
+	// Ajax to backend
+	$.post("/cmumc/filter_post", {tasktype: filtered.tasktype, date: filtered.date, time: filtered.time, price: filtered.price})
+	.done(function(data) {
+		getUpdates(data);
+	});
+}
+
+function getPosts() {
+	var posts_id = [];
+	var posts = $('.post_content');
+	for (i = 0; i < posts.length; i++) {
+		posts_id[i] = parseInt(posts[i].id);
+	}
+	return posts_id;
+}
+
+function getUpdates(data) {
+	var list = $(".posts");
+	list.empty();
+	for (var i = 0; i < data.data.length; i++) {
+		console.log("there");
+		var post = data.data[i];
+		var $new_post = $('<div class="row row-post"> \
+            			<div class="col-mid-3 col25 post_img"> \
+            				<a href="/cmumc/view_post/"' + post['post_id'] + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
+            			</div> \
+           				<div class="col-mid-3 col75"> \
+           					<div class="col-mid-9 col75 post_content" id="' + post['post_id'] + 'post"> \
+           						<a href="/cmumc/view_post/' + post.post_id + '"><h3>' + post.title + '</h3></a> \
+           						<p>Time: ' + post.time + '</p> \
+           						<p>Date: ' + post.date + '</p> \
+           						<p>Posted by: ' + post.username + '</span></p> \
+           					</div> \
+       						<div class="col-mid-3 col25"> \
+       							<h1>$' + post.price + '</h1> \
+           					</div> \
+            			</div> \
+                    </div>');
+		list.append($new_post);
+	}
+}
+
+// CSRF set-up copied from Django docs
+function getCookie(name) {  
+	var cookieValue = null;
+	if (document.cookie && document.cookie != '') {
+	    var cookies = document.cookie.split(';');
+	    for (var i = 0; i < cookies.length; i++) {
+	        var cookie = jQuery.trim(cookies[i]);
+	        // Does this cookie string begin with the name we want?
+	        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	            break;
+	        }
+	    }
+	}
+	return cookieValue;
+	}
+	var csrftoken = getCookie('csrftoken');
+	$.ajaxSetup({
+	beforeSend: function(xhr, settings) {
+	    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	}
+});
