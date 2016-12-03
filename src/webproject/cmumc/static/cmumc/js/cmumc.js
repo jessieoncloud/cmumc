@@ -303,9 +303,9 @@ $(document).ready(function() {
 	function getUpdates(data) {
 		var list = $(".posts");
 		list.empty();
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0; i < data.data.length; i++) {
 			console.log("there");
-			var post = data[i];
+			var post = data.data[i];
 			var $new_post = $('<div class="row row-post"> \
                 			<div class="col-mid-3 col25 post_img"> \
                 				<a href="/cmumc/view_post/"' + post['post_id'] + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
