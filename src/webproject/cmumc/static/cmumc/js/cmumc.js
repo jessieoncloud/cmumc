@@ -61,6 +61,19 @@ $(document).ready(function() {
 		});
 	})
 
+	// Search posts
+	$('#search_form').on('submit', function(event) {
+		event.preventDefault();
+		var searchform_data = $('#search_form').serializeArray();
+		console.log(searchform_data);
+		// form
+		var posts = getPosts();
+		$.post("/cmumc/search_post", {form: searchform_data, posts: posts})
+		.done(function(data) {
+			getUpdates(data);
+		})
+	})
+
 	// Filter available posts only
 	$('#available_btn').click(function(event) {
 		event.preventDefault();

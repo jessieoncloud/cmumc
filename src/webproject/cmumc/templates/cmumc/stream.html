@@ -6,7 +6,7 @@
 			<div class="col75 search_constainer">
 		        <div class="sidebar-search">
 		            <div class="input-group custom-search-form">
-                        <form method="post" action="{% url 'searchPost' %}" class="search_form">
+                        <form method="post" action="{% url 'searchPost' %}" class="search_form" id="search_form">
                             <div class="clearfix">
                                 {% comment %}
                                 <input type="text" class="form-control" placeholder="Search..." name="keyword" value="{{ keyword }}">
