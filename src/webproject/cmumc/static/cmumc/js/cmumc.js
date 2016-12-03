@@ -66,7 +66,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		var searchform_data = $('#search_form').serializeArray();
 		console.log(searchform_data);
-		var posts = []
+		var posts = [];
 		posts = getPosts();
 		$.post("/cmumc/search_post", {form: searchform_data, posts: posts})
 		.done(function(data) {
