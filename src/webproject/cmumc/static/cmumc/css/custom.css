@@ -721,7 +721,7 @@ table.dataTable thead .sorting:after {
 #contact_btn {
     // width: 100px;
     // min-width: 80px;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 #search_btn {
@@ -888,6 +888,7 @@ table.dataTable thead .sorting:after {
 
 .post_data {
     flex-grow: 1;
+    width: 50%;
 }
 
 .post_attr, .post_attr:last-child {
@@ -1206,12 +1207,17 @@ p.title {
 
 #map-canvas {
     height: 100%;
-    width: 100%;
+    width: 90%;
+    margin-left: 10%;
 }
 
 // hide latitude and longitude
 .geoposition-widget>table {
     display: none;
+}
+
+.post_owner_score {
+    margin-left: 5px;
 }
 
 // Override bootstrap

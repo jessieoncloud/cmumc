@@ -27,7 +27,21 @@
 						</div>
 					</div>
 					<div class="col-lg-12 col40">
-						<span>Rating: </span>
+						<span>
+							Rating: 
+							<span class="post_owner_score">
+							{% if post.post_type == 'H' %}
+								{{ post.created_user.profile.helper_score }}
+							{% else %}
+								{{ post.created_user.profile.receiver_score }}
+							{% endif %}
+							</span>
+						</span>
+						{% if post.post_type == 'H' %}
+							<div class="profile_star" value="{{ post.created_user.profile.helper_score }}"></div>
+						{% else %}
+							<div class="profile_star" value="{{ post.created_user.profile.receiver_score }}"></div>
+						{% endif %}
 						{# <input type="submit" id="contact_btn" class="btn btn-md btn-primary btn-block" value="Contact"> #}
 						{% if user.username != post.created_user.username %}
 							<a data-toggle="modal" data-target="#contactModal" href="{% url 'sendMessage' post.post_id %}"><span class="btn"><input id="contact_btn" type="submit" value="Contact" class="gradient"></span></a>
@@ -77,10 +91,12 @@
 					{% endif %}
 			    </div>
 			</div> <!-- end of post_data -->
+			{% if post.location != none %}
 			<div class="post_data">
 		    	<div id="map-canvas">
 		    	</div>
 			</div> <!-- end of post_data -->
+			{% endif %}
 		</div>
 
 	</div>
