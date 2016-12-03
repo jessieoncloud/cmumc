@@ -1146,6 +1146,7 @@ p.title {
     margin: 10px;
     margin-top: 0px;
     min-width: 300px;
+    width: 50%;
 }
 
 .rating_col > h4 {
@@ -1202,7 +1203,7 @@ p.title {
 .comment-list.styled .comment-username {
     position: absolute;
     top: 108px;
-    left: 55px;
+    left: 11%;
 }
 
 #map-canvas {
