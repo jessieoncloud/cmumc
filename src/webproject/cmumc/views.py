@@ -555,7 +555,18 @@ def send_message(request, post_id):
         msgs.append("Your message is not valid.")
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
-    context['msgs'] = messaging(from_profile, to_profile, body)
+
+    msg_body = "Message from CMUMC.\n\nYour post \"" + post_item.title + "\" has been viewed by " + from_profile.user.username + ".\n" \
+               + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+               + "You can contact him/her by " + str(from_profile.phone)
+
+    sent = messaging(to_profile, msg_body)
+
+    if sent:
+        msgs.append("Your message has been sent sucessfully")
+    else:
+        msgs.append("Sent message failed, please try again")
+
     return render(request, 'cmumc/contact.html', context)
 
 @login_required
@@ -752,39 +763,26 @@ def contact(request, username):
         return render(request, 'cmumc/contact.html', context)
     body = form.cleaned_data['body']
 
-    # msg_body = "Message from CMUMC.\n\n"\
-    #         + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
-    #         + "You can contact him/her by " + str(from_profile.phone)
-    #
-    # try:
-    #     message = client.messages.create(body=msg_body,
-    #                                      # to="+14125396418",  # Replace with your phone number
-    #                                      to=str(to_profile.phone),
-    #                                      from_=twilio_number)
-    #                                     # from_="+15005550006")  # Replace with your Twilio number
-    # except TwilioRestException as e:
-    #     print(e)
-    #     msgs.append("The person you want to sent SMS to has not set up his/her phone number.")
+    msg_body = "Message from CMUMC.\n\n"\
+            + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
+            + "You can contact him/her by " + str(from_profile.phone)
 
-    context['msgs'] = messaging(from_profile, to_profile, body)
+    sent = messaging(to_profile, msg_body)
+    if sent:
+        msgs.append("Sent successfully")
+    else:
+        msgs.append("The person you want to sent SMS to has not set up his/her phone number.")
 
     return render(request, 'cmumc/contact.html', context)
 
 @login_required
-def messaging(from_profile, to_profile, body):
-    context = {}
-    msgs = []
-    context['msgs'] = msgs
-    msg_body = "Message from CMUMC.\n\nYour post \"" + post_item.title + "\" has been viewed by " + from_profile.user.username + ".\n" \
-               + from_profile.user.username + " would like to send you a message:\n\n" + body + "\n \n" \
-               + "You can contact him/her by " + str(from_profile.phone)
+def messaging(to_profile, msg_body):
     try:
         message = client.messages.create(body=msg_body,
                                          # to="+14125396418",  # Replace with your phone number
                                          to=str(to_profile.phone),
                                          from_=twilio_number)
         # from_="+15005550006")  # Replace with your Twilio number
-        msgs.append("Your message has been sent sucessfully")
+        return True
     except TwilioRestException as e:
-        msgs.append("Sent message failed, please try again")
-    return context
+        return False
