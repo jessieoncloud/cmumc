@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	updateNavColor();
 	displayRating();
+	initiate();
 
 	// Create_post: Datepicker
 	//   http://stackoverflow.com/questions/20700185/how-to-use-datepicker-in-django
@@ -17,7 +18,6 @@ $(document).ready(function() {
 	$('#available_btn').click(function(event) {
 		event.preventDefault();
 		var posts = getPosts();
-		console.log(posts);
 		$.post("/cmumc/filter_available", {posts: posts})
 		.done(function(data) {
 			getUpdates(data);
@@ -54,16 +54,11 @@ $(document).ready(function() {
 	// Filter Options
     // Price Range Input
     $("#price_range").rangeslider({
-        from: 0,
-        to: 300,
         limits: false,
-        // scale: ['$0', '$300'],
-        // heterogeneity: ['100/300'],
         step: 5,
         smooth: true,
         dimension: '$',
         onstatechange: function(value) {
-        	// console.dir(this);
         	filterAjax();
         }
     });
@@ -71,10 +66,7 @@ $(document).ready(function() {
     // Price Range Input
     //   https://egorkhmelev.github.io/jslider/
     $("#time_range").rangeslider({
-        from: 0,
-        to: 1425,
         limits: false,
-        // scale: ['0:00', '24:00'],
         step: 15,
         smooth: true,
         dimension: '',
@@ -84,7 +76,6 @@ $(document).ready(function() {
 			return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
 		},
 		onstatechange: function(value) {
-			// console.dir(this);
 			filterAjax();
 		}
     });
@@ -104,6 +95,17 @@ $(document).ready(function() {
     })
 
 });
+
+function initiate() {
+	$("#price_range").rangeslider({
+        from: 0,
+        to: 300
+    });
+    $("#time_range").rangeslider({
+        from: 0,
+        to: 1425
+    });
+}
 
 // Enter a mode
 function modeEnter() {
@@ -138,10 +140,10 @@ function modeSwitch() {
 		var regProfile = new RegExp("profile");
 		var regCreatePost = new RegExp("send_post$");
 		var regViewPost = new RegExp("view_post");
-		var regSearchPost = new RegExp("search_post");
+		var regSearch = new RegExp("search_post");
 		var regFilterAvailable = new RegExp("filter_available$");
 		console.log(regMyTask.test(url));
-		if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearchPost.test(url) || regFilterAvailable.test(url)) {
+		if (regStream.test(url) || regMyTask.test(url) || regProfile.test(url) || regCreatePost.test(url) || regViewPost.test(url) || regSearch.test(url) || regFilterAvailable.test(url)) {
 			location.reload();
 		}
 	});		
@@ -256,10 +258,10 @@ function getPosts() {
 }
 
 function getUpdates(data) {
+	console.log("getupdates");
 	var list = $(".posts");
 	list.empty();
 	for (var i = 0; i < data.data.length; i++) {
-		console.log("there");
 		var post = data.data[i];
 		var $new_post = $('<div class="row row-post"> \
             			<div class="col-mid-3 col25 post_img"> \

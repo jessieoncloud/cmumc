@@ -8,14 +8,6 @@
 		            <div class="input-group custom-search-form">
                         <form method="post" action="{% url 'searchPost' %}" class="search_form" id="search_form">
                             <div class="clearfix">
-                                {% comment %}
-                                <input type="text" class="form-control" placeholder="Search..." name="keyword" value="{{ keyword }}">
-        		                <span class="input-group-btn" id="search_btn">
-            		                <button class="btn btn-default" type="submit">
-            		                    <i class="fa fa-search"></i>
-            		                </button>
-        		               </span>
-                               {% endcomment %}
                                <span class="btn">
                                     <input type="submit" value="Search" class="gradient">
                                </span>
@@ -135,7 +127,7 @@
 						{% for post in posts %}  
                         <div class="row row-post">
                 			<div class="col-mid-3 col25 post_img">
-                				<a href="{% url 'viewPost' post.post_id %}"><img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo"></a>
+                				<img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo">
                 			</div>
                				<div class="col-mid-3 col75">
                					<div class="col-mid-9 col75 post_content" id="{{post.post_id}}post">

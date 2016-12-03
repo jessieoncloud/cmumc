@@ -574,6 +574,7 @@ def search_post(request):
     """
     Search posts if the title or description contain the keyword, case insensitive.
     """
+    print("start searching post")
     context = {}
     messages = []
     context['messages'] = messages
@@ -582,6 +583,7 @@ def search_post(request):
 
     if not form.is_valid():
         messages.append("Invalid search")
+        print("invalid")
         context['form'] = form
         return render(request, 'cmumc/stream.html', context)
     
