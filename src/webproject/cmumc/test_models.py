@@ -5,11 +5,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
-# http://stackoverflow.com/questions/8017204/users-in-initial-data-fixture
-# https://groups.google.com/forum/#!topic/django-users/gjTRA1xtCcg
-
-# Models test
-
 # Post
 class PostTestCase(TestCase):
     fixtures = ['data.json']
@@ -43,7 +38,3 @@ class PostTestCase(TestCase):
     	# Delete all posts and check this method again
     	Post.objects.filter(created_user=self.user_1).delete()
     	self.assertFalse(Post.objects.filter(created_user=self.user_1).filter(deleted=False))
-
-
-
-
