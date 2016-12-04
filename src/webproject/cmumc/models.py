@@ -115,7 +115,7 @@ class Profile(models.Model):
     major = models.CharField(max_length=255, default="", blank=True)
     bio = models.TextField(max_length=420, default="", blank=True)
     photo = models.ImageField(upload_to="profile-photo", blank=True)
-    venmo = models.CharField(max_length=20, default="", blank=True)
+    venmo = models.CharField(max_length=20, default="")
     helper_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
     receiver_score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
 

@@ -28,14 +28,18 @@
 					</div>
 					<div class="col-lg-12 col40">
 						<span>
-							Rating: 
-							<span class="post_owner_score">
 							{% if post.post_type == 'H' %}
-								{{ post.created_user.profile.helper_score }}
+								Helper's Rating: 
+								<span class="post_owner_score">
+									{{ post.created_user.profile.helper_score }}
+								</span>
 							{% else %}
-								{{ post.created_user.profile.receiver_score }}
+								Receiver's Rating: 
+								<span class="post_owner_score">
+									{{ post.created_user.profile.receiver_score }}
+								</span>
 							{% endif %}
-							</span>
+								
 						</span>
 						{% if post.post_type == 'H' %}
 							<div class="profile_star" value="{{ post.created_user.profile.helper_score }}"></div>

@@ -14,14 +14,14 @@
 
             <div class="col-mid-9 col75 mytask_col">
               <div class="panel panel-default">
-                	<h3 class="content_title panel-heading">My Task</h3>
+                	<h3 class="content_title panel-heading">Postsed by Me</h3>
                   <div class="">
                     <table id="tasks-table" class="table tbale-bordered table--highlighted flush--bottom">
                       <thead>
                         <tr class="table-title">
                           <th class="text--center"></th>
                           <th>Title</th>
-                          <th>Poster</th>
+                          <th>Creator</th>
                           <th>Category</th>
                           <th>Price</th>
                           <th>Status</th>
@@ -29,7 +29,7 @@
                         </tr>
                       </thead>
 
-                      {% for post in posts %}
+                      {% for post in user_post %}
 
                       <tbody class="align--top">
                         
@@ -184,7 +184,185 @@
                     </table>
                   </div>
               </div>
-            </div>
+            </div> <!-- end of my own post -->
+
+
+           <div class="col-mid-9 col75 mytask_col">
+              <div class="panel panel-default">
+                  <h3 class="content_title panel-heading">Posted by Others</h3>
+                  <div class="">
+                    <table id="tasks-table" class="table tbale-bordered table--highlighted flush--bottom">
+                      <thead>
+                        <tr class="table-title">
+                          <th class="text--center"></th>
+                          <th>Title</th>
+                          <th>Creator</th>
+                          <th>Category</th>
+                          <th>Price</th>
+                          <th>Status</th>
+                          </tr>
+                        </tr>
+                      </thead>
+
+                      {% for post in accept_post %}
+
+                      <tbody class="align--top">
+                        
+                          <tr data-toggle="collapse" data-target="#post{{ post.post_id }}" role="button" aria-expanded="false" aria-controls="post{{ post.post_id }}">
+                            <td class="text--center">
+                              {% if post.status != 'NC' or user == post.created_user %}
+                                <span class="glyphicon glyphicon-triangle-bottom"></span>
+                              {% endif %}
+                            </td>
+                            <td><a href="{% url 'viewPost' post.post_id %}">{{ post.title }}</a></td>
+                            <td>{{ post.created_user }}</td>
+                            <td>{{ post.category }}</td>
+                            <td>${{ post.price }}</td>
+                            <td>
+                               {% if post.status == 'A' %}
+                                  Available
+                               {% elif post.status == 'NC' %}
+                                  Needs Confirmation
+                               {% elif post.status == 'I' %}
+                                  In Progress
+                               {% elif post.status == 'C' %}
+                                  {% if post.task.task_status == "R" %}
+                                    Rated
+                                  {% else %}
+                                    Completed
+                                  {% endif %}
+                               {% endif %}
+                            </td>
+                          </tr>
+
+                        {% if post.status == 'A' %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
+                              <div id="post{{ post.post_id }}" class="collapse">
+                                <div class="task-expand">
+                                  <div class="col60">
+                                    <p>Description: {{post.description}}</p>
+                                  </div>
+                                  {% if user == post.created_user %}
+                                  <div class="col40 mytask_btn_container">
+                                  <span><a href="{% url 'editPost' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Edit</span></a></span>
+                                  <span><a href="{% url 'deletePost' post.post_id %}" class="btn btn-small"><span class="gradient" id="delete_post_btn">Delete</span></a></span>
+                                  </div>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                        {% elif post.status == 'NC' and user == post.created_user %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
+                            <div id="post{{ post.post_id }}" class="collapse">
+                              <div class="task-expand">
+                                <form method="post" action="{% url 'accept' post.post_id %}" id="nc_form">
+                                  {% for requester in post.accept_list.all %}
+                                  <div class="col60">
+                                      <div notes="http://stackoverflow.com/questions/5924988/radio-buttons-in-django-forms"></div>
+                                      <div class="accept_list_options form-check">
+                                        <input type="radio" name="requester" value="{{ requester.username }}" class="form-check-input" required/>
+                                        <label class="nc_requester">Requester: <a href="{% url 'profile' requester.username %}">{{ requester.username }}</a></label>
+                                      </div>
+                                  </div>
+                                  {% endfor %}
+                                  <div class="col40">
+                                    <div class="right-btn-container">
+                                      <span class="btn btn-small">
+                                        <input type="submit" id="edit_post_btn" class="gradient" value="Confirm">
+                                      </span>
+                                    </div>
+                                  </div>
+                                {% csrf_token %}
+                                </form>
+                              </div>
+                            </div>
+                            </td>
+                          </tr>
+
+                        {% elif post.status == 'I' %}
+                            <tr class="hard" >
+                              <td colspan="8" class="colspan-nopadding">
+                                <div id="post{{ post.post_id }}" class="collapse">
+                                  <div class="task-expand">
+                                  {% if user == post.task.helper or user == post.task.receiver %}
+                                    <div class="col60">
+                                      <p>Description: {{post.description}}</p>
+                                      <p>Helper: <a href="{% url 'profile' post.task.helper.username %}">{{ post.task.helper }}</a></p>
+                                      <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
+                                      </p>
+                                    </div>
+                                    <div class="col40 right-btn-container">
+                                      {% if user.profile.user_type == 'H' and post.task.helper_status == "C" %}
+                                      <span id="unclickable_btn" class="btn-unclickable" >Waiting for receiver</span>
+                                      {% elif user.profile.user_type == 'R' and post.task.receiver_status == "C" %}
+                                      <span id="unclickable_btn" class="btn-unclickable" >Waiting for helper</span>
+                                      {% else %}
+                                      <span><a href="{% url 'complete' post.post_id %}" class="btn btn-small"><span class="gradient" id="edit_post_btn">Complete</span></a></span>
+                                      {% endif %}
+                                    </div>
+                                  {% else %}
+                                    <div class="col60">
+                                      <p>The task creator has accepted someone else.</p>
+                                    </div>
+                                  {% endif %}
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+
+                          {% elif post.status == 'C' %}
+                          <tr class="hard" >
+                            <td colspan="8" class="colspan-nopadding">
+                              <div id="post{{ post.post_id }}" class="collapse">
+                                <div class="task-expand">
+                                {% if user == post.task.helper or user == post.task.receiver %}
+                                  <div class="col60">
+                                    <p>Description: {{post.description}}</p>
+                                    <p>Helper: <a href="{% url 'profile' post.task.helper.username %}">{{ post.task.helper }}</a></p>
+                                    <p>Receiver: <a href="{% url 'profile' post.task.receiver.username %}">{{ post.task.receiver }}</a></p>
+                                  </div>
+                                  <div class="col40 right-btn-container">
+                                  {% if post.task.helper_status != "R" and user.profile.user_type == "H" %}
+                                    <span class="btn btn-small"><a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></a></span>
+                                    {% include "cmumc/rate.html" %}
+                                  {% endif %}
+                                  {% if post.task.receiver_status != "R" and user.profile.user_type == "R" %}
+                                   <span class="btn btn-small"><a data-toggle="modal" data-target="#rateModal" href="{% url 'rateTask' post.post_id %}"><input id="edit_post_btn" type="submit" value="Rate" class="gradient"></a></span>
+                                    {% include "cmumc/rate.html" %}
+                                  {% endif %}
+                                  {% if user.profile.user_type == "R"%}
+                                    <span class="btn btn-small"><a data-toggle="modal" data-target="#payModal""><input id="delete_post_btn" type="submit" value="Pay" class="gradient"></a></span>
+                                    {% include "cmumc/pay.html" %} 
+                                  {% endif %}
+                                  </div>
+                                {% else %}
+                                  <div class="col60">
+                                      <p>The task creator has accepted someone else.</p>
+                                    </div>
+                                {% endif %}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                        {% endif %}
+
+
+                      </tbody>
+
+                      {% endfor %}
+
+                    </table>
+                  </div>
+              </div>
+            </div> <!-- end of other posts the user is involved -->
+
+
+
 
         </div>
     </div>

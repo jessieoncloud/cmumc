@@ -13,6 +13,7 @@
 						</p>		
 						{% endif %}	            
 			            <table class="form_table">
+			            {% comment %}
 						<tr>
 							<td>{{ user_form.username.label_tag }}</td>
 							<td>{{ user_form.username }}</td>
@@ -28,6 +29,7 @@
 							<td>{{ user_form.last_name }}</td>
 							<td>{{ user_form.last_name.errors }}</td>
 						</tr>
+						{% endcomment %}
 						<tr>
 							<td>{{ profile_form.year_in_school.label_tag }}</td>
 							<td>{{ profile_form.year_in_school }}</td>

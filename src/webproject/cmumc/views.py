@@ -525,9 +525,13 @@ def confirm_register(request, user_name, token):
             user_item.is_active = True
             user_item.save()
             login(request, user_item)
-        return redirect('index')
+        return redirect('edit_profile')
     except:
-        return redirect('index')
+        context = {}
+        errors = []
+        context['errors'] = errors
+        errors.append("Registration failed")
+        return render(request, 'cmumc/error.html', context)
 
 @login_required
 def send_message(request, post_id):

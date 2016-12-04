@@ -11,29 +11,9 @@ $(document).ready(function() {
 	
 	$('.mode_option').click(modeEnter);
 
-	$('#switch_btn').click(modeSwitch)
+	$('#switch_btn').click(modeSwitch);
 	
-	$(function () {
-		console.log("tour")
-		var tour = new Tour();
-	 
-		tour.addSteps([
-		  {
-			element: ".content-section-a",
-			placement: "bottom",
-			title: "Welcome to our landing page!",
-			content: "This tour will guide you through some of the features we'd like to point out."
-		  }
-		]);
-	 
-		// Initialize the tour
-		tour.init();
-		$('#landing_tour').click(function () {
-			// Start the tour
-			console.log("click")
-			tour.start();
-		});
-	});
+	$('#landing_tour').click(tour);
 
 	// Search posts ajax
 	$('#search_form').on('submit', function(event) {
@@ -135,10 +115,46 @@ $(document).ready(function() {
     	$(this).attr("checked", true);
     	filterAjax();
     })
-
-	
 }); 
 
+function tour() {
+	console.log("tour")
+	var tour = new Tour({
+		storage: false
+	});
+ 
+	tour.addSteps([
+	  {
+		element: ".section-heading.helper",
+		placement: "bottom",
+		title: "Welcome to our landing page!",
+		content: "This tour will guide you through some of the features we'd like to point out."
+	  },
+	  {
+		element: ".section-heading.helper",
+		placement: "bottom",
+		title: "Become Helper!",
+		content: "User can have two modes. In helper mode, you can view all the receiver posts and accept offer from other receivers."
+	  },
+	  {
+		element: ".section-heading.helper",
+		placement: "bottom",
+		title: "Become Receiver!",
+		content: "In receiver mode, you can view all the helper posts and accept offer from other helpers."
+	  },
+	  {
+        element: ".section-heading.helper",
+        placement: "bottom",
+        backdrop: true,
+        title: "Thank you!",
+        content: "Choose helper or receiver mode to log in now! Hope you enjoy it!"
+      },
+	]);
+ 
+	// Initialize the tour
+	tour.init();
+	tour.start();
+}
 // Enter a mode
 function modeEnter() {
 	var user_type = $(this).attr('value');
