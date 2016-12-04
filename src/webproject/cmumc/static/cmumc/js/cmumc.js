@@ -18,7 +18,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		var searchform_data = $('#search_form').serializeArray();
 		$.post("/cmumc/search_post", searchform_data)
-		.done(function(data)) {
+		.done(function(data) {
 			getUpdates(data);
 		}
 	});
