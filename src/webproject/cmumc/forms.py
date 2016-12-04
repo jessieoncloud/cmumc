@@ -25,7 +25,6 @@ class RegistrationForm(forms.Form):
 
         if password1 != password2:
             raise forms.ValidationError("Passwords do not match")
-
         return cleaned_data
 
     def clean_user_name(self):
@@ -34,7 +33,6 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("User name is already taken")
         return user_name
 
-    ##show detailed messages when register errors
     def clean_email(self):
         email = self.cleaned_data.get('email')
         try:

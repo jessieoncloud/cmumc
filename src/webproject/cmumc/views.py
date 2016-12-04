@@ -702,6 +702,12 @@ def rate_task(request, post_id):
         messages.append("Form contained invalid data")
         return redirect('mytask')
 
+    ##check if the rating already exists
+    rating_item = Rating.objects.filter(created_user=request.user).filter(task=task_item)
+    if len(rating_item) != 0:
+        messages.append("This task has already been rated")
+        return redirect('mytask')
+
     form.save()
 
     ##update rated user score
