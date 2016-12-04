@@ -197,7 +197,7 @@ def delete_post(request, post_id):
         return redirect('stream')
     post_item.deleted = True
     post_item.save()
-    return render(request, 'cmumc/stream.html', context)
+    return redirect('mytask')
 
 @login_required
 @transaction.atomic
@@ -565,7 +565,7 @@ def send_message(request, post_id):
     if sent:
         msgs.append("Your message has been sent sucessfully")
     else:
-        msgs.append("Sent message failed, please try again")
+        msgs.append("Sent failed. The person you want to sent SMS to has not set up his/her phone number.")
 
     return render(request, 'cmumc/contact.html', context)
 
@@ -574,7 +574,6 @@ def search_post(request):
     """
     Search posts if the title or description contain the keyword, case insensitive.
     """
-    print("start searching post")
     context = {}
     messages = []
     context['messages'] = messages
@@ -583,7 +582,6 @@ def search_post(request):
 
     if not form.is_valid():
         messages.append("Invalid search")
-        print("invalid")
         context['form'] = form
         return render(request, 'cmumc/stream.html', context)
     
@@ -591,11 +589,12 @@ def search_post(request):
     posts_title = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).filter(title__icontains=keyword)
     posts_description = Post.objects.filter(deleted=False).exclude(post_type=user_profile.user_type).filter(description__icontains=keyword)
     posts = posts_description | posts_title
-    context['posts'] = posts.distinct()
+    all_post = posts.distinct()
+    context['data'] = Post.get_post_list_data(all_post)
     context['form'] = form
     if len(context['posts']) == 0:
         messages.append("No results found")
-    return render(request, 'cmumc/stream.html', context)
+    return HttpResponse(json.dumps(context, cls=DjangoJSONEncoder), content_type="application/json")
 
 @login_required
 def filter_available(request):
@@ -777,9 +776,9 @@ def contact(request, username):
 
     sent = messaging(to_profile, msg_body)
     if sent:
-        msgs.append("Sent successfully")
+        msgs.append("Your message has been sent successfully")
     else:
-        msgs.append("The person you want to sent SMS to has not set up his/her phone number.")
+        msgs.append("Sent failed. The person you want to sent SMS to has not set up his/her phone number.")
 
     return render(request, 'cmumc/contact.html', context)
 
