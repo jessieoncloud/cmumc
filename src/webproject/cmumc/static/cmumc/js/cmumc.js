@@ -19,7 +19,7 @@ $(document).ready(function() {
 		var searchform_data = $('#search_form').serializeArray();
 		$.post("/cmumc/search_post", searchform_data)
 		.done(function(data) {
-			$('.stream-container-messages').empty();
+			$('.stream-container-messages').remove();
 			getUpdates(data);
 			if (data.messages) {
 				var new_msg = $('<div class="stream-container-messages"> \
