@@ -14,6 +14,8 @@ $(document).ready(function() {
 	$('#switch_btn').click(modeSwitch);
 	
 	$('#landing_tour').click(tour);
+	
+	$('')
 
 	// Search posts ajax
 	$('#search_form').on('submit', function(event) {
@@ -125,29 +127,29 @@ function tour() {
  
 	tour.addSteps([
 	  {
-		element: ".section-heading.helper",
+		element: ".tour-helper",
 		placement: "bottom",
 		title: "Welcome to cmumc!",
 		content: "This tour will guide you through some of the features we'd like to point out."
 	  },
 	  {
-		element: ".section-heading.helper",
+		element: ".tour-helper",
 		placement: "bottom",
 		title: "Become a Helper!",
 		content: "You can enter into either the helper or receiver mode. In the helper mode, you can view and accept posts created by other receivers."
 	  },
 	  {
-		element: ".section-heading.helper",
+		element: ".tour-receiver",
 		placement: "bottom",
 		title: "Become a Receiver!",
 		content: "In the receiver mode, you can view and accept posts created by other helpers."
 	  },
 	  {
-        element: ".section-heading.helper",
+        element: ".tour-register",
         placement: "bottom",
         backdrop: true,
         title: "Thank you!",
-        content: "Hope you enjoy it!"
+        content: "Register now and choose a mode to enter! Hope you enjoy it!"
       },
 	]);
  
