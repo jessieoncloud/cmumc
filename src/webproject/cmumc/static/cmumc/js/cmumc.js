@@ -14,6 +14,8 @@ $(document).ready(function() {
 	$('#switch_btn').click(modeSwitch);
 	
 	$('#landing_tour').click(tour);
+	
+	$('')
 
 	// Search posts ajax
 	$('#search_form').on('submit', function(event) {
@@ -125,25 +127,25 @@ function tour() {
  
 	tour.addSteps([
 	  {
-		element: ".section-heading.helper",
+		element: ".tour-helper",
 		placement: "bottom",
 		title: "Welcome to our landing page!",
 		content: "This tour will guide you through some of the features we'd like to point out."
 	  },
 	  {
-		element: ".section-heading.helper",
+		element: ".tour-helper",
 		placement: "bottom",
 		title: "Become Helper!",
-		content: "User can have two modes. In helper mode, you can view all the receiver posts and accept offer from other receivers."
+		content: "User can have two modes. In helper mode, you can view all the receiver posts and accept offers from other receivers."
 	  },
 	  {
-		element: ".section-heading.helper",
+		element: ".tour-receiver",
 		placement: "bottom",
 		title: "Become Receiver!",
-		content: "In receiver mode, you can view all the helper posts and accept offer from other helpers."
+		content: "In receiver mode, you can view all the helper posts and accept offers from other helpers."
 	  },
 	  {
-        element: ".section-heading.helper",
+        element: ".tour-register",
         placement: "bottom",
         backdrop: true,
         title: "Thank you!",
