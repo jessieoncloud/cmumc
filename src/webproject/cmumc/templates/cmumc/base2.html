@@ -65,11 +65,17 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a value="{{ user.profile.user_type }}" id="switch_btn" role="button" class="topnavOptions"><span class="glyphicon glyphicon-retweet glyphicon-lg"></span></a> 
+                        <a value="{{ user.profile.user_type }}" id="switch_btn" role="button" class="topnavOptions">
+                        {% if user.profile.user_type == 'H' %}
+                            <span>Helper Mode</span>
+                        {% else %}
+                            <span>Receiver Mode</span>
+                        {% endif %}
+                        </a>
                         {# <a href="#" value="{{ user.profile.user_type }}" id="switch_btn" class="topnavOptions">Switch Mode</a> #}
                     </li>
                     <li>
-                        <a href="{% url 'mytask' %}" class="topnavOptions"><span class="glyphicon glyphicon-th-list glyphicon-lg"></span></a>
+                        <a href="{% url 'mytask' %}" class="topnavOptions">MyTask</span></a>
                     </li>
                     <li>
                         <a class="dropdown-toggle topnavOptions" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
