@@ -125,9 +125,8 @@ def mytask(request):
     user_profile = get_object_or_404(Profile, user=request.user)
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
-    posts = user_post | accept_post
-    context['posts'] = posts.distinct()
-
+    context['user_post'] = user_post
+    context['accept_post'] = accept_post
     return render(request,'cmumc/mytask.html', context)
 
 def notification(post_id):
