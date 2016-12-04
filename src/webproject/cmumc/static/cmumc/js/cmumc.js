@@ -12,6 +12,8 @@ $(document).ready(function() {
 	$('.mode_option').click(modeEnter);
 
 	$('#switch_btn').click(modeSwitch);
+	
+	$('#landing_tour').click(landingTour);
 
 	// Search posts ajax
 	$('#search_form').on('submit', function(event) {
@@ -107,7 +109,44 @@ $(document).ready(function() {
     	filterAjax();
     })
 
+	
 }); 
+
+//Bootstrap tour: landing page
+function landingTour(event) {
+	event.preventDefault();
+	var tour = new Tour({
+	});
+ 
+	tour.addSteps([
+	  {
+		element: ".tour-step.tour-step-one",
+		placement: "bottom",
+		title: "Welcome to our landing page!",
+		content: "This tour will guide you through some of the features we'd like to point out."
+	  },
+	  {
+		element: ".tour-step.tour-step-two",
+		placement: "bottom",
+		title: "Main navigation",
+		content: "Here are the sections of this page, easily laid out."
+	  },
+	  {
+		element: ".tour-step.tour-step-three",
+		placement: "top",
+		backdrop: true,
+		title: "Main section",
+		content: "This is a section that you can read. It has valuable information."
+	  },
+ 
+	]);
+ 
+	// Initialize the tour
+	tour.init();
+ 
+	// Start the tour
+	tour.start();
+}
 
 // Enter a mode
 function modeEnter() {
