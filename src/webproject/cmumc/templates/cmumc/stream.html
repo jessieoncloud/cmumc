@@ -22,20 +22,19 @@
                         <a class="topnavOptions" id="stream_tour">Quick Start</span></a>
                     </li>
                     <li>
-                        <a value="{{ user.profile.user_type }}" id="switch_btn" role="button" class="topnavOptions">
+                        <a value="{{ user.profile.user_type }}" id="switch_btn" role="button" class="topnavOptions stream_tour_mode">
                         {% if user.profile.user_type == 'H' %}
                             <span>Helper Mode</span>
                         {% else %}
                             <span>Receiver Mode</span>
                         {% endif %}
                         </a>
-                        {# <a href="#" value="{{ user.profile.user_type }}" id="switch_btn" class="topnavOptions">Switch Mode</a> #}
                     </li>
                     <li>
-                        <a href="{% url 'mytask' %}" class="topnavOptions">MyTask</span></a>
+                        <a href="{% url 'mytask' %}" class="topnavOptions stream_tour_task">MyTask</span></a>
                     </li>
                     <li>
-                        <a class="dropdown-toggle topnavOptions" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
+                        <a class="dropdown-toggle topnavOptions stream_tour_username" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                             <li><a href="{% url 'edit_profile' %} ">Edit Profile</a></li>

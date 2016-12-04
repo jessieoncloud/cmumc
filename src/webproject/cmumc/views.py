@@ -226,7 +226,7 @@ def accept_post(request, post_id):
         post_item.status = 'NC'
         post_item.save()
 
-        return render(request, 'cmumc/mytask.html', context)
+        return redirect('mytask')
 
 @login_required
 def view_accept_list(request, post_id):
@@ -245,7 +245,7 @@ def view_accept_list(request, post_id):
     posts = user_post | accept_post
     context['posts'] = posts.distinct()
 
-    return render(request, 'cmumc/mytask.html', context)
+    return redirect('mytask')
 
 @login_required
 @transaction.atomic
@@ -296,7 +296,8 @@ def accept(request, post_id):
         message.append("Your message has been sent")
     else:
         message.append("Your message failed to send")
-    return render(request, 'cmumc/mytask.html', context)
+    # return render(request, 'cmumc/mytask.html', context)
+    
 
 @login_required
 @transaction.atomic
@@ -341,9 +342,9 @@ def complete(request, post_id):
             message.append("Your message has been sent")
         else:
             message.append("Your message failed to send")
-        return render(request, 'cmumc/mytask.html', context)
+        return redirect('mytask')
     else:
-        return render(request, 'cmumc/mytask.html', context)
+        return redirect('mytask')
 
 @login_required
 def mode(request):

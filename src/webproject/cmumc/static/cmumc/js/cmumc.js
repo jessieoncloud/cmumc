@@ -184,19 +184,25 @@ function tour_stream() {
 		element: ".stream_tour_posts",
 		placement: "bottom",
 		title: "View a List of Posts",
-		content: "This is the main page of CMUMC. You entered into the " + usertype1 + " mode and now can see a list of posts posted by other " + usertype2 + "s."
+		content: "This is the main page of CMUMC. You entered into the " + usertype1 + " mode and now can see a list of posts created by other " + usertype2 + "s."
 	  },
 	  {
-		element: ".tour-receiver",
+		element: ".stream_tour_mode",
 		placement: "bottom",
-		title: "Become a Receiver!",
-		content: "In the receiver mode, you can view and accept posts created by other helpers."
+		title: "Swtich Mode",
+		content: "You can switch to the " + usertype2 + " mode by clicking here. You will be able to see posts created by " + usertype1 + "s in that mode."
 	  },
 	  {
-        element: ".tour-register",
+        element: ".stream_tour_task",
         placement: "bottom",
-        title: "Thank you!",
-        content: "Register now and choose a mode to enter! Hope you enjoy it!"
+        title: "My Task",
+        content: "You can see a list of " + usertype1 + " posts created by yourself and " + usertype2 + " posts created by others in myTask page. You can perform operations like accepting a requester, completing and rating a task there."
+      },
+      {
+        element: ".stream_tour_username",
+        placement: "left",
+        title: "User Options",
+        content: "You can click to view and edit profile, change password and logout. Be sure to complete your profile information before you start using the site!"
       },
 	]);
  
