@@ -524,12 +524,14 @@ def confirm_register(request, user_name, token):
         if user_profile.activation_key == token:
             user_item.is_active = True
             user_item.save()
-            new_user = authenticate(username=user_item.username, \
-                            password=user_item.password)
-            login(request, new_user)
-        return redirect('index')
+            login(request, user_item)
+        return redirect('edit_profile')
     except:
-        return redirect('index')
+        context = {}
+        errors = []
+        context['errors'] = errors
+        errors.append("Registration failed")
+        return render(request, 'cmumc/error.html', context)
 
 @login_required
 def send_message(request, post_id):
