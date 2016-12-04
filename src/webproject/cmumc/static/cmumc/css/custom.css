@@ -37,6 +37,11 @@ form {
     width: 500px;
 }
 
+.register_msg {
+    padding: 10px;
+    font-size: 1.2em;
+}
+
 #nc_form {
     width: 100%;
 }

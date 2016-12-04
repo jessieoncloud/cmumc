@@ -592,8 +592,7 @@ def search_post(request):
     posts = posts_description | posts_title
     all_post = posts.distinct()
     context['data'] = Post.get_post_list_data(all_post)
-    context['form'] = form
-    if len(context['posts']) == 0:
+    if len(context['data']) == 0:
         messages.append("No results found")
     return HttpResponse(json.dumps(context, cls=DjangoJSONEncoder), content_type="application/json")
 
