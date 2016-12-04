@@ -1222,6 +1222,10 @@ p.title {
     display: none;
 }
 
+.geoposition-map {
+    height: 300px !important;
+}
+
 .post_owner_score {
     margin-left: 5px;
 }
