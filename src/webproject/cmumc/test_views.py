@@ -23,7 +23,7 @@ class PageRenderingTest(TestCase):
 		response = self.client.get(reverse('stream'))
 		self.assertEqual(response.status_code, 302)
 		# Login and access
-		login = self.client.login(username=self.user_1.username, password="0")
+		login = self.client.login(username=self.user_1.username, password="1")
 		self.assertTrue(login)
 		response = self.client.get(reverse('stream'))
 		self.assertEqual(response.status_code, 200)
@@ -33,7 +33,7 @@ class PageRenderingTest(TestCase):
 		response = self.client.get(reverse('mytask'))
 		self.assertEqual(response.status_code, 302)
 		# Login and access
-		self.client.login(username=self.user_1.username, password=self.user_1.password)
+		self.client.login(username=self.user_1.username, password="1")
 		response = self.client.get(reverse('mytask'))
 		self.assertEqual(response.status_code, 200)
 

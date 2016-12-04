@@ -19,7 +19,14 @@ $(document).ready(function() {
 		var searchform_data = $('#search_form').serializeArray();
 		$.post("/cmumc/search_post", searchform_data)
 		.done(function(data) {
+			$('.stream-container-messages').empty();
 			getUpdates(data);
+			if (data.messages) {
+				var new_msg = $('<div class="stream-container-messages"> \
+			            			<p class="message">' + data.messages + '</p> \
+			                    </div>');
+				$('.stream-container').append(new_msg);
+			}
 		})
 	});
 
@@ -265,7 +272,7 @@ function getUpdates(data) {
 	list.empty();
 	for (var i = 0; i < data.data.length; i++) {
 		var post = data.data[i];
-		var $new_post = $('<div class="row row-post"> \
+		var new_post = $('<div class="row row-post"> \
             			<div class="col-mid-3 col25 post_img"> \
             				<a href="/cmumc/view_post/"' + post['post_id'] + '><img src="/cmumc/post_photo/' + post.post_id + '" class="img-rounded img-responsive post_photo"></a> \
             			</div> \
@@ -281,7 +288,7 @@ function getUpdates(data) {
            					</div> \
             			</div> \
                     </div>');
-		list.append($new_post);
+		list.append(new_post);
 	}
 }
 
