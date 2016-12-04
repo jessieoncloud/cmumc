@@ -107,13 +107,13 @@
 	        <div id="page-wrapper">
 	            <div class="row stream-container controls boxed line-top">
 	                <div class="col-lg-12">
-                    {% if user.profile.user_type == 'H' %}
-	                    <h1 class="page-header">Welcome, <span class="user_mode">Helper</span></h1>
-                    {% elif user.profile.user_type == 'R' %}
-                        <h1 class="page-header">Welcome, <span class="user_mode">Receiver</span></h1>
-                    {% endif %}
-	                </div>
-	                <!-- /.col-lg-12 -->
+                        {% if user.profile.user_type == 'H' %}
+    	                    <h1 class="page-header">Welcome, <span class="user_mode">Helper</span></h1>
+                        {% elif user.profile.user_type == 'R' %}
+                            <h1 class="page-header">Welcome, <span class="user_mode">Receiver</span></h1>
+                        {% endif %}
+	                </div> <!-- /.col-lg-12 -->
+
                     {% if messages %}
                     <div>  
                         <p class="message">
@@ -123,27 +123,29 @@
                         </p>
                     </div>
                     {% endif %}
+
                 	<div class="posts">
 						{% for post in posts %}  
-                        <div class="row row-post">
-                			<div class="col-mid-3 col25 post_img">
-                				<img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo">
-                			</div>
-               				<div class="col-mid-3 col75">
-               					<div class="col-mid-9 col75 post_content" id="{{post.post_id}}post">
-               						<a href="{% url 'viewPost' post.post_id %}"><h3>{{ post.title }}</h3></a>
-               						{# <p>Location: {{ post.location }}</p> #}
-               						<p>Time: {{ post.time }}</p>
-               						<p>Date: {{ post.date }}</p>
-               						<p>Posted by: {{ post.created_user }}</p>
-               					</div>
-           						<div class="col-mid-3 col25">
-           							<h1>${{ post.price }}</h1>
-               					</div>
-                			</div>
-                        </div>
+                            <div class="row row-post">
+                    			<div class="col-mid-3 col25 post_img">
+                    				<img src="{% url 'post_photo' post.post_id %}" class="img-rounded img-responsive post_photo">
+                    			</div>
+                   				<div class="col-mid-3 col75">
+                   					<div class="col-mid-9 col75 post_content" id="{{post.post_id}}post">
+                   						<a href="{% url 'viewPost' post.post_id %}"><h3>{{ post.title }}</h3></a>
+                   						{# <p>Location: {{ post.location }}</p> #}
+                   						<p>Time: {{ post.time }}</p>
+                   						<p>Date: {{ post.date }}</p>
+                   						<p>Posted by: {{ post.created_user }}</p>
+                   					</div>
+               						<div class="col-mid-3 col25">
+               							<h1>${{ post.price }}</h1>
+                   					</div>
+                    			</div>
+                            </div>
 						{% endfor %}
                 	</div>
+                    
 	            </div>
             </div>
 
