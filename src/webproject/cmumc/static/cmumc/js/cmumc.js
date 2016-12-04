@@ -20,7 +20,7 @@ $(document).ready(function() {
 		$.post("/cmumc/search_post", searchform_data)
 		.done(function(data) {
 			getUpdates(data);
-		}
+		})
 	});
 
 	// Filter available posts only ajax
