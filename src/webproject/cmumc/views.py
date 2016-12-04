@@ -303,7 +303,7 @@ def accept(request, post_id):
 @transaction.atomic
 def complete(request, post_id):
     """
-    Choose one user from accept_list to accept.
+    Complete a task. Task status will be marked as "C"
     """
     context = {}
     errors = []
@@ -751,7 +751,7 @@ def rate_task(request, post_id):
 @login_required
 def contact(request, username):
     """
-    Contact a specific user.
+    Contact a specific user from the profile page.
     """
     user_item = get_object_or_404(User, username=username)
     to_profile = get_object_or_404(Profile, user=user_item)

@@ -3,11 +3,10 @@ from cmumc.models import *
 from django.contrib.auth.models import User
 
 from django.utils import timezone
-from django.core.urlresolvers import reverse
 
 # Post
 class PostTestCase(TestCase):
-    fixtures = ['data.json']
+    fixtures = ['modeldata.json']
 	
     def setUp(self):
     	super(PostTestCase, self).setUp()

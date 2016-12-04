@@ -14,7 +14,7 @@ class RegistrationForm(forms.Form):
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
     user_name = forms.CharField(max_length=40)
-    email = forms.EmailField(max_length=40, label="Email", widget=forms.EmailInput())
+    email = forms.EmailField(max_length=40, label="CMU Edu Email", widget=forms.EmailInput())
     password1 = forms.CharField(max_length=40, label="Password", widget=forms.PasswordInput())
     password2 = forms.CharField(max_length=40, label="Comfirm Password", widget=forms.PasswordInput())
 
