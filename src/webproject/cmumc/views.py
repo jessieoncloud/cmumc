@@ -193,6 +193,8 @@ def delete_post(request, post_id):
     """
     context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
+    if post_item.status == 'I' or post_item.status == 'C':
+        return redirect('viewPost', post_id = post_id)
     if post_item.created_user != request.user:
         return redirect('stream')
     post_item.deleted = True
