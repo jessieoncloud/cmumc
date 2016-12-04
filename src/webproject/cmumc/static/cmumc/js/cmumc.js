@@ -2,7 +2,6 @@ $(document).ready(function() {
 
 	updateNavColor();
 	displayRating();
-	initiate();
 
 	// Create_post: Datepicker
 	//   http://stackoverflow.com/questions/20700185/how-to-use-datepicker-in-django
@@ -14,7 +13,17 @@ $(document).ready(function() {
 
 	$('#switch_btn').click(modeSwitch);
 
-	// Filter available posts only
+	// Search posts ajax
+	$('#search_form').on('submit', function(event) {
+		event.preventDefault();
+		var searchform_data = $('#search_form').serializeArray();
+		$.post("/cmumc/search_post", searchform_data)
+		.done(function(data) {
+			getUpdates(data);
+		})
+	});
+
+	// Filter available posts only ajax
 	$('#available_btn').click(function(event) {
 		event.preventDefault();
 		var posts = getPosts();
@@ -22,7 +31,7 @@ $(document).ready(function() {
 		.done(function(data) {
 			getUpdates(data);
 		})
-	})
+	});
 
 	// Profile menu bar highlight
 	$('.profileOpt').hover(function() {
@@ -31,7 +40,7 @@ $(document).ready(function() {
 		}, function() {
 		$(this).css("background-color", "#ffffff");
 		$(this).find('h4').css("color", "#404040");
-	}) 
+	});
 
 	// Star rating
 	$('.star_rating').barrating( {
@@ -54,6 +63,8 @@ $(document).ready(function() {
 	// Filter Options
     // Price Range Input
     $("#price_range").rangeslider({
+    	from: 0,
+        to: 300,
         limits: false,
         step: 5,
         smooth: true,
@@ -66,6 +77,8 @@ $(document).ready(function() {
     // Price Range Input
     //   https://egorkhmelev.github.io/jslider/
     $("#time_range").rangeslider({
+    	from: 0,
+        to: 1425,
         limits: false,
         step: 15,
         smooth: true,
@@ -94,18 +107,7 @@ $(document).ready(function() {
     	filterAjax();
     })
 
-});
-
-function initiate() {
-	$("#price_range").rangeslider({
-        from: 0,
-        to: 300
-    });
-    $("#time_range").rangeslider({
-        from: 0,
-        to: 1425
-    });
-}
+}); 
 
 // Enter a mode
 function modeEnter() {

@@ -193,6 +193,8 @@ def delete_post(request, post_id):
     """
     context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
+    if post_item.status == 'I' or post_item.status == 'C':
+        return redirect('viewPost', post_id = post_id)
     if post_item.created_user != request.user:
         return redirect('stream')
     post_item.deleted = True
@@ -301,7 +303,7 @@ def accept(request, post_id):
 @transaction.atomic
 def complete(request, post_id):
     """
-    Choose one user from accept_list to accept.
+    Complete a task. Task status will be marked as "C"
     """
     context = {}
     errors = []
@@ -748,7 +750,7 @@ def rate_task(request, post_id):
 @login_required
 def contact(request, username):
     """
-    Contact a specific user.
+    Contact a specific user from the profile page.
     """
     user_item = get_object_or_404(User, username=username)
     to_profile = get_object_or_404(Profile, user=user_item)
