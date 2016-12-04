@@ -525,7 +525,7 @@ def confirm_register(request, user_name, token):
             user_item.is_active = True
             user_item.save()
             login(request, user_item)
-        return redirect('edit_profile')
+        return redirect('mode')
     except:
         context = {}
         errors = []
