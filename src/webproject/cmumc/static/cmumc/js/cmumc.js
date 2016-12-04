@@ -127,27 +127,27 @@ function tour() {
 	  {
 		element: ".section-heading.helper",
 		placement: "bottom",
-		title: "Welcome to our landing page!",
+		title: "Welcome to cmumc!",
 		content: "This tour will guide you through some of the features we'd like to point out."
 	  },
 	  {
 		element: ".section-heading.helper",
 		placement: "bottom",
-		title: "Become Helper!",
-		content: "User can have two modes. In helper mode, you can view all the receiver posts and accept offer from other receivers."
+		title: "Become a Helper!",
+		content: "You can enter into either the helper or receiver mode. In the helper mode, you can view and accept posts created by other receivers."
 	  },
 	  {
 		element: ".section-heading.helper",
 		placement: "bottom",
-		title: "Become Receiver!",
-		content: "In receiver mode, you can view all the helper posts and accept offer from other helpers."
+		title: "Become a Receiver!",
+		content: "In the receiver mode, you can view and accept posts created by other helpers."
 	  },
 	  {
         element: ".section-heading.helper",
         placement: "bottom",
         backdrop: true,
         title: "Thank you!",
-        content: "Choose helper or receiver mode to log in now! Hope you enjoy it!"
+        content: "Hope you enjoy it!"
       },
 	]);
  
