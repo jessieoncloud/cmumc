@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.test import Client
+import unittest
 from .forms import *
 
 # class Setup_Class(TestCase):
@@ -13,4 +14,16 @@ from .forms import *
 #         self.assertTrue(user_login)
 #         response = self.client.get("/")
 #         self.assertEqual(response.status_code, 302)
+
+class SimpleTest(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_stream(self):
+        # Issue a GET request.
+        response = self.client.get('/cmumc/stream')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
 
