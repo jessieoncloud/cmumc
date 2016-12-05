@@ -97,7 +97,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exclude = ('user', 'activation_key', 'user_type', 'helper_score', 'receiver_score')
         widgets = {'phone': forms.TextInput(
-            attrs={'data-toggle': 'tooltip', 'title': 'Format: +14121234567'}), 'photo': forms.FileInput()}
+            attrs={'data-toggle': 'tooltip', 'title': 'Format: +14125396410'}), 'photo': forms.FileInput()}
         labels = {'venmo': "Venmo (Required)", 'phone': 'Phone (Required)'}
 
     def clean(self):

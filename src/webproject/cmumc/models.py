@@ -90,7 +90,7 @@ class Rating(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     rated_user_type = models.CharField(max_length=10, choices=UserType)
     score = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    review = models.TextField(max_length=400, default="", blank=True)
+    review = models.TextField(max_length=400, default="Thank you very much.", blank=True)
 
     class Meta:
         ordering = ['-created_time']

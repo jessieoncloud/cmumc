@@ -37,9 +37,30 @@ form {
     width: 500px;
 }
 
+.errorlist > li {
+    color: #e62e00;
+}
+
 .register_msg {
     padding: 10px;
     font-size: 1.2em;
+}
+
+#landing_tour {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.333333;
+    border-radius: 6px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    font-weight: 400;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+#stream_tour {
+    cursor: pointer;
 }
 
 #nc_form {
@@ -1229,6 +1250,7 @@ p.title {
 .post_owner_score {
     margin-left: 5px;
 }
+
 
 // Override bootstrap
 .page-header {

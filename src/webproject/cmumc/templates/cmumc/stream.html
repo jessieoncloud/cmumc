@@ -1,5 +1,55 @@
 {% extends "cmumc/base2.html" %}
 
+    {% block nav2 %} <!-- add quick start -->
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" id="logo" href="{% url 'stream' %}">CMUMC</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="topnavOptions animated rubberBand" id="stream_tour">Quick Start</a>
+                    </li>
+                    <li>
+                        <a value="{{ user.profile.user_type }}" id="switch_btn" role="button" class="topnavOptions stream_tour_mode">
+                        {% if user.profile.user_type == 'H' %}
+                            <span>Helper Mode</span>
+                        {% else %}
+                            <span>Receiver Mode</span>
+                        {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'mytask' %}" class="topnavOptions stream_tour_task">MyTask</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle topnavOptions stream_tour_username" type="button" data-toggle="dropdown" role="button" id="nav-username" value="{{user.username}}">{{user.username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+                            <li><a href="{% url 'edit_profile' %} ">Edit Profile</a></li>
+                            <li><a href="{% url 'password_change' %}">Change Password</a></li>
+                            <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    {% endblock %}
+
 	{% block header %}
 	<div class="container top_container stream_top_container controls boxed line-left">
 		<div class="row">
@@ -106,7 +156,7 @@
 
 	        <div id="page-wrapper">
 	            <div class="row stream-container controls boxed line-top">
-	                <div class="col-lg-12">
+	                <div class="col-lg-12 stream_tour_posts">
                         {% if user.profile.user_type == 'H' %}
     	                    <h1 class="page-header">Welcome, <span class="user_mode">Helper</span></h1>
                         {% elif user.profile.user_type == 'R' %}

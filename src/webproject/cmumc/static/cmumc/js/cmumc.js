@@ -15,6 +15,8 @@ $(document).ready(function() {
 	
 	$('#landing_tour').click(tour);
 
+	$('#stream_tour').click(tour_stream);
+
 	// Search posts ajax
 	$('#search_form').on('submit', function(event) {
 		event.preventDefault();
@@ -118,36 +120,34 @@ $(document).ready(function() {
 }); 
 
 function tour() {
-	console.log("tour")
 	var tour = new Tour({
 		storage: false
 	});
  
 	tour.addSteps([
 	  {
-		element: ".tour-helper",
+		element: "#landing_tour",
 		placement: "bottom",
-		title: "Welcome to our landing page!",
+		title: "Welcome to CMUMC!",
 		content: "This tour will guide you through some of the features we'd like to point out."
 	  },
 	  {
 		element: ".tour-helper",
 		placement: "bottom",
-		title: "Become Helper!",
-		content: "User can have two modes. In helper mode, you can view all the receiver posts and accept offers from other receivers."
+		title: "Become a Helper!",
+		content: "You can enter into either the helper or receiver mode. In the helper mode, you can view and accept posts created by other receivers."
 	  },
 	  {
 		element: ".tour-receiver",
 		placement: "bottom",
-		title: "Become Receiver!",
-		content: "In receiver mode, you can view all the helper posts and accept offers from other helpers."
+		title: "Become a Receiver!",
+		content: "In the receiver mode, you can view and accept posts created by other helpers."
 	  },
 	  {
         element: ".tour-register",
         placement: "bottom",
-        backdrop: true,
         title: "Thank you!",
-        content: "Choose helper or receiver mode to log in now! Hope you enjoy it!"
+        content: "Register now and choose a mode to enter! Hope you enjoy it!"
       },
 	]);
  
@@ -155,6 +155,62 @@ function tour() {
 	tour.init();
 	tour.start();
 }
+
+function tour_stream() {
+	var tour = new Tour({
+		storage: false
+	});
+	var usertype1;
+	var usertype2;
+
+	var usertype = $('#switch_btn').attr("value");
+	console.log(usertype);
+	if (usertype == "R") {
+		usertype1 = "receiver";
+		usertype2 = "helper";
+	} else {
+		usertype1 = "helper";
+		usertype2 = "receiver";
+	}
+ 
+	tour.addSteps([
+	  {
+		element: "#stream_tour",
+		placement: "bottom",
+		title: "Welcome to CMUMC!",
+		content: "This tour will navigate you through CMUMC."
+	  },
+	  {
+		element: ".stream_tour_posts",
+		placement: "bottom",
+		title: "View a List of Posts",
+		content: "This is the main page of CMUMC. You entered into the " + usertype1 + " mode and now can see a list of posts created by other " + usertype2 + "s."
+	  },
+	  {
+		element: ".stream_tour_mode",
+		placement: "bottom",
+		title: "Swtich Mode",
+		content: "You can switch to the " + usertype2 + " mode by clicking here. You will be able to see posts created by " + usertype1 + "s in that mode."
+	  },
+	  {
+        element: ".stream_tour_task",
+        placement: "bottom",
+        title: "My Task",
+        content: "You can see a list of " + usertype1 + " posts created by yourself and " + usertype2 + " posts created by others in myTask page. You can perform operations like accepting a requester, completing and rating a task there."
+      },
+      {
+        element: ".stream_tour_username",
+        placement: "left",
+        title: "User Options",
+        content: "You can click to view and edit profile, change password and logout. Be sure to complete your profile information before you start using the site!"
+      },
+	]);
+ 
+	// Initialize the tour
+	tour.init();
+	tour.start();
+}
+
 // Enter a mode
 function modeEnter() {
 	var user_type = $(this).attr('value');
@@ -171,8 +227,6 @@ function modeEnter() {
 function modeSwitch() {
 	var username = $('#nav-username').attr("value");
 	var usertype = $('#switch_btn').attr("value");
-	console.log("username: "+username);
-	console.log("usertype: "+usertype);
 
 	$.post("/cmumc/switch", {mode_username: username, mode_usertype: usertype})
 	.done(function(data) {
