@@ -190,7 +190,6 @@ def delete_post(request, post_id):
     """
     Delete a post given post's post_id.
     """
-    context = {}
     post_item = get_object_or_404(Post, post_id=post_id)
     if post_item.status == 'I' or post_item.status == 'C':
         return redirect('viewPost', post_id = post_id)
@@ -209,13 +208,13 @@ def accept_post(request, post_id):
     context = {}
     errors = []
     context['errors'] = errors
-    user_item = get_object_or_404(User, username=request.user.username)
-    user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
-        post_type=user_profile.user_type)
-    accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
-    posts = user_post | accept_post
-    context['posts'] = posts.distinct()
+    # user_item = get_object_or_404(User, username=request.user.username)
+    # user_profile = get_object_or_404(Profile, user=request.user)
+    # user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
+    #     post_type=user_profile.user_type)
+    # accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
+    # posts = user_post | accept_post
+    # context['posts'] = posts.distinct()
     post_item = get_object_or_404(Post, post_id=post_id)
 
     if post_item.status == 'I' or post_item.status == 'C':
@@ -242,10 +241,10 @@ def view_accept_list(request, post_id):
     user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
         post_type=user_profile.user_type)
     accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
-    posts = user_post | accept_post
-    context['posts'] = posts.distinct()
+    context['user_post'] = user_post
+    context['accept_post'] = accept_post
 
-    return redirect('mytask')
+    return render(request, 'cmumc/mytask.html', context)
 
 @login_required
 @transaction.atomic
@@ -262,16 +261,16 @@ def accept(request, post_id):
         username = request.POST['requester']
     else:
         errors.append("Request user does not exist")
-        return render(request, 'cmumc/mytask.html', context)
+        return render(request, 'cmumc/errors.html', context)
 
     post_item = get_object_or_404(Post, post_id=post_id)
-    user_item = get_object_or_404(User, username=request.user.username)
-    user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
-        post_type=user_profile.user_type)
-    accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
-    posts = user_post | accept_post
-    context['posts'] = posts.distinct()
+    # user_item = get_object_or_404(User, username=request.user.username)
+    # user_profile = get_object_or_404(Profile, user=request.user)
+    # user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
+    #     post_type=user_profile.user_type)
+    # accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
+    # posts = user_post | accept_post
+    # context['posts'] = posts.distinct()
 
     try:
         accepted_user = post_item.accept_list.get(username=username)
@@ -297,6 +296,7 @@ def accept(request, post_id):
     else:
         message.append("Your message failed to send")
     # return render(request, 'cmumc/mytask.html', context)
+    return redirect('mytask')
     
 
 @login_required
@@ -311,13 +311,13 @@ def complete(request, post_id):
     message = []
     context['message'] = message
     post_item = get_object_or_404(Post, post_id=post_id)
-    user_item = get_object_or_404(User, username=request.user.username)
-    user_profile = get_object_or_404(Profile, user=request.user)
-    user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
-        post_type=user_profile.user_type)
-    accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
-    posts = user_post | accept_post
-    context['posts'] = posts.distinct()
+    # user_item = get_object_or_404(User, username=request.user.username)
+    # user_profile = get_object_or_404(Profile, user=request.user)
+    # user_post = Post.objects.filter(created_user=request.user).filter(deleted=False).filter(
+    #     post_type=user_profile.user_type)
+    # accept_post = user_item.post_set.filter(deleted=False).exclude(post_type=user_profile.user_type)
+    # posts = user_post | accept_post
+    # context['posts'] = posts.distinct()
 
     if not post_item.status == 'I':
         errors.append("This post status is not in progress and you cannot complete it")
