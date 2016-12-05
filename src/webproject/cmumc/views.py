@@ -17,23 +17,21 @@ from mimetypes import guess_type
 from cmumc import *
 from cmumc.models import *
 from cmumc.forms import *
-
-##twilio
-from twilio import TwilioRestException
-from twilio.rest import TwilioRestClient
-
 import datetime
 from datetime import timedelta
 from django.utils import timezone
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from decimal import *
+import os
 
-##global variables
-account_sid = "AC9e5aa3ee46da9ab37b1d6253f7bd3c47" # Your Account SID from www.twilio.com/console
-auth_token  = "02c39149b58d384088214ef900b52c0f"  # Your Auth Token from www.twilio.com/console
+##twilio
+from twilio import TwilioRestException
+from twilio.rest import TwilioRestClient
 
-twilio_number = "+14126936893"
+account_sid = os.environ.get('ACCOUNT_SID', '{{ACCOUNT_SID}}')
+auth_token  = os.environ.get('AUTH_TOKEN', '{{AUTH_TOKEN}}')
+twilio_number = os.environ.get('TWILIO_NUMBER', '{{TWILIO_NUMBER}}')
 client = TwilioRestClient(account_sid, auth_token)
 
 def home(request):
@@ -394,6 +392,7 @@ def get_post_photo(request, post_id):
     """
     post_item = get_object_or_404(Post, post_id=post_id)
     if not post_item.post_photo:
+        print("here")
         if (post_item.category == "Driving"):
             post_item.post_photo = "post-photo/driving.png"
         elif (post_item.category == "Tutoring"):
@@ -463,12 +462,12 @@ def register(request):
 
     token = default_token_generator.make_token(new_user)
 
-    user_profile = Profile(user=new_user, photo="profile-photo/avatar.png", activation_key=token)
+    user_profile = Profile(user=new_user, activation_key=token)
     user_profile.save()
 
     email_body = """
 Welcome to cmumc! Please click the link below to verify your email address and complete the registration of your account:
-http://%s%s
+https://%s%s
     """ % (request.get_host(),
            reverse('confirm', args=(new_user.username, token)))
 
