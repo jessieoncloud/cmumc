@@ -97,7 +97,7 @@ class UserProfileTest(TestCase):
 		# Get the response
 		response = switch(request)
 		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.usertype, 'R')
+		self.assertEqual(response.content, '{"usertype": "R"}')
 
 
 class PostManagementTest(TestCase):
@@ -113,8 +113,10 @@ class PostManagementTest(TestCase):
 		request = self.factory.post(reverse('create'), data)
 		request.user = self.user
 		# Get the response
+		# if successful, should be redirected to the stream page
 		response = send_post(request)
 		self.assertEqual(response.status_code, 302)
-		self.assertTrue(response.content.find())
+		self.assertEqual(response['Location'], '/cmumc/stream')
+
 
 	

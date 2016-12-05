@@ -87,7 +87,6 @@ class ProfileFormTestCase(TestCase):
     def test_valid_form(self):
         data = {'phone': '+14125391111', 'year_in_school': 'Freshman', 'venmo': '@jessie'}
         form = ProfileForm(data=data)
-        print(form.errors)
         self.assertTrue(form.is_valid())
 
     def test_null_field_form(self):
