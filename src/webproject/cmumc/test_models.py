@@ -3,7 +3,7 @@ from cmumc.models import *
 from django.contrib.auth.models import User
 from model_mommy import mommy
 
-class PostTestMommy(TestCase):
+class PostTestCase(TestCase):
     fixtures = ['modeldata.json']
     def setUp(self):
         super(PostTestCase, self).setUp()
