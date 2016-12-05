@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
-GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ['GEOPOSITION_GOOGLE_MAPS_API_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY', '{{SECRET_KEY}}')
+GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ.get('GEOPOSITION_GOOGLE_MAPS_API_KEY', '{{GEOPOSITION_GOOGLE_MAPS_API_KEY}}')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -86,26 +86,26 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '{{EMAIL_HOST_USER}}')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '{{EMAIL_HOST_PASSWORD}}')
 EMAIL_USE_TLS = True
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#     #     'NAME': 'cmumc',                      # Or path to database file if using sqlite3.
-#     #     # The following settings are not used with sqlite3:
-#     #     'USER': 'postgres',
-#     #     'PASSWORD': '',
-#     #     'HOST': 'localhost',    # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
-#     #     'PORT': '',             # Set to empty string for default.
-#     # }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+    #     'NAME': 'cmumc',                      # Or path to database file if using sqlite3.
+    #     # The following settings are not used with sqlite3:
+    #     'USER': 'postgres',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',    # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+    #     'PORT': '',             # Set to empty string for default.
+    # }
+}
 
-DATABASES = {}
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
@@ -154,9 +154,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 PROJECT_ROOT = os.path.join(BASE_DIR, 'cmumc')
 
 ##static
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '{{AWS_ACCESS_KEY_ID}}')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '{{AWS_SECRET_ACCESS_KEY}}')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '{{AWS_STORAGE_BUCKET_NAME}}')
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_LOCATION = 'static'
