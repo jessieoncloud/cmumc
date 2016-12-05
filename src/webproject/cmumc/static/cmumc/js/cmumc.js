@@ -121,7 +121,7 @@ $(document).ready(function() {
 
 function tour() {
 	var tour = new Tour({
-		storage: true
+		storage: false
 	});
  
 	tour.addSteps([

@@ -37,6 +37,10 @@ form {
     width: 500px;
 }
 
+.errorlist > li {
+    color: #e62e00;
+}
+
 .register_msg {
     padding: 10px;
     font-size: 1.2em;
