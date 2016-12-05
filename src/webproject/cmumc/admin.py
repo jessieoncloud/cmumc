@@ -8,3 +8,6 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Profile)
+admin.site.register(Task)
+admin.site.register(Notification)
+admin.site.register(Rating)

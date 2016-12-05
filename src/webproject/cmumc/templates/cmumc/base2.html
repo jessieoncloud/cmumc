@@ -11,12 +11,12 @@
     <title>CMUMC</title>
 
     <!-- datepicker plugin -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
     <!-- Bootstrap Core CSS -->
     {% load static %}
     <!-- rating -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link href="{% static 'cmumc/css/fontawesome-stars.css' %}" rel="stylesheet">
     <link href="{% static 'cmumc/css/fontawesome-stars-o.css' %}" rel="stylesheet">
 
@@ -104,7 +104,14 @@
         <div class="row">
             <div class="col-mid-3 col25 usermenu_col">
                 <div class="profile_info">
-                    <a href="{% url 'profile' user.username %}"><img src="{{ user.profile.photo.url }}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
+                    <a href="{% url 'profile' user.username %}">
+					{% load static %}
+					{% if user.profile.photo %}
+					<img src="{{ user.profile.photo.url }}" alt="{{ user.username }}" class="img-circle avatar_profile">
+					{% else %} 
+					<img src="{% static 'cmumc/img/original/avatar.png' %}" alt="{{ user.username }}" class="img-circle avatar_profile">
+					{% endif %}
+					</a>
                     <h3 class="profile_username">{{ user.username }}</h3>
                 </div>
                 <div class=usermenu_options>
@@ -190,7 +197,7 @@
 
     <script src="{% static 'cmumc/js/sb-admin-2.js' %}"></script>
     <!-- datepicker plugin -->
-    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<!-- Bootstrap Tour -->
 	<script src="{% static 'cmumc/js/bootstrap-tour.min.js' %}"></script>
 	<script src="{% static 'cmumc/js/cmumc.js' %}"></script>

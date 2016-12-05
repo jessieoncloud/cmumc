@@ -20,7 +20,14 @@
 				<div class="view_post_header2">
 					<div class="col-lg-12 col60">
 						<div class="row">
-							<a href="{% url 'profile' post.created_user.username %}"><img src="{{ post.created_user.profile.photo.url }}" alt="{{ post.created_user.username }}" class="img-circle avatar_post"></a>
+							<a href="{% url 'profile' post.created_user.username %}">
+							{% if post.created_user.profile.photo %}
+							<img src="{{ post.created_user.profile.photo.url }}" alt="{{ post.created_user.username }}" class="img-circle avatar_post">
+							{% else %} 
+							{% load static %}
+							<img src="{% static 'cmumc/img/original/avatar.png' %}" alt="{{ post.created_user.username }}" class="img-circle avatar_post">
+							{% endif %}
+							</a>
 						</div>
 						<div class="row">
 							<p class="created_user">Posted by {{ post.created_user }}</p>

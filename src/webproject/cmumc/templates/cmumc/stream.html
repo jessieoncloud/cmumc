@@ -178,7 +178,8 @@
 						{% for post in posts %}  
                             <div class="row row-post">
                     			<div class="col-mid-3 col25 post_img">
-								{% if post.post_photo.url %}
+								{% load static %}
+								{% if post.post_photo %}
                     				<img src="{{ post.post_photo.url }}" class="img-rounded img-responsive post_photo">
 								{% elif post.category == 'Driving' %}
 									<img src="{% static 'cmumc/img/original/driving.png' %}" class="img-rounded img-responsive post_photo">

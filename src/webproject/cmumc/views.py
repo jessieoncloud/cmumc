@@ -392,6 +392,7 @@ def get_post_photo(request, post_id):
     """
     post_item = get_object_or_404(Post, post_id=post_id)
     if not post_item.post_photo:
+        print("here")
         if (post_item.category == "Driving"):
             post_item.post_photo = "post-photo/driving.png"
         elif (post_item.category == "Tutoring"):
@@ -461,12 +462,12 @@ def register(request):
 
     token = default_token_generator.make_token(new_user)
 
-    user_profile = Profile(user=new_user, photo="profile-photo/avatar.png", activation_key=token)
+    user_profile = Profile(user=new_user, activation_key=token)
     user_profile.save()
 
     email_body = """
 Welcome to cmumc! Please click the link below to verify your email address and complete the registration of your account:
-http://%s%s
+https://%s%s
     """ % (request.get_host(),
            reverse('confirm', args=(new_user.username, token)))
 

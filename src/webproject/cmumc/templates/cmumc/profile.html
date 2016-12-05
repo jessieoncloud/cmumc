@@ -5,7 +5,14 @@
         <div class="row">
             <div class="col-mid-3 col25 userprofile_col">
                 <div class="profile_info">
-                    <a href="{% url 'profile' profile.user.username %}"><img src="{{ post.created_user.profile.photo.url }}" alt="{{ user.username }}" class="img-circle avatar_profile"></a>
+                    <a href="{% url 'profile' profile.user.username %}">
+					{% load static %}
+					{% if profile.photo %}
+					<img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}" class="img-circle avatar_profile">
+					{% else %} 
+					<img src="{% static 'cmumc/img/original/avatar.png' %}" alt="{{ profile.user.username }}" class="img-circle avatar_profile">
+					{% endif %}
+					</a>
                     <h3 class="profile_username">{{ profile.user }}</h3>
                 </div>
                 <div class=usermenu_options>
@@ -42,8 +49,9 @@
     					{% for post in posts %}  
                             <div class="row row-post">
                             		<div class="col-mid-3 col25 post_img">
+										{% load static %}
                             			<a href="{% url 'viewPost' post.post_id %}"><a href="">
-										{% if post.post_photo.url %}
+										{% if post.post_photo %}
 											<img src="{{ post.post_photo.url }}" class="img-rounded img-responsive post_photo">
 										{% elif post.category == 'Driving' %}
 											<img src="{% static 'cmumc/img/original/driving.png' %}" class="img-rounded img-responsive post_photo">
