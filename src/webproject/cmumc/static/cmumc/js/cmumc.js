@@ -14,8 +14,6 @@ $(document).ready(function() {
 	$('#switch_btn').click(modeSwitch);
 	
 	$('#landing_tour').click(tour);
-	
-	$('')
 
 	// Search posts ajax
 	$('#search_form').on('submit', function(event) {
