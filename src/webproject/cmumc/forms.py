@@ -39,9 +39,9 @@ class RegistrationForm(forms.Form):
             validate_email(email)
         except:
             raise forms.ValidationError("Email format is not valid")
-
-        if not email.endswith("cmu.edu"):
-            raise forms.ValidationError("Please enter a valid CMU email address")
+        ## comment this out to enable non-cmu people to try
+        ##if not email.endswith("cmu.edu"):
+           ## raise forms.ValidationError("Please enter a valid CMU email address")
         return email
 
 class UserForm(forms.ModelForm):
